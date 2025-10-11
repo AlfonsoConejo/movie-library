@@ -1,0 +1,40 @@
+#root{
+    box-sizing: border-box;
+    --tmdbDarkBlue: #3f8ccc;
+    --soft-gray: #e0e0e0;
+}
+
+img{
+    width: 40px;
+}
+
+header{
+    box-sizing: border-box;
+    width: 100%;
+    background-color: white;
+    border-bottom: 1px solid var(--soft-gray);
+    padding: 0 90px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+nav ul {
+    display: flex;
+    gap: 30px;
+    margin: 20px 0 ;
+    padding: 0;
+}
+
+nav li{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav a{
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+}
