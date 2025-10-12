@@ -1,4 +1,4 @@
-import './header.css';
+import './Header.css';
 import logo from '../../assets/film-icon.svg'
 import Busqueda from '../Busqueda/Busqueda';
 import { Link } from 'react-router-dom';
