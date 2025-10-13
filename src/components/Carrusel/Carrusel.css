@@ -1,0 +1,8 @@
+.carrusel{
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0 90px;
+    overflow-x: auto;
+    display: flex;
+    justify-content: space-around;
+}

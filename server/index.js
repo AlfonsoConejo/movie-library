@@ -14,8 +14,15 @@ app.use(cors());
 app.use(express.json());
 
 // ------------------ RUTAS DE API ------------------ //
-app.get("/api/hello", (req, res) => {
-  res.json({ message: "¡Hola desde Express!" });
+app.get("/api/movies/trending", (req, res) => {
+  fetch('https://api.themoviedb.org/3/trending/movie/day?language=es-MX', {
+     headers: {
+      Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
+    }
+  })
+  .then (response => response.json())
+  .then (data => res.json(data))
+  .catch(err => res.status(500).json({error: err.message}));
 });
 
 // ------------------ SERVIR REACT EN PRODUCCIÓN ------------------ //

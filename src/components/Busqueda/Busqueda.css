@@ -2,16 +2,19 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    flex: 1;
-    flex-grow: 1;
-    flex-shrink: 1;
     height: 30px;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    min-width: 0;
+    
 }
 
 .cuadro-busqueda {
-  width: 100%;
+  flex: 1;
+  max-width: 600px;
+  min-width: 0;
   height: 100%; /* ocupará toda la altura del contenedor */
   font-size: 18px;
   padding: 0 8px; /* opcional: espacio interno */
