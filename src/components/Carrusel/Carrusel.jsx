@@ -1,10 +1,13 @@
 import './Carrusel.css';
 import Item from '../Item/Item.jsx';
 
-export default function Carrusel({peliculas}){
+export default function Carrusel({titulo,peliculas}){
     return(
-        <div className="carrusel">
-            {peliculas.map(pelicula => <Item key={pelicula.id} poster_path={pelicula.backdrop_path} titulo={pelicula.title} lanzamiento={pelicula.release_date}/>)}
-        </div>
+        <section className="carruselContenedor">
+            <h1>{titulo}</h1>
+            <div className='carrusel'>
+                 {peliculas.map(pelicula => <Item key={pelicula.id} poster_path={pelicula.poster_path} titulo={pelicula.title} lanzamiento={pelicula.release_date}/>)}
+            </div>
+        </section>
     );
 }

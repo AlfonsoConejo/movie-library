@@ -1,13 +1,17 @@
 .contenedorItem{
     height: 100%;
     width: 150px;
-    background-color: gray;
     display: flex;
     flex-direction: column;
     flex-grow: 0;
     flex-shrink: 0;
 }
 
-h1,p {
+.contenedorItem > img{
+    width: 100%;
+    border-radius: 8px;
+}
+
+.contenedorItem > h1 , p {
     font-size: 16px;
 }

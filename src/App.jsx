@@ -21,6 +21,7 @@ function App() {
     <BrowserRouter>
       <Header/>
       <Carrusel
+        titulo = 'Tendencia'
         peliculas = {carrusel}
       />
         <h1>{msg || 'Cargando...'}</h1>
