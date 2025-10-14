@@ -1,0 +1,17 @@
+.footer{
+    width: 100%;
+    background-color: var(--tmdbDarkBlue);;
+    color: white;
+    display: flex;
+    padding: 0 90px;
+    justify-content: space-between;
+    padding: 30px;
+}
+
+.footer > span {
+    font-size: 18px;
+}
+
+.footer > img {
+    width: 200px;
+}

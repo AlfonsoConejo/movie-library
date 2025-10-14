@@ -5,3 +5,14 @@ html, body, #root {
   color: black;
   font-family: 'roboto';
 }
+
+:root {
+  --tmdbDarkBlue: rgb(3,37,65);
+   --soft-gray: #e0e0e0;
+   box-sizing: border-box;
+}
+
+/* Aplica box-sizing a todos los elementos y pseudo-elementos */
+*, *::before, *::after {
+  box-sizing: border-box;
+}

@@ -10,6 +10,9 @@
 .contenedorItem > img{
     width: 100%;
     border-radius: 8px;
+    box-shadow: 0px 0px 8px 1px rgba(217,212,212,0.53);
+    -webkit-box-shadow: 0px 0px 8px 1px rgba(217,212,212,0.53);
+    -moz-box-shadow: 0px 0px 8px 1px rgba(217,212,212,0.53);
 }
 
 .contenedorItem > h1 , p {

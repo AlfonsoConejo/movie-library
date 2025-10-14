@@ -1,7 +1,7 @@
 import './App.css'
 import Header from './components/Header/Header.jsx'
 import Home from './paginas/Home.jsx'
-import Item from './components/Item/Item.jsx'
+import Footer from './components/Footer/Footer.jsx'
 import Carrusel from './components/Carrusel/Carrusel.jsx'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -28,6 +28,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>}/>
       </Routes>
+      <Footer/>
     </BrowserRouter>
   )
 }
