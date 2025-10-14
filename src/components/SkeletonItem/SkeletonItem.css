@@ -1,0 +1,40 @@
+.contenedorSkeletonItem{
+    height: 100%;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.contenedorSkeletonItem > .skeletonImagen{
+    width: 150px;
+    height: 225px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px 1px rgba(217,212,212,0.53);
+    -webkit-box-shadow: 0px 0px 8px 1px rgba(217,212,212,0.53);
+    -moz-box-shadow: 0px 0px 8px 1px rgba(217,212,212,0.53);
+    animation: colorPulse 0.5s infinite alternate;
+}
+
+.contenedorSkeletonItem > .skeletonTitulo {
+    width: 130px;
+    height: 19.2px;
+    margin: 10.72px 0;
+    animation: colorPulse 0.5s infinite alternate;
+}
+
+.contenedorSkeletonItem > .skeletonFecha {
+    width: 100px;
+    height: 19.2px;
+    animation: colorPulse 0.5s infinite alternate;
+}
+
+@keyframes colorPulse {
+    from{
+        background-color: #c9c9c9;
+    }
+    to{
+        background-color: #eeeded;
+    }
+}

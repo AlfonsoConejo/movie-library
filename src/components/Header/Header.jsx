@@ -1,5 +1,5 @@
 import './Header.css';
-import logo from '../../assets/film-icon.svg'
+import logo from '../../assets/movie-database-logo-md.png'
 import Busqueda from '../Busqueda/Busqueda';
 import { Link } from 'react-router-dom';
 

@@ -7,7 +7,7 @@
     justify-content: flex-start;
     width: 100%;
     min-width: 0;
-    
+    border-radius: 5px;
 }
 
 .cuadro-busqueda {
@@ -15,6 +15,39 @@
   max-width: 600px;
   min-width: 0;
   height: 100%; /* ocupará toda la altura del contenedor */
-  font-size: 18px;
-  padding: 0 8px; /* opcional: espacio interno */
+  border-radius: 5px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+}
+
+
+.seach-icon-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #efeded;
+  height: 100%;
+  width: 30px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.cuadro-busqueda > .material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+  width: 50px;
+}
+
+.input-busqueda{
+  flex: 1;
+  height: 100%;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: none;
+  padding: 0px 5px;
+  font-size: 16px;
 }

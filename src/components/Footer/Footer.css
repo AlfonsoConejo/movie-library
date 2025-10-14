@@ -1,11 +1,10 @@
 .footer{
     width: 100%;
-    background-color: var(--tmdbDarkBlue);;
+    background-color: var(--tmdbDarkBlue);
     color: white;
     display: flex;
-    padding: 0 90px;
+    padding: 30px 90px;
     justify-content: space-between;
-    padding: 30px;
 }
 
 .footer > span {
