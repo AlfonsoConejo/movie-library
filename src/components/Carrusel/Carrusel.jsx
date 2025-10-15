@@ -1,11 +1,20 @@
 import './Carrusel.css';
 import Item from '../Item/Item.jsx';
 import SkeletonItem from '../SkeletonItem/SkeletonItem.jsx';
+import BotonesTendencia from '../BotonesTendencia/BotonesTendencia.jsx';
 
-export default function Carrusel({titulo, peliculas, cargado}){
+export default function Carrusel({titulo, peliculas, cargado, botonPresionado, setBotonPresionado, setCargado}){
     return(
         <section className="carruselContenedor">
-            <h1>{titulo}</h1>
+            <div className='encabezadoCarrusel'>
+                <h1>{titulo}</h1>
+                <BotonesTendencia
+                    botonPresionado = {botonPresionado}
+                    setBotonPresionado = {setBotonPresionado}
+                    setCargado = {setCargado}
+                />
+                
+            </div>
             {cargado ? 
                 <div className='carrusel'>
                     {peliculas.map(pelicula => 
@@ -19,7 +28,7 @@ export default function Carrusel({titulo, peliculas, cargado}){
                 </div> 
             
             : <div className='carrusel'>
-                {Array(8).fill().map((_,i)=><SkeletonItem key={i}/>)}
+                {Array(11).fill().map((_,i)=><SkeletonItem key={i}/>)}
             </div>
             }
             

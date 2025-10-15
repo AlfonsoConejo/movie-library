@@ -1,0 +1,19 @@
+.contenedor-botones-tendencia{
+    padding-left: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.contenedor-botones-tendencia > .tendenciaOpcion{
+    border: none;
+    border-radius: 10px;
+    padding: 6px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    
+}
+
+.contenedor-botones-tendencia > .tendenciaOpcion.activo{
+    background: var(--tmdbDarkBlue);
+    color: white;
+}

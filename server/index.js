@@ -15,7 +15,9 @@ app.use(express.json());
 
 // ------------------ RUTAS DE API ------------------ //
 app.get("/api/movies/trending", (req, res) => {
-  fetch('https://api.themoviedb.org/3/trending/movie/day?language=es-MX', {
+  const time = req.query.time || "day"; // en caso de que no recibamos ninguna variable
+  console.log(`Esta es el periodo que esta consultando: ${time}`);
+  fetch(`https://api.themoviedb.org/3/trending/movie/${time}?language=es-MX`, {
      headers: {
       Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
     }

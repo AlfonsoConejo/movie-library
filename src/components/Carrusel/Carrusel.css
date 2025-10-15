@@ -7,7 +7,13 @@
     flex-direction: column;
 }
 
-.carruselContenedor > h1{
+.encabezadoCarrusel {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.encabezadoCarrusel > h1{
     font-size: 25px;
     font-weight: 500;
 }

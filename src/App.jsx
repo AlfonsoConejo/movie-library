@@ -9,24 +9,31 @@ import { useEffect, useState } from 'react';
 function App() {
   const [cargado, setCargado] = useState(false);
   const [peliculas, setPeliculas] = useState([]);
+  const [botonPresionado, setBotonPresionado] = useState('day');
 
   useEffect(() => {
-    fetch('/api/movies/trending')
+    fetch(`/api/movies/trending?time=${botonPresionado}`)
       .then(res => res.json())
       .then(data => {
         setPeliculas(data.results) // <-- guarda el array de películas
         setCargado(true); // <-- guardamos que ya terminó de cargar
+        console.log(`consultando API: /api/movies/trending?time=${botonPresionado}`);
+        console.log(data.results);
       })
       .catch(err => console.error(err));
-  }, []);
+  }, [botonPresionado]);
 
   return (
     <BrowserRouter>
       <Header/>
       <Carrusel
-        titulo = 'Tendencia'
+        botones = 'tendencia'
+        titulo = 'Películas en Tendencia'
         peliculas = {peliculas}
         cargado = {cargado}
+        botonPresionado = {botonPresionado}
+        setBotonPresionado = {setBotonPresionado}
+        setCargado = {setCargado}
       />
       <Routes>
         <Route path="/" element={<Home/>}/>
