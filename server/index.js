@@ -14,10 +14,50 @@ app.use(cors());
 app.use(express.json());
 
 // ------------------ RUTAS DE API ------------------ //
-app.get("/api/movies/trending", (req, res) => {
+
+//Tendencias Generales
+app.get("/api/trending/all", (req, res) => {
   const time = req.query.time || "day"; // en caso de que no recibamos ninguna variable
-  console.log(`Esta es el periodo que esta consultando: ${time}`);
+  fetch(`https://api.themoviedb.org/3/trending/all/${time}?language=es-MX`, {
+     headers: {
+      Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
+    }
+  })
+  .then (response => response.json())
+  .then (data => res.json(data))
+  .catch(err => res.status(500).json({error: err.message}));
+});
+
+//Películas en tendencia
+app.get("/api/trending/movies", (req, res) => {
+  const time = req.query.time || "day"; // en caso de que no recibamos ninguna variable
   fetch(`https://api.themoviedb.org/3/trending/movie/${time}?language=es-MX`, {
+     headers: {
+      Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
+    }
+  })
+  .then (response => response.json())
+  .then (data => res.json(data))
+  .catch(err => res.status(500).json({error: err.message}));
+});
+
+//Series en tendencia
+app.get("/api/trending/tv", (req, res) => {
+  const time = req.query.time || "day"; // en caso de que no recibamos ninguna variable
+  fetch(`https://api.themoviedb.org/3/trending/tv/${time}?language=es-MX`, {
+     headers: {
+      Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
+    }
+  })
+  .then (response => response.json())
+  .then (data => res.json(data))
+  .catch(err => res.status(500).json({error: err.message}));
+});
+
+//Personas en tendencia
+app.get("/api/trending/people", (req, res) => {
+  const time = req.query.time || "day"; // en caso de que no recibamos ninguna variable
+  fetch(`https://api.themoviedb.org/3/trending/person/${time}?language=es-MX`, {
      headers: {
       Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
     }
