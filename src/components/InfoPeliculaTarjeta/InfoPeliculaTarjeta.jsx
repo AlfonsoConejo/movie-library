@@ -1,4 +1,4 @@
-import './infoPeliculaTarjeta.css'
+
 import { convertirMinutosAHoras, sliceYear } from '../../utils.js'
 
 export default function InfoPeliculaTarjeta({informacion, fechasLanzamiento}){
