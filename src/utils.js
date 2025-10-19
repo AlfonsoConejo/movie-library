@@ -9,4 +9,22 @@ function convertirFecha(fecha){
     return fechaFormateada;
 }
 
-export default convertirFecha;
+function convertirMinutosAHoras(tiempo){
+    //Obtenemos las horas
+    const horas = Math.floor(tiempo / 60);
+    //Obtenemos los minutos
+    const minutos = tiempo % 60; 
+
+    if (minutos > 0 ){
+        return `${horas}h ${minutos}m`;
+    } else{
+        return `${horas}h`;
+    }
+}
+
+function sliceYear(fecha){
+let year = fecha.slice(0, 4);
+return year;
+}
+
+export {convertirFecha, convertirMinutosAHoras, sliceYear};

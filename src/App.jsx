@@ -1,11 +1,9 @@
 import './App.css'
 import Header from './components/Header/Header.jsx'
 import Home from './paginas/Home.jsx'
+import Movie from './paginas/movie.jsx'
 import Footer from './components/Footer/Footer.jsx'
-import Carrusel from './components/Carrusel/Carrusel.jsx'
-import useCarousel from './customHooks/useCarousel.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 
 function App() {
   // const [cargado, setCargado] = useState(false);
@@ -32,6 +30,7 @@ function App() {
       <Header/>
       <Routes>
         <Route path="/" element={<Home/>}/>
+        <Route path="/:media_type/:id" element={<Movie/>}/>
       </Routes>
       <Footer/>
     </BrowserRouter>

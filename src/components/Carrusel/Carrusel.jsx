@@ -19,6 +19,8 @@ export default function Carrusel({titulo, peliculas, cargado, botonPresionado, s
                     {peliculas.map(pelicula => 
                         <Item 
                             key={pelicula.id} 
+                            id={pelicula.id} 
+                            mediaType = {pelicula.media_type}
                             poster_path={pelicula.poster_path || pelicula.profile_path} 
                             titulo={pelicula.title ||pelicula.name} 
                             lanzamiento={pelicula.release_date || pelicula.first_air_date}
