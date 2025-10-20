@@ -24,6 +24,12 @@
     color: white;
 }
 
+.infoPeliculaTarjeta .informacion h1{
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 40px;
+}
+
 .infoPeliculaTarjeta .poster{
     min-width: 300px;
     max-width: 300px;
@@ -42,17 +48,23 @@
     margin-left: 50px;
 }
 
-.infoPeliculaTarjeta .informacion h1{
-    margin: 0;
-    font-size: 40px;
-}
-
 .infoPeliculaTarjeta .informacion .random{
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .infoPeliculaTarjeta .informacion .year{
     font-weight: 200;
+}
+
+.infoPeliculaTarjeta .informacion .clasificacion{
+    outline: 1px solid white;
+    border-radius: 5px;
+    padding: 2px 7px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-right: 7px;
 }
 
 .infoPeliculaTarjeta .informacion .contenedorScore{
@@ -82,4 +94,22 @@
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 10px;
+}
+
+.infoPeliculaTarjeta .informacion .resumen{
+    font-weight: 300;
+    margin-bottom: 14px;
+}
+
+.infoPeliculaTarjeta .informacion .contenedorCrew{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+}
+
+.infoPeliculaTarjeta .informacion .contenedorCrew .nombreEmpleado{
+    margin-bottom: 4px;
+}
+
+.infoPeliculaTarjeta .informacion .contenedorCrew .puestoEmpleado{
+    font-weight: 300;
 }

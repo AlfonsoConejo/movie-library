@@ -1,0 +1,36 @@
+.infoActor {
+  height: 260px;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.infoActor .contenedorImagen {
+  height: 175px;
+  width: 138px;
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.infoActor .datosActor{
+    flex-grow: 1;
+    padding: 10px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0px 0px 8px 1px rgba(157, 155, 155, 0.53);
+    -webkit-box-shadow: 0px 0px 8px 1px rgba(157, 155, 155, 0.53);
+    -moz-box-shadow: 0px 0px 8px 1px rgba(157, 155, 155, 0.53);
+}
+.infoActor .nombreActor{
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 3px;
+}
+
+.infoActor .nombrePersonaje{
+    font-size: 15px;
+}

@@ -82,9 +82,22 @@ app.get("/api/movie", (req, res) => {
 
 //Fechas de lanzamiento
 app.get("/api/movie/fechasLanzamiento", (req, res) => {
-  console.log('Llegamos hasta acá');
   const id = req.query.id;
   fetch(`https://api.themoviedb.org/3/movie/${id}/release_dates`, {
+     headers: {
+      Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
+    }
+  })
+  .then (response => response.json())
+  .then (data => res.json(data))
+  .catch(err => res.status(500).json({error: err.message}));
+});
+
+//Créditos de la pelícla
+app.get("/api/movie/creditos", (req, res) => {
+  const id = req.query.id;
+  console.log(`https://api.themoviedb.org/3/movie/${id}/credits?language=es-MX`);
+  fetch(`https://api.themoviedb.org/3/movie/${id}/credits?language=es-MX`, {
      headers: {
       Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
     }

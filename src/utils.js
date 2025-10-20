@@ -9,6 +9,16 @@ function convertirFecha(fecha){
     return fechaFormateada;
 }
 
+function convertirAFechaConDiagonal(fecha) {
+  const opciones = {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  };
+
+  return new Date(fecha).toLocaleDateString("es-MX", opciones);
+}
+
 function convertirMinutosAHoras(tiempo){
     //Obtenemos las horas
     const horas = Math.floor(tiempo / 60);
@@ -27,4 +37,4 @@ let year = fecha.slice(0, 4);
 return year;
 }
 
-export {convertirFecha, convertirMinutosAHoras, sliceYear};
+export {convertirFecha, convertirAFechaConDiagonal, convertirMinutosAHoras, sliceYear};
