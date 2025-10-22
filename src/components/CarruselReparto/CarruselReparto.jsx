@@ -5,12 +5,11 @@ export default function CarruselReparto({reparto}) {
 
     reparto = reparto || [];
 
-    console.log(reparto);
     return(
         <section className='contenedorCarruselReparto'>
             <h2>Reparto</h2>
             <div className='carruselReparto'>
-                {reparto.length && reparto.slice(0, 9).map(persona => (
+                {reparto.length > 0 && reparto.slice(0, 9).map(persona => (
                     <ActorReparto
                         key={persona.id}
                         id = {persona.id}

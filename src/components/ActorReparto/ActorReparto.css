@@ -1,14 +1,17 @@
 .infoActor {
-  height: 260px;
-  width: 150px;
   display: flex;
   flex-direction: column;
+  flex: 0 0 auto;            /* mantiene el ancho fijo que das, pero altura es “la del contenedor” */
+  width: 140px;
+  box-shadow: 0px 0px 8px 1px rgba(157, 155, 155, 0.53);
+  -webkit-box-shadow: 0px 0px 8px 1px rgba(157, 155, 155, 0.53);
+  -moz-box-shadow: 0px 0px 8px 1px rgba(157, 155, 155, 0.53);
 }
 
 
 .infoActor .contenedorImagen {
   height: 175px;
-  width: 138px;
+  width: 100%;
   background-size: cover;
   background-position: top;
   background-repeat: no-repeat;
@@ -21,14 +24,17 @@
     padding: 10px;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    box-shadow: 0px 0px 8px 1px rgba(157, 155, 155, 0.53);
-    -webkit-box-shadow: 0px 0px 8px 1px rgba(157, 155, 155, 0.53);
-    -moz-box-shadow: 0px 0px 8px 1px rgba(157, 155, 155, 0.53);
 }
-.infoActor .nombreActor{
-    font-size: 17px;
-    font-weight: 500;
-    margin-bottom: 3px;
+
+.infoActor .nombreActor {
+  font-size: 17px;
+  font-weight: 500;
+  margin-bottom: 3px;
+  display: -webkit-box;           /* necesario para line-clamp */
+  -webkit-line-clamp: 2;          /* 🔥 número de líneas permitidas */
+  -webkit-box-orient: vertical;   /* orientación del contenedor */
+  overflow: hidden;               /* oculta el texto sobrante */
+  text-overflow: ellipsis;        /* agrega los "..." */
 }
 
 .infoActor .nombrePersonaje{

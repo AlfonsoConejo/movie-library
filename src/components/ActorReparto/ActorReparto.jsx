@@ -1,9 +1,10 @@
 import './ActorReparto.css'
+import ImageNotFound from '../../assets/img_not_found.jpg'
 
 export default function ActorReparto({id, nombre, personaje, rutaImagen}) {
 
     const fondo = rutaImagen
-    ? `url(https://image.tmdb.org/t/p/w500${rutaImagen})` : null;
+    ? `url(https://image.tmdb.org/t/p/w500${rutaImagen})` : `url(${ImageNotFound})`;
 
 
 

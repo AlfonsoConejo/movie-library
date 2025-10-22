@@ -7,13 +7,14 @@ import { useParams } from 'react-router-dom';
 export default function Movie(){
     
     //Creamos nuestros estados
+    const [contenidoCargado, setContenidoCargado] = useState(false);
     const [informacion, setInformacion] = useState([]);
     const [fechasLanzamiento, setFechasLanzamiento] = useState([]);
+    const [tvRatings, setTvRatings] = useState([]);
     const [creditos, setCreditos] = useState([]);
 
 
     const { media_type, id } = useParams();
-    console.log(media_type, id);
 
 useEffect(() => {
   // Validar que los parámetros existan
@@ -23,20 +24,29 @@ useEffect(() => {
     try {
 
       // 1️⃣ Información principal
-      const resInfo = await fetch(`/api/${media_type}?id=${id}`);
+      const resInfo = await fetch(`/api/contenido?media_type=${media_type}&id=${id}`);
       const data = await resInfo.json();
       setInformacion(data);
 
-      // 2️⃣ Fechas de lanzamiento
-      const resFechas = await fetch(`/api/movie/fechasLanzamiento?id=${data.id}`);
-      const fechas = await resFechas.json();
-      setFechasLanzamiento(fechas.results || []);
+      if (media_type === 'movie') {
+          // 2️⃣ Fechas de lanzamiento
+          const resFechas = await fetch(`/api/movie/fechasLanzamiento?id=${data.id}`);
+          const fechas = await resFechas.json();
+          setFechasLanzamiento(fechas.results || []);
+      } else if (media_type === 'tv'){
+          // 2️⃣ Clasificación de edad por país
+          const resRatings = await fetch(`/api/tv/ratings?id=${data.id}`);
+          const ratings = await resRatings.json();
+          setTvRatings(ratings.results || []);
+          console.log(ratings.results);
+      }
 
       // 3️⃣ Créditos
-      const resCreditos = await fetch(`/api/movie/creditos?id=${data.id}`);
+      const resCreditos = await fetch(`/api/contenido/creditos?media_type=${media_type}&id=${id}`);
       const trabajadores = await resCreditos.json();
       setCreditos(trabajadores);
 
+      setContenidoCargado(true);
     } catch (err) {
       console.error("Error general:", err);
     }
@@ -52,9 +62,13 @@ useEffect(() => {
                 informacion = {informacion}
                 fechasLanzamiento = {fechasLanzamiento}
                 creditos = {creditos}
+                mediaType = {media_type}
+                tvRatings = {tvRatings}
+                contenidoCargado = {contenidoCargado}
             />
             <CarruselReparto
                 reparto = {creditos.cast}
+                contenidoCargado = {contenidoCargado}
             />
         </div>
     );

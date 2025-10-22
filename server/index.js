@@ -67,10 +67,12 @@ app.get("/api/trending/people", (req, res) => {
   .catch(err => res.status(500).json({error: err.message}));
 });
 
-//Descripción de Película
-app.get("/api/movie", (req, res) => {
+//Descripción de Película o Serie
+app.get("/api/contenido", (req, res) => {
   const id = req.query.id;
-  fetch(`https://api.themoviedb.org/3/movie/${id}?language=es-MX`, {
+  const media_type = req.query.media_type;
+  console.log(`tipo de media: ${media_type}`);
+  fetch(`https://api.themoviedb.org/3/${media_type}/${id}?language=es-MX`, {
      headers: {
       Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
     }
@@ -94,10 +96,10 @@ app.get("/api/movie/fechasLanzamiento", (req, res) => {
 });
 
 //Créditos de la pelícla
-app.get("/api/movie/creditos", (req, res) => {
+app.get("/api/contenido/creditos", (req, res) => {
   const id = req.query.id;
-  console.log(`https://api.themoviedb.org/3/movie/${id}/credits?language=es-MX`);
-  fetch(`https://api.themoviedb.org/3/movie/${id}/credits?language=es-MX`, {
+  const media_type = req.query.media_type;
+  fetch(`https://api.themoviedb.org/3/${media_type}/${id}/credits?language=es-MX`, {
      headers: {
       Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
     }
@@ -106,6 +108,20 @@ app.get("/api/movie/creditos", (req, res) => {
   .then (data => res.json(data))
   .catch(err => res.status(500).json({error: err.message}));
 });
+
+//Clasificación de edad por país
+app.get("/api/tv/ratings", (req, res) => {
+  const id = req.query.id;
+  fetch(`https://api.themoviedb.org/3/tv/${id}/content_ratings`, {
+     headers: {
+      Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
+    }
+  })
+  .then (response => response.json())
+  .then (data => res.json(data))
+  .catch(err => res.status(500).json({error: err.message}));
+});
+
 
 // ------------------ SERVIR REACT EN PRODUCCIÓN ------------------ //
 const __filename = fileURLToPath(import.meta.url);
