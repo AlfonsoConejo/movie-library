@@ -10,10 +10,19 @@
     padding: 6px 20px;
     cursor: pointer;
     font-size: 14px;
+    color: black;
+    background-color: #e1e0e0;
     
 }
 
 .contenedor-botones-tendencia > .tendenciaOpcion.activo{
     background: var(--tmdbDarkBlue);
     color: white;
+}
+
+@media (width <= 600px) {
+    .contenedor-botones-tendencia{
+        padding: 0;
+        margin-bottom: 12px;
+    }
 }

@@ -27,3 +27,22 @@
     flex-direction: row;
     padding-bottom: 12px;
 }
+
+@media (width <= 820px) {
+    .carruselContenedor{
+        padding: 0px 20px;
+    }
+}
+
+@media (width <= 600px) {
+    .encabezadoCarrusel{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .encabezadoCarrusel > h1{
+        font-size: 22px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
