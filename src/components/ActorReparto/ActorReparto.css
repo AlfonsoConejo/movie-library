@@ -3,9 +3,11 @@
   flex-direction: column;
   flex: 0 0 auto;            /* mantiene el ancho fijo que das, pero altura es “la del contenedor” */
   width: 140px;
-  box-shadow: 0px 0px 8px 1px rgba(157, 155, 155, 0.53);
-  -webkit-box-shadow: 0px 0px 8px 1px rgba(157, 155, 155, 0.53);
-  -moz-box-shadow: 0px 0px 8px 1px rgba(157, 155, 155, 0.53);
+  box-shadow: 0px 0px 6px 1px rgba(157, 155, 155, 0.53);
+  -webkit-box-shadow: 0px 0px 6px 1px rgba(157, 155, 155, 0.53);
+  -moz-box-shadow: 0px 0px 6px 1px rgba(157, 155, 155, 0.53);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 
