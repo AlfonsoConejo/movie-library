@@ -1,10 +1,12 @@
 import './CarruselReparto.css'
 import ActorReparto from '../ActorReparto/ActorReparto';
+import SkeletonActorReparto from '../SkeletonActorReparto/SkeletonActorReparto';
 
-export default function CarruselReparto({reparto}) {
+export default function CarruselReparto({reparto, contenidoCargado}) {
 
+    
+if(contenidoCargado){
     reparto = reparto || [];
-
     return(
         <section className='contenedorCarruselReparto'>
             <h2>Reparto</h2>
@@ -21,4 +23,15 @@ export default function CarruselReparto({reparto}) {
             </div>
         </section>
     );
+}else{
+    return(
+      <section className='contenedorCarruselReparto'>
+        <h2>Reparto</h2>
+        <div className='carruselReparto'>
+            {Array(11).fill().map((_,i)=><SkeletonActorReparto key={i}/>)}
+        </div>
+      </section>  
+    ); 
+}
+    
 }

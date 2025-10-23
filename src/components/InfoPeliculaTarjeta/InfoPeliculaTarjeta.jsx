@@ -5,8 +5,9 @@ import { convertirMinutosAHoras, sliceYear, convertirAFechaConDiagonal } from '.
 export default function InfoPeliculaTarjeta({informacion, informacionIngles, fechasLanzamiento, creditos, tvRatings, mediaType, contenidoCargado}){
     console.log(`Este es el estado de la carga: ${contenidoCargado}`);
     if(contenidoCargado && informacion && mediaType && creditos){
-        //Obtenemos el overview en español o en inglés
+        //Obtenemos el overview y el tagline en español o en inglés
         const overview = informacion?.overview || informacionIngles?.overview || null;
+        const tagline = informacion?.tagline || informacionIngles?.tagline || null;
         //Obtenemos los datos del estreno en español
         let fechaLanzamientoLocal;
         let clasificacionSerie = null;
@@ -108,7 +109,7 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
                                 Puntuación TMDB
                             </div>
                         }
-                        {informacion.tagline && <p className='tagline'>{informacion.tagline}</p>}
+                        {tagline && <p className='tagline'>{tagline}</p>}
                         {overview && 
                             <p className='resumenTitulo'>Resumen</p>
                         }

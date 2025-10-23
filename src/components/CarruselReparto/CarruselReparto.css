@@ -13,3 +13,21 @@
   overflow-x: auto;
   padding-bottom: 12px;
 }
+
+@media (width <= 820px) {
+    .contenedorCarruselReparto{
+        padding: 0px 0px;
+    }
+
+    .contenedorCarruselReparto > h2{
+      margin-left: 10px;
+    }
+
+    .contenedorCarruselReparto .carruselReparto > *:first-child {
+        margin-left: 10px; /* padding inicial */
+    }
+
+    .contenedorCarruselReparto .carruselReparto > *:last-child {
+        margin-right: 10px; /* padding final */
+    }
+}
