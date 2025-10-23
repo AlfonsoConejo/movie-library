@@ -16,7 +16,7 @@
   z-index: 0;
 }
 
-.contenedorInformacion {
+.infoPeliculaTarjeta .contenedorInformacion {
     position: relative;
     width: 100%;
     z-index: 1;
@@ -103,7 +103,8 @@
 
 .infoPeliculaTarjeta .informacion .contenedorCrew{
     display: grid;
-    grid-template-columns: repeat(3, 1fr); 
+    grid-template-columns: repeat(3, 1fr);
+    gap:10px; 
 }
 
 .infoPeliculaTarjeta .informacion .contenedorCrew .nombreEmpleado{

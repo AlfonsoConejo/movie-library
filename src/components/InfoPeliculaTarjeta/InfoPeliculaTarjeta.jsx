@@ -1,7 +1,9 @@
 import './InfoPeliculaTarjeta.css'
+import SkeletonInfoPeliculaTarjeta from '../SkeletonInfoPeliculaTarjeta/SkeletonInfoPeliculaTarjeta.jsx'
 import { convertirMinutosAHoras, sliceYear, convertirAFechaConDiagonal } from '../../utils.js'
 
 export default function InfoPeliculaTarjeta({informacion, fechasLanzamiento, creditos, tvRatings, mediaType, contenidoCargado}){
+    console.log(`Este es el estado de la carga: ${contenidoCargado}`);
     if(contenidoCargado && informacion && mediaType && creditos){
         //Obtenemos los datos del estreno en español
         let fechaLanzamientoLocal;
@@ -122,7 +124,7 @@ export default function InfoPeliculaTarjeta({informacion, fechasLanzamiento, cre
             </section>
         );
     } else {
-        //Acá voy a cargar mi skeleton loader
+        return <SkeletonInfoPeliculaTarjeta/>
     }
 
 }

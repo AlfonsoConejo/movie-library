@@ -1,0 +1,106 @@
+.SkeletonInfoPeliculaTarjeta{
+    background-color: #ebeaea;
+    height: 510px;
+    width: 100%;
+    padding: 30px 90px;
+}
+
+.SkeletonInfoPeliculaTarjeta .SkeletonContenedorInformacion {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.SkeletonInfoPeliculaTarjeta .SkeletonPoster{
+    min-width: 300px;
+    max-width: 300px;
+    min-height: 450px;
+    max-height: 450px;   
+    border-radius: 8px; 
+    animation: colorPulse 0.5s infinite alternate;
+}
+
+.SkeletonInfoPeliculaTarjeta .SkeletonInformacion{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+}
+
+.SkeletonInfoPeliculaTarjeta .SkeletonTitulo{
+    margin-bottom: 20px;
+    height: 48.8px;
+    width: 90%;
+    animation: colorPulse 0.5s infinite alternate;
+}
+
+.SkeletonInfoPeliculaTarjeta .SkeletonRandom{
+    margin-bottom: 20px;
+    height: 23.2px;
+    width: 40%;
+    animation: colorPulse 0.5s infinite alternate;
+}
+
+.SkeletonInfoPeliculaTarjeta .SkeletonContenedorScore{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.SkeletonInfoPeliculaTarjeta .SkeletonScore{
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    animation: colorPulse 0.5s infinite alternate;
+}
+
+.SkeletonInfoPeliculaTarjeta .SkeletonTextScore{
+    height: 19.2px;
+    width: 100px;
+    animation: colorPulse 0.5s infinite alternate;
+}
+
+.SkeletonInfoPeliculaTarjeta .SkeletonTagline{
+    height: 19.2px;
+    width: 30%;
+    margin-bottom: 20px;
+    animation: colorPulse 0.5s infinite alternate;
+}
+
+.SkeletonInfoPeliculaTarjeta .SkeletonTextoResumen{
+    height: 24px;
+    width: 100px;
+    margin-bottom: 20px;
+    animation: colorPulse 0.5s infinite alternate;
+}
+
+.SkeletonInfoPeliculaTarjeta .SkeletonResumen{
+    height: 19.2px;
+    width: 100%;
+    margin-bottom: 10px;
+    animation: colorPulse 0.5s infinite alternate;
+}
+
+.SkeletonInfoPeliculaTarjeta .SkeletonResumen2{
+    height: 19.2px;
+    width: 50%;
+    margin-bottom: 20px;
+    animation: colorPulse 0.5s infinite alternate;
+}
+
+.SkeletonInfoPeliculaTarjeta .SkeletoNombre1{
+    height: 19.2px;
+    width: 140px;
+    margin-bottom: 10px;
+    animation: colorPulse 0.5s infinite alternate;
+}
+
+@keyframes colorPulse {
+    from{
+        background-color: #c9c9c9;
+    }
+    to{
+        background-color: #eeeded;
+    }
+}
