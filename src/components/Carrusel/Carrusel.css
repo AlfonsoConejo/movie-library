@@ -30,7 +30,19 @@
 
 @media (width <= 820px) {
     .carruselContenedor{
-        padding: 0px 20px;
+        padding: 0px 0px;
+    }
+
+    .encabezadoCarrusel > h1{
+        margin-left: 10px;
+    }
+
+    .carrusel > *:first-child {
+        margin-left: 10px; /* padding inicial */
+    }
+
+    .carrusel > *:last-child {
+        margin-right: 10px; /* padding final */
     }
 }
 
@@ -41,8 +53,6 @@
     }
 
     .encabezadoCarrusel > h1{
-        font-size: 22px;
-        margin-top: 10px;
         margin-bottom: 10px;
     }
 }

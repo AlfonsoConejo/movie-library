@@ -65,6 +65,7 @@ useEffect(() => {
   obtenerDatos();
 }, [media_type, id]);
 
+if(media_type === 'tv' || media_type === 'movie'){
     return(
         <div className="movie">
             <InfoPeliculaTarjeta
@@ -83,4 +84,8 @@ useEffect(() => {
             />
         </div>
     );
+} else if (media_type === 'actor'){
+    
+}
+    
 }
