@@ -2,9 +2,11 @@ import './InfoPeliculaTarjeta.css'
 import SkeletonInfoPeliculaTarjeta from '../SkeletonInfoPeliculaTarjeta/SkeletonInfoPeliculaTarjeta.jsx'
 import { convertirMinutosAHoras, sliceYear, convertirAFechaConDiagonal } from '../../utils.js'
 
-export default function InfoPeliculaTarjeta({informacion, fechasLanzamiento, creditos, tvRatings, mediaType, contenidoCargado}){
+export default function InfoPeliculaTarjeta({informacion, informacionIngles, fechasLanzamiento, creditos, tvRatings, mediaType, contenidoCargado}){
     console.log(`Este es el estado de la carga: ${contenidoCargado}`);
     if(contenidoCargado && informacion && mediaType && creditos){
+        //Obtenemos el overview en español o en inglés
+        const overview = informacion?.overview || informacionIngles?.overview || null;
         //Obtenemos los datos del estreno en español
         let fechaLanzamientoLocal;
         let clasificacionSerie = null;
@@ -107,8 +109,12 @@ export default function InfoPeliculaTarjeta({informacion, fechasLanzamiento, cre
                             </div>
                         }
                         {informacion.tagline && <p className='tagline'>{informacion.tagline}</p>}
-                        <p className='resumenTitulo'>Resumen</p>
-                        <p className='resumen'>{informacion.overview}</p>
+                        {overview && 
+                            <p className='resumenTitulo'>Resumen</p>
+                        }
+                        {overview && 
+                            <p className='resumen'>{overview}</p>
+                        }
                         <div className="contenedorCrew">
                             {equipoDestacado && 
                                 equipoDestacado.map( (persona, index) => {

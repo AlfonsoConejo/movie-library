@@ -9,6 +9,7 @@ export default function Movie(){
     //Creamos nuestros estados
     const [contenidoCargado, setContenidoCargado] = useState(false);
     const [informacion, setInformacion] = useState([]);
+    const [informacionIngles, setInformacionIngles] = useState([]);
     const [fechasLanzamiento, setFechasLanzamiento] = useState([]);
     const [tvRatings, setTvRatings] = useState([]);
     const [creditos, setCreditos] = useState([]);
@@ -28,11 +29,20 @@ useEffect(() => {
       const data = await resInfo.json();
       setInformacion(data);
 
+      //Si nuestra consulta en español no tiene overview
+      if(!data.overview){
+          const resInfoIngles = await fetch(`/api/contenidoIngles?media_type=${media_type}&id=${id}`);
+          const infoIngles = await resInfoIngles.json();
+          setInformacionIngles(infoIngles);
+      }
+
       if (media_type === 'movie') {
           // 2️⃣ Fechas de lanzamiento
           const resFechas = await fetch(`/api/movie/fechasLanzamiento?id=${data.id}`);
           const fechas = await resFechas.json();
           setFechasLanzamiento(fechas.results || []);
+
+          
       } else if (media_type === 'tv'){
           // 2️⃣ Clasificación de edad por país
           const resRatings = await fetch(`/api/tv/ratings?id=${data.id}`);
@@ -60,6 +70,7 @@ useEffect(() => {
             <InfoPeliculaTarjeta
                 key = {informacion.id}
                 informacion = {informacion}
+                informacionIngles = {informacionIngles}
                 fechasLanzamiento = {fechasLanzamiento}
                 creditos = {creditos}
                 mediaType = {media_type}
