@@ -96,6 +96,99 @@
     animation: colorPulse 0.5s infinite alternate;
 }
 
+@media (max-width: 720px) {
+    .SkeletonInfoPeliculaTarjeta{
+        padding: 0;
+        height: 570px;
+    }
+    .SkeletonInfoPeliculaTarjeta .SkeletonContenedorInformacion{
+        flex-direction: column;
+    }
+
+    .SkeletonInfoPeliculaTarjeta .SkeletonContenedorPoster{
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .SkeletonInfoPeliculaTarjeta .SkeletonPoster{
+        min-width: 128.25px;
+        max-width: 128.25px;
+        min-height: 192.37px;
+        max-height: 192.37px;
+        margin: 15px;
+    }
+
+    .SkeletonInfoPeliculaTarjeta .SkeletonInformacion {
+        display: flex;
+        flex-direction: column;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .SkeletonInfoPeliculaTarjeta .SkeletonInformacion .SkeletonTitulo{
+        height: 26.5px;
+        width: 60%;
+        margin: 10px auto;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .SkeletonInfoPeliculaTarjeta .SkeletonInformacion .SkeletonRandom{
+        margin: 5px auto 15px auto;
+        height: 19.4px;
+        width: 70%;
+    }
+
+    .SkeletonInfoPeliculaTarjeta .SkeletonInformacion .SkeletonContenedorScore{
+        margin: 0px 15px 20px 15px;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .SkeletonInfoPeliculaTarjeta .SkeletonInformacion .SkeletonScore{
+        width: 40px;
+        height: 30px;
+    }
+
+    .SkeletonInfoPeliculaTarjeta .SkeletonInformacion .SkeletonTagline{
+        margin: 0px 15px 10px 15px;
+        height: 19.4px;
+    }
+
+    .SkeletonInfoPeliculaTarjeta .SkeletonInformacion .SkeletonTextoResumen{
+        height: 21.2px;
+        margin: 0px 15px 10px 15px;
+    }
+
+    .SkeletonInfoPeliculaTarjeta .SkeletonInformacion .SkeletonResumen{
+        width: calc(100% - 30px);
+        height: 17.4px;
+        margin: 0px 15px 5px 15px;
+    }
+    .SkeletonInfoPeliculaTarjeta .SkeletonInformacion .SkeletonResumen2{
+        height: 17.4px;
+        margin: 0px 15px 25px 15px;
+    }
+
+    .SkeletonInfoPeliculaTarjeta .SkeletonInformacion .SkeletonNombre1{
+        height: 17.4px;
+        margin: 0px 15px 25px 15px;
+    }
+
+    .SkeletonInfoPeliculaTarjeta .SkeletonInformacion .SkeletonResumen2{
+        height: 17.4px;
+        margin: 0px 15px 15px 15px;
+    }
+
+    .SkeletonInfoPeliculaTarjeta .SkeletoNombre1{
+        height: 17.4px;
+        width: 140px;
+        margin: 3px 15px;
+    }
+}
+
 @keyframes colorPulse {
     from{
         background-color: #c9c9c9;

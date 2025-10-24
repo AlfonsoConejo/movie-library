@@ -4,7 +4,9 @@ export default function SkeletonInfoPeliculaTarjeta(){
     return(
         <section className='SkeletonInfoPeliculaTarjeta'>
             <div className="SkeletonContenedorInformacion">
-                <div className="SkeletonPoster"></div>
+                <div className="SkeletonContenedorPoster">
+                    <div className="SkeletonPoster"></div>
+                </div>
                 <div className="SkeletonInformacion">
                     <p className="SkeletonTitulo"></p>
                     <p className='SkeletonRandom'></p>
