@@ -38,14 +38,14 @@
     }
 
     .contenedorCarruselReparto > h2{
-      margin-left: 10px;
+      margin-left: 15px;
     }
 
     .contenedorCarruselReparto .carruselReparto > *:first-child {
-        margin-left: 10px; /* padding inicial */
+        margin-left: 15px; /* padding inicial */
     }
 
     .contenedorCarruselReparto .carruselReparto > *:last-child {
-        margin-right: 10px; /* padding final */
+        margin-right: 15px; /* padding final */
     }
 }

@@ -161,7 +161,7 @@
         max-width: 128.25px;
         min-height: 192.37px;
         max-height: 192.37px;
-        margin: 10px;
+        margin: 15px;
     }
 
     .infoPeliculaTarjeta .informacion {
@@ -175,13 +175,13 @@
     .infoPeliculaTarjeta .informacion .titulo{
         margin: 0;
         font-size: 22px;
-        padding: 10px;
+        padding: 10px 15px 10px 15px;
         padding-bottom: 10px;
         text-align: center;
     }
 
     .infoPeliculaTarjeta .informacion .random{
-        padding: 5px 10px;
+        padding: 5px 15px;
         margin-bottom: 10px;
         text-align: center;
         border-top: 1px solid rgb(112, 112, 112);
@@ -190,7 +190,7 @@
     }
 
     .infoPeliculaTarjeta .informacion .contenedorScore{
-        margin-bottom: 20px;
+        margin: 0px 15px 20px 15px;
         align-items: center;
         justify-content: center;
         gap: 10px;
@@ -207,22 +207,22 @@
 
     .infoPeliculaTarjeta .informacion .resumenTitulo{
         font-size: 18px;
-        margin: 0px 10px 10px 10px;
+        margin: 0px 15px 10px 15px;
     }
 
     .infoPeliculaTarjeta .informacion .resumen{
         font-size: 16px;
         font-weight: 300;
-        margin: 0px 10px 25px 10px;
+        margin: 0px 15px 25px 15px;
     }
 
     .infoPeliculaTarjeta .informacion .contenedorCrew{
-        margin: 0px 10px 10px 10px;
+        margin: 0px 15px 25px 15px;
         grid-template-columns: repeat(2, 1fr);
         gap:10px; 
     }
 
     .infoPeliculaTarjeta .informacion .contenedorCrew .puestoEmpleado{
-    font-size: 14px;
-}
+        font-size: 14px;
+    }
 }
