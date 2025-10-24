@@ -24,17 +24,23 @@
     color: white;
 }
 
-.infoPeliculaTarjeta .informacion h1{
+.infoPeliculaTarjeta .informacion .titulo{
     margin: 0;
     margin-bottom: 10px;
     font-size: 40px;
 }
 
-.infoPeliculaTarjeta .poster{
+.infoPeliculaTarjeta .contenedorPoster{
+    display: flex;
     min-width: 300px;
     max-width: 300px;
     min-height: 450px;
     max-height: 450px;
+}
+
+.infoPeliculaTarjeta .poster{
+    width: 100%;
+    height: 100%;
 }
 
 .infoPeliculaTarjeta .poster > img{
@@ -85,6 +91,7 @@
     justify-content: center;
     align-items: center;
 }
+
 .infoPeliculaTarjeta .informacion .tagline{
     font-style: italic;
     margin-bottom: 10px;
@@ -113,4 +120,105 @@
 
 .infoPeliculaTarjeta .informacion .contenedorCrew .puestoEmpleado{
     font-weight: 300;
+}
+
+@media (width <= 910px) {
+    .infoPeliculaTarjeta{
+        padding: 20px 20px;
+    }
+}
+
+@media (width <= 820px) {
+    .infoPeliculaTarjeta{
+        padding: 10px 10px;
+    }
+}
+
+@media (max-width: 720px) {
+
+    .infoPeliculaTarjeta{
+        padding: 0;
+    }
+    .infoPeliculaTarjeta .contenedorInformacion {
+        flex-direction: column;
+    }
+
+    .infoPeliculaTarjeta .contenedorPoster{
+        width: 100%;
+        min-width: auto;
+        max-width: none;
+        min-height: auto;
+        max-height: none;
+        align-items: center;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        justify-content: flex-start;
+    }
+
+    .infoPeliculaTarjeta .poster{
+        min-width: 128.25px;
+        max-width: 128.25px;
+        min-height: 192.37px;
+        max-height: 192.37px;
+        margin: 10px;
+    }
+
+    .infoPeliculaTarjeta .informacion {
+        display: flex;
+        flex-direction: column;
+        margin: 0px;
+        padding: 0px;
+        background-color: rgb(35, 33, 33);
+    }
+
+    .infoPeliculaTarjeta .informacion .titulo{
+        margin: 0;
+        font-size: 22px;
+        padding: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+    }
+
+    .infoPeliculaTarjeta .informacion .random{
+        padding: 5px 10px;
+        margin-bottom: 10px;
+        text-align: center;
+        border-top: 1px solid rgb(112, 112, 112);
+        border-bottom: 1px solid rgb(112, 112, 112);
+        background-color: #2a2a2a;
+    }
+
+    .infoPeliculaTarjeta .informacion .contenedorScore{
+        margin-bottom: 20px;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .infoPeliculaTarjeta .informacion .score{
+        width: 40px;
+        height: 30px;
+        font-size: 16px;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .infoPeliculaTarjeta .informacion .resumenTitulo{
+        font-size: 18px;
+        margin: 0px 10px 10px 10px;
+    }
+
+    .infoPeliculaTarjeta .informacion .resumen{
+        font-size: 16px;
+        font-weight: 300;
+        margin: 0px 10px 14px 10px;
+    }
+
+    .infoPeliculaTarjeta .informacion .contenedorCrew{
+        margin: 0px 10px 10px 10px;
+        grid-template-columns: repeat(2, 1fr);
+        gap:10px; 
+    }
 }

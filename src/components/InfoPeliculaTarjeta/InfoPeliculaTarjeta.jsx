@@ -1,9 +1,20 @@
 import './InfoPeliculaTarjeta.css'
 import SkeletonInfoPeliculaTarjeta from '../SkeletonInfoPeliculaTarjeta/SkeletonInfoPeliculaTarjeta.jsx'
 import { convertirMinutosAHoras, sliceYear, convertirAFechaConDiagonal } from '../../utils.js'
+import { useState, useEffect } from 'react';
 
 export default function InfoPeliculaTarjeta({informacion, informacionIngles, fechasLanzamiento, creditos, tvRatings, mediaType, contenidoCargado}){
-    console.log(`Este es el estado de la carga: ${contenidoCargado}`);
+    
+    //Estado y useEffect para escuchar los cambios de tamaño del viewport
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 720);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+    }, []);
+    
     if(contenidoCargado && informacion && mediaType && creditos){
         //Obtenemos el overview y el tagline en español o en inglés
         const overview = informacion?.overview || informacionIngles?.overview || null;
@@ -61,11 +72,21 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
 
         return(
         
-            <section className="infoPeliculaTarjeta" style={{backgroundImage: `url(https://image.tmdb.org/t/p/w780${informacion.backdrop_path})`}}>
+            <section
+                className="infoPeliculaTarjeta"
+                style={{
+                    backgroundImage: !isMobile
+                    ? `url(https://image.tmdb.org/t/p/w780${informacion.backdrop_path})`
+                    : "none"
+                }}
+            >
                 <div className="contenedorInformacion">
-                    <div className="poster">
-                        <img src={`https://image.tmdb.org/t/p/w500${informacion.poster_path}`} alt={informacion.title} />
+                    <div className="contenedorPoster" style={{backgroundImage: isMobile ? `url(https://image.tmdb.org/t/p/w780${informacion.backdrop_path})` : "none"}}>
+                        <div className="poster">
+                            <img src={`https://image.tmdb.org/t/p/w500${informacion.poster_path}`} alt={informacion.title} />
+                        </div>
                     </div>
+                    
                     <div className="informacion">
                         <h1 className='titulo'>{informacion.title || informacion.name} 
                             {
@@ -106,7 +127,7 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
                                     >
                                     {informacion.vote_average ? (Math.floor(informacion.vote_average * 10)) : 'NR'}% 
                                 </div>
-                                Puntuación TMDB
+                                <span>Puntuación TMDB</span>
                             </div>
                         }
                         {tagline && <p className='tagline'>{tagline}</p>}

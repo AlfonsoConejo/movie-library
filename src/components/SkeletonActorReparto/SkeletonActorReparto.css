@@ -1,7 +1,8 @@
 .SkeletonInfoActor{
     display: flex;
     flex-direction: column;
-    width: 140px;
+    min-width: 140px;
+    max-width: 140px;
     border-radius: 8px;
     overflow: hidden;
 }
