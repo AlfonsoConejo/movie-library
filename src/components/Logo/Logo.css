@@ -1,0 +1,32 @@
+.contenedorFlexLogo{
+    justify-content: flex-start;
+    order: 1;
+}
+
+.contenedorFlexLogo .wrapperLogo{
+    width: 120px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.contenedorFlexLogo .wrapperLogo img{
+    width: 100%;
+}
+
+@media (max-width: 914px) {
+    .contenedorFlexLogo{
+        order: 2;    
+    }
+
+    .contenedorFlexLogo .wrapperLogo img{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .contenedorFlexLogo .wrapperLogo{
+        width: 100px;
+    }
+}

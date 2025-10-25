@@ -1,0 +1,18 @@
+.contenedorFlexAccount{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    order: 4;
+}
+
+.contenedorFlexAccount .material-symbols-outlined{
+    font-size: 40px;
+    cursor: pointer;
+}
+
+@media (max-width: 914px) {
+    .contenedorFlexAccount{
+        display: none;    
+    }
+}

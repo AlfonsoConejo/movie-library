@@ -1,0 +1,17 @@
+.botonBuscarMovil {
+    display: none;
+    color: white;
+    cursor: pointer;
+}
+
+.botonBuscarMovil .material-symbols-outlined{
+    font-size: 30px;
+}
+
+@media (max-width: 914px) {
+    .botonBuscarMovil{
+        order: 3; 
+        display: block;   
+    }
+}
+

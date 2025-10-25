@@ -1,22 +1,21 @@
 import './Header.css';
-import logo from '../../assets/movie-database-logo-md.png';
+import Logo from '../Logo/Logo';
 import Busqueda from '../Busqueda/Busqueda';
-import { Link, useNavigate } from 'react-router-dom';
+import Nav from '../Nav/Nav';
+import AccountIcon from '../AccountIcon/AccountIcon';
+import MenuHamburguesa from '../MenuHamburguesa/MenuHamburguesa';
+import BusquedaMovil from '../BusquedaMovil/BusquedaMovil';
 
 export default function Header() {
-     const navigate = useNavigate();
 
     return (
         <header>
-            <img src={logo} alt="Logo" onClick={() => navigate('/')} />
+            <Logo/>
             <Busqueda />
-            <nav>
-                <ul>
-                    <li><Link to="/peliculas">Películas</Link></li>
-                    <li><Link to="/series">Series</Link></li>
-                    <li><Link to="/personas">Personas</Link></li>
-                </ul>
-            </nav>
+            <Nav/>
+            <AccountIcon/>
+            <MenuHamburguesa/>
+            <BusquedaMovil/>
         </header>
     );
 }
