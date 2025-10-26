@@ -1,19 +1,39 @@
-header{
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    background-color: var(--tmdbDarkBlue);
-    padding: 0 90px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    z-index:100;
+:root {
+  --header-height: 60px; /* Puedes subirlo a 70px si lo quieres más alto */
 }
 
+header {
+  position: fixed; /* Android & desktop default */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(var(--header-height) + env(safe-area-inset-top));
+  background-color: var(--tmdbDarkBlue);
+  padding: env(safe-area-inset-top) 90px 0 90px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 1000;
+  transform: translateZ(0); /* evita el salto en Safari */
+}
+
+/* ✅ Safari iOS: usar sticky en lugar de fixed */
+@supports (-webkit-touch-callout: none) {
+  header {
+    position: sticky;
+  }
+}
+
+/* ✅ Ajuste para móvil */
 @media (max-width: 914px) {
-    header{
-        padding: 0 15px;
-        justify-content: space-between;    
-    }
+  header {
+    padding: env(safe-area-inset-top) 15px 0 15px;
+    justify-content: space-between;
+  }
+}
+
+/* ✅ Dejar espacio para el contenido debajo del header */
+main,
+#root > div { /* por si usas un contenedor principal */
+  margin-top: calc(var(--header-height) + env(safe-area-inset-top));
 }
