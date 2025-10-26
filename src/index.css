@@ -21,11 +21,7 @@ html, body, #root {
 box-sizing: border-box;
 }
 
-/* Importante: evitar que el contenedor interno haga scroll */
-#root, #root > * {
-  min-height: 100%;
-  overflow-y: visible !important;
-}
+
 
 
 html,
