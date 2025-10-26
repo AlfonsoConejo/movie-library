@@ -7,32 +7,15 @@ html, body, #root {
 }
 
 :root {
-  --header-height: 60px; /* Altura del header*/
   --tmdbDarkBlue: rgb(3,37,65);
-  --soft-gray: #e0e0e0;
-  --light-blue: 1,180,228;
+   --soft-gray: #e0e0e0;
+   --light-blue: 1,180,228;
   --light-green: 30,213,169;
-  box-sizing: border-box;
-  color: white;
+   box-sizing: border-box;
+   color: white;
 }
 
 /* Aplica box-sizing a todos los elementos y pseudo-elementos */
 *, *::before, *::after {
-box-sizing: border-box;
-}
-
-
-
-
-html,
-body {
-  overscroll-behavior-y: none;
-  height: 100%;
-  overflow-x: hidden;
-}
-
-/* ✅ Dejar espacio para el contenido debajo del header */
-main,
-#root > div { /* por si usas un contenedor principal */
-  margin-top: calc(var(--header-height) + env(safe-area-inset-top));
+  box-sizing: border-box;
 }
