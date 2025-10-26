@@ -1,7 +1,3 @@
-:root {
-  --header-height: 60px; /* Puedes subirlo a 70px si lo quieres más alto */
-}
-
 header {
   position: fixed; /* Android & desktop default */
   top: 0;
@@ -32,8 +28,3 @@ header {
   }
 }
 
-/* ✅ Dejar espacio para el contenido debajo del header */
-main,
-#root > div { /* por si usas un contenedor principal */
-  margin-top: calc(var(--header-height) + env(safe-area-inset-top));
-}
