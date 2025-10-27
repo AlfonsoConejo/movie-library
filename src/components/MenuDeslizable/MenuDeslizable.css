@@ -22,13 +22,14 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 0px 15px;
+    padding: 0px 15px 0px 13px;
 }
 
 .menuDeslizable .close{
     background: none;
     border: none;
     cursor: pointer;
+    padding: 0px;
 }
 
 .menuDeslizable .material-symbols-outlined{
