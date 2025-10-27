@@ -4,6 +4,7 @@ import Home from './paginas/Home.jsx'
 import Movie from './paginas/movie.jsx'
 import Footer from './components/Footer/Footer.jsx'
 import Overlay from './components/Overlay/Overlay.jsx'
+import BarraBusqueda from './components/BarraBusqueda/BarraBusqueda.jsx'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState, createContext } from 'react'
 import MenuDeslizable from './components/MenuDeslizable/MenuDeslizable.jsx'
@@ -12,11 +13,16 @@ import MenuDeslizable from './components/MenuDeslizable/MenuDeslizable.jsx'
 export const MenuDeslizableContext = createContext();
 
 function App() {
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const toogleMostarOcultarMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    setIsOverlayVisible(!isOverlayVisible);
+  }
+
+  const toogleMostarBarraBusqueda = () => {
+    setIsSearchBarOpen(!isSearchBarOpen);
     setIsOverlayVisible(!isOverlayVisible);
   }
 
@@ -39,11 +45,18 @@ function App() {
 
   return (
     <BrowserRouter>
-      <MenuDeslizableContext.Provider value={{isMenuOpen, isOverlayVisible, toogleMostarOcultarMenu}}>
+      <MenuDeslizableContext.Provider value={{isMenuOpen, isOverlayVisible, toogleMostarOcultarMenu, isSearchBarOpen, toogleMostarBarraBusqueda}}>
         <Header/>
         <MenuDeslizable/>
-        <Overlay/>
+        <Overlay 
+          isSearchBarOpen = {isSearchBarOpen}
+          toogleMostarBarraBusqueda = {toogleMostarBarraBusqueda}
+        />
       </MenuDeslizableContext.Provider>
+      <BarraBusqueda 
+        isSearchBarOpen = {isSearchBarOpen}
+        toogleMostarBarraBusqueda = {toogleMostarBarraBusqueda}
+      />
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/:media_type/:id" element={<Movie/>}/>

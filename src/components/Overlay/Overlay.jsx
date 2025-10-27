@@ -3,10 +3,10 @@ import { useContext } from 'react';
 import {MenuDeslizableContext} from '../../App'
 
 const overlay = () => {
-    const {isOverlayVisible, toogleMostarOcultarMenu} = useContext(MenuDeslizableContext);
+    const {isOverlayVisible, toogleMostarOcultarMenu, toogleMostarBarraBusqueda, isMenuOpen} = useContext(MenuDeslizableContext);
 
     return(
-        <div className={`overlay ${isOverlayVisible ? 'visible' : '' }`} onClick={toogleMostarOcultarMenu}>
+        <div className={`overlay ${isOverlayVisible ? 'visible' : '' }`} onClick={isMenuOpen ? toogleMostarOcultarMenu : toogleMostarBarraBusqueda}>
         </div>
     );
 }
