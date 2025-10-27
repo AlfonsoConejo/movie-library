@@ -2,6 +2,8 @@
     color: white;
     cursor: pointer;
     display: none;
+    border: none;
+    background: none;
     
 }
 

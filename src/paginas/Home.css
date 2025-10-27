@@ -1,9 +1,4 @@
 .paginaInicio{
-    padding-top: 69.2px;
+    padding-top: 60px;
 }
 
-@media (max-width: 914px) {
-    .paginaInicio{
-        padding-top: 52.95px;   
-    }
-}

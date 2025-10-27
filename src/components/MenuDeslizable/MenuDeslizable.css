@@ -1,0 +1,55 @@
+.menuDeslizable {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100dvh;
+    background-color: var(--tmdbDarkBlue);
+    z-index: 102;
+    transform: translateX(-100%);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease; /* 👈 agregado */
+}
+
+.menuDeslizable.visible{
+    transform: translateX(0);
+}
+
+.menuDeslizable .menuEncabezado{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0px 15px;
+}
+
+.menuDeslizable .close{
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.menuDeslizable .material-symbols-outlined{
+    color: white;
+    font-size: 30px;
+}
+
+.menuDeslizable ul {
+    padding: 0 15px;
+    margin: 0;
+}
+
+.menuDeslizable li {
+    list-style: none;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+.menuDeslizable a{
+    font-size: 30px;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+}

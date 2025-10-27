@@ -21,7 +21,7 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
         const tagline = informacion?.tagline || informacionIngles?.tagline || null;
         //Obtenemos los datos del estreno en español
         let fechaLanzamientoLocal;
-        let clasificacionSerie = null;
+        let clasificacionSerie;
         let equipoDestacado = [];
         //Si es película
         if(mediaType === 'movie'){
@@ -108,7 +108,7 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
                             </p>
                             :
                             <p className='random'>
-                                {clasificacionSerie.rating && <span className='clasificacion'>{clasificacionSerie.rating} </span>}
+                                {clasificacionSerie?.rating && <span className='clasificacion'>{clasificacionSerie.rating} </span>}
                                 {informacion.genres && <span>{informacion.genres.map(i => i.name).join(', ')}</span> }
                             </p>
                         }
