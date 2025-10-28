@@ -50,7 +50,6 @@
     max-width: 500px;
     display: flex;
     background: white;
-    gap:10px
 }
 
 .barraBusqueda .cuadroBusqueda:focus-within {
@@ -75,7 +74,9 @@
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     background: none;
-    background-color: #d8d6d6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .barraBusqueda .cuadroBusqueda .material-symbols-outlined{
