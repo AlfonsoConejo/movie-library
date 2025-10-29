@@ -19,6 +19,17 @@ function convertirAFechaConDiagonal(fecha) {
   return new Date(fecha).toLocaleDateString("es-MX", opciones);
 }
 
+function convertirAFechaCompleta(fecha){
+    const opciones = {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+    }
+
+    const fechaFormateada = new Date(fecha).toLocaleDateString("es-MX", opciones).toLowerCase();
+    return fechaFormateada;
+}
+
 function convertirMinutosAHoras(tiempo){
     //Obtenemos las horas
     const horas = Math.floor(tiempo / 60);
@@ -37,4 +48,16 @@ let year = fecha.slice(0, 4);
 return year;
 }
 
-export {convertirFecha, convertirAFechaConDiagonal, convertirMinutosAHoras, sliceYear};
+const traduccionesOcupacion = {
+  Acting: 'Actuación',
+  Directing: 'Dirección',
+  Production: 'Producción',
+  Writing: 'Guion',
+  Editing: 'Edición',
+  Camera: 'Cámara',
+  Sound: 'Sonido',
+  Art: 'Arte',
+  Crew: 'Equipo técnico',
+};
+
+export {convertirFecha, convertirAFechaConDiagonal, convertirAFechaCompleta, convertirMinutosAHoras, sliceYear, traduccionesOcupacion};

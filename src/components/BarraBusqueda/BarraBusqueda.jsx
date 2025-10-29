@@ -9,7 +9,7 @@ const BarraBusqueda = ({isSearchBarOpen, toogleMostarBarraBusqueda}) => {
             <div className="contenedorBusquedaMovil">
                 <div className="cuadroBusqueda">
                     <button>
-                        <span class="material-symbols-outlined">search</span>
+                        <span className="material-symbols-outlined">search</span>
                     </button>
                     <input type="text" placeholder='Buscar en TMDB'/>
                 </div>

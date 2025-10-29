@@ -1,6 +1,7 @@
 import './movie.css'
 import InfoPeliculaTarjeta from '../components/InfoPeliculaTarjeta/InfoPeliculaTarjeta.jsx';
 import CarruselReparto from '../components/CarruselReparto/CarruselReparto.jsx';
+import InfoPersonaTarjeta from '../components/InfoPersonaTarjeta/InfoPersonaTarjeta.jsx';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -29,7 +30,7 @@ useEffect(() => {
       const data = await resInfo.json();
       setInformacion(data);
 
-      //Si nuestra consulta en español no tiene overview
+      //Si nuestra consulta en inglés no tiene overview
       if(!data.overview){
           const resInfoIngles = await fetch(`/api/contenidoIngles?media_type=${media_type}&id=${id}`);
           const infoIngles = await resInfoIngles.json();
@@ -43,18 +44,20 @@ useEffect(() => {
           setFechasLanzamiento(fechas.results || []);
 
           
-      } else if (media_type === 'tv'){
+      } 
+      if (media_type === 'tv'){
           // 2️⃣ Clasificación de edad por país
           const resRatings = await fetch(`/api/tv/ratings?id=${data.id}`);
           const ratings = await resRatings.json();
           setTvRatings(ratings.results || []);
-          console.log(ratings.results);
       }
 
+    if (media_type === 'movie' || media_type === 'tv'){
       // 3️⃣ Créditos
       const resCreditos = await fetch(`/api/contenido/creditos?media_type=${media_type}&id=${id}`);
       const trabajadores = await resCreditos.json();
       setCreditos(trabajadores);
+    }
 
       setContenidoCargado(true);
     } catch (err) {
@@ -67,7 +70,7 @@ useEffect(() => {
 
 if(media_type === 'tv' || media_type === 'movie'){
     return(
-        <div className="movie">
+        <div className="contenido">
             <InfoPeliculaTarjeta
                 key = {informacion.id}
                 informacion = {informacion}
@@ -84,8 +87,15 @@ if(media_type === 'tv' || media_type === 'movie'){
             />
         </div>
     );
-} else if (media_type === 'actor'){
-    
+} else if (media_type === 'person'){
+    return(
+        <div className="contenido">
+            <InfoPersonaTarjeta
+                informacion = {informacion}
+                informacionIngles = {informacionIngles}
+            />
+        </div>
+    );
 }
     
 }

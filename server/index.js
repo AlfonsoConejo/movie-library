@@ -67,11 +67,10 @@ app.get("/api/trending/people", (req, res) => {
   .catch(err => res.status(500).json({error: err.message}));
 });
 
-//Descripción (en español) de Película o Serie
+//Descripción (en español) de Película, Serie o Persona
 app.get("/api/contenido", (req, res) => {
   const id = req.query.id;
   const media_type = req.query.media_type;
-  console.log(`tipo de media: ${media_type}`);
   fetch(`https://api.themoviedb.org/3/${media_type}/${id}?language=es-MX`, {
      headers: {
       Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
@@ -86,7 +85,6 @@ app.get("/api/contenido", (req, res) => {
 app.get("/api/contenidoIngles", (req, res) => {
   const id = req.query.id;
   const media_type = req.query.media_type;
-  console.log(`tipo de media: ${media_type}`);
   fetch(`https://api.themoviedb.org/3/${media_type}/${id}?language=en-US`, {
      headers: {
       Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,

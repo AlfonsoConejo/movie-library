@@ -60,7 +60,6 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
                     job: "Creador"
                 }))
                 .slice(0, 3);
-                console.log(equipoDestacado);
             }
 
         };
@@ -114,21 +113,22 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
                         }
                         
 
-                        {informacion.vote_average && 
+                        {informacion.vote_average !== undefined && informacion.vote_average !== null && (
                             <div className='contenedorScore'>
                                 <div className='score' 
                                     style={{
                                         backgroundColor: 
                                         informacion.vote_average >= 7 ? 'green' :
                                         informacion.vote_average >= 4 ? 'orange' :
-                                        informacion.vote_average >= 0 ? 'red' :
+                                        informacion.vote_average > 0 ? 'red' :
                                         'gray'
                                     }}
                                     >
-                                    {informacion.vote_average ? (Math.floor(informacion.vote_average * 10)) : 'NR'}% 
+                                    {informacion.vote_average ? (Math.floor(informacion.vote_average * 10)) : 'NR'}
+                                    {informacion.vote_average > 0 ? '%': ''} 
                                 </div>
                                 <span>Puntuación TMDB</span>
-                            </div>
+                            </div>)
                         }
                         {tagline && <p className='tagline'>{tagline}</p>}
                         {overview && 
