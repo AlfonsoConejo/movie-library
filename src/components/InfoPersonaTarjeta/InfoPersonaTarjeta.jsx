@@ -1,11 +1,13 @@
 import { Profiler } from 'react';
 import './InfoPersonaTarjeta.css';
+import CarruselFilmografia from '../CarruselFilmografia/CarruselFilmografia.jsx';
 import ImageNotFound from '../../assets/img_not_found.jpg';
 import { convertirAFechaCompleta, traduccionesOcupacion } from '../../utils.js';
 
 const InfoPersonaTarjeta = ({informacion, informacionIngles}) => {
+
     let sexo, biografia;
-    biografia = informacion.biography || informacionIngles.biography || null;
+    biografia = informacion.biography || informacionIngles?.biography || null;
     {informacion?.gender == 2 ? sexo = 'Masculino' : sexo = 'Femenino' }
 
     if(informacion){
@@ -13,7 +15,12 @@ const InfoPersonaTarjeta = ({informacion, informacionIngles}) => {
             <div className="contenedorInfoPersona">
                 <div className="columnaIzq">
                     <div className="contenedorImagenPersona">
-                        <img className='' src={`https://image.tmdb.org/t/p/w780${informacion.profile_path}` || ImageNotFound} alt={informacion.name} />
+                        <img
+                        src={informacion.profile_path 
+                                ? `https://image.tmdb.org/t/p/w780${informacion.profile_path}` 
+                                : ImageNotFound}
+                        alt={informacion.name}
+                        />
                     </div>
                     <div className="DatosPersonales">
                         <h2>Información Personal</h2>
@@ -48,6 +55,8 @@ const InfoPersonaTarjeta = ({informacion, informacionIngles}) => {
 
                     {(informacion.biography || informacionIngles) && <h2>Biografía</h2>}
                     {(informacion.biography || informacionIngles) && <p>{biografia}</p>}
+
+                    <CarruselFilmografia/>
                 </div>
             </div>
         ); 

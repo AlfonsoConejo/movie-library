@@ -47,6 +47,13 @@
     font-size: 16px;
     margin-bottom: 10px;
 }
+
+.columnaDer {
+  flex: 1 1 0;       /* flexible */
+  max-width: 100%;    /* nunca excede el ancho disponible */
+  min-width: 0;       /* permite que el contenido haga overflow dentro de la columna */
+}
+
 .contenedorInfoPersona .columnaDer h1{
     font-size: 50px;
     margin: 0;

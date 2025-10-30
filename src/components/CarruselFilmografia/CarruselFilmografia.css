@@ -1,0 +1,15 @@
+.contenedorCarruselFilmografia{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 12px;
+    width: 100%;
+}
+
+.contenedorCarruselFilmografia .carruselFilmografia {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;      /* hace que los hijos tengan misma altura (según el más alto) */
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+}

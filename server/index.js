@@ -85,7 +85,7 @@ app.get("/api/contenido", (req, res) => {
 app.get("/api/contenidoIngles", (req, res) => {
   const id = req.query.id;
   const media_type = req.query.media_type;
-  fetch(`https://api.themoviedb.org/3/${media_type}/${id}?language=en-US`, {
+  fetch(`https://api.themoviedb.org/3/${media_type}/${id}?language=es-MX`, {
      headers: {
       Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
     }
@@ -135,6 +135,18 @@ app.get("/api/tv/ratings", (req, res) => {
   .catch(err => res.status(500).json({error: err.message}));
 });
 
+//Créditos combinadoas de la persona
+app.get("/api/person/creditosCombinados", (req, res) => {
+  const id = req.query.id;
+  fetch(`https://api.themoviedb.org/3/person/${id}/combined_credits?language=es-mx`, {
+     headers: {
+      Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
+    }
+  })
+  .then (response => response.json())
+  .then (data => res.json(data))
+  .catch(err => res.status(500).json({error: err.message}));
+});
 
 // ------------------ SERVIR REACT EN PRODUCCIÓN ------------------ //
 const __filename = fileURLToPath(import.meta.url);
