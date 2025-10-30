@@ -8,6 +8,7 @@
   -moz-box-shadow: 0px 0px 6px 1px rgba(157, 155, 155, 0.53);
   border-radius: 8px;
   overflow: hidden;
+  cursor: pointer;
 }
 
 

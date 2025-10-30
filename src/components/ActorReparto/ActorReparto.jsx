@@ -1,15 +1,15 @@
 import './ActorReparto.css'
 import ImageNotFound from '../../assets/img_not_found.jpg'
+import { useNavigate } from 'react-router-dom';
 
 export default function ActorReparto({id, nombre, personaje, rutaImagen}) {
+    const navigate = useNavigate(); 
 
     const fondo = rutaImagen
     ? `url(https://image.tmdb.org/t/p/w500${rutaImagen})` : `url(${ImageNotFound})`;
 
-
-
     return(
-        <div className="infoActor">
+        <div className="infoActor" onClick={()=>navigate(`/person/${id}`)}>
             <div className="contenedorImagen" style ={{backgroundImage: fondo}}>
             </div>
             <div className="datosActor">
