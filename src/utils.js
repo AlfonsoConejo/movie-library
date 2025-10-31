@@ -57,7 +57,7 @@ const traduccionesOcupacion = {
   Camera: 'Cámara',
   Sound: 'Sonido',
   Art: 'Arte',
-  Crew: 'Equipo técnico',
+  Crew: 'Equipo técnico'
 };
 
 export {convertirFecha, convertirAFechaConDiagonal, convertirAFechaCompleta, convertirMinutosAHoras, sliceYear, traduccionesOcupacion};

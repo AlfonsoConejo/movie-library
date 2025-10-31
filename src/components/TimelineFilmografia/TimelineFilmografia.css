@@ -1,0 +1,49 @@
+.tabla-departamento{
+}
+
+.tabla-departamento table{
+    width: 100%;
+    box-shadow: 0px 0px 5px rgb(162, 157, 157);
+    border-collapse: collapse;
+}
+
+.tabla-departamento table:last-child{
+    margin-bottom: 30px;
+}
+
+.tabla-departamento .fila-grid {
+    display: grid;
+    grid-template-columns: 120px 1fr; /* ⬅️ ancho fijo para la izquierda */
+    grid-template-rows: auto auto;
+    gap: 6px;
+    padding: 10px;
+}
+
+.tabla-departamento tr{
+    border-bottom: 1px solid rgb(205, 203, 203);
+}
+
+.tabla-departamento .izquierda {
+  grid-row: span 2; /* ocupa ambas filas */
+  font-size: 22px;
+  font-weight: 300;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tabla-departamento .derecha-arriba {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.tabla-departamento .derecha-abajo {
+    font-size: 16px;
+}
+
+.tabla-departamento .derecha-arriba span{
+    cursor: pointer;
+}
+.tabla-departamento .derecha-arriba span:hover{
+    color: #2651a7;
+}

@@ -1,14 +1,12 @@
-import { Profiler } from 'react';
 import './InfoPersonaTarjeta.css';
 import CarruselFilmografia from '../CarruselFilmografia/CarruselFilmografia.jsx';
+import TimelineFilmografia from '../TimelineFilmografia/TimelineFilmografia.jsx';
 import ImageNotFound from '../../assets/img_not_found.jpg';
 import { convertirAFechaCompleta, traduccionesOcupacion } from '../../utils.js';
 
 const InfoPersonaTarjeta = ({informacion, informacionIngles}) => {
-
-    let sexo, biografia;
-    biografia = informacion.biography || informacionIngles?.biography || null;
-    {informacion?.gender == 2 ? sexo = 'Masculino' : sexo = 'Femenino' }
+    const biografia = informacion.biography || informacionIngles?.biography || null;
+    const sexo = informacion?.gender === 2 ? 'Masculino' : 'Femenino';
 
     if(informacion){
         return(
@@ -57,6 +55,7 @@ const InfoPersonaTarjeta = ({informacion, informacionIngles}) => {
                     {(informacion?.biography != ""|| informacionIngles.biography  != "") && <p>{biografia}</p>}
 
                     <CarruselFilmografia/>
+                    <TimelineFilmografia/>
                 </div>
             </div>
         ); 

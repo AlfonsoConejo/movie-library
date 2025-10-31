@@ -80,7 +80,7 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
                 }}
             >
                 <div className="contenedorInformacion">
-                    <div className="contenedorPoster" style={{backgroundImage: isMobile ? `url(https://image.tmdb.org/t/p/w780${informacion.backdrop_path})` : "none"}}>
+                    <div className="contenedorPoster" style={{backgroundImage: (isMobile && informacion.backdrop_path ) ? `url(https://image.tmdb.org/t/p/w780${informacion.backdrop_path})` : "none"}}>
                         <div className="poster">
                             <img src={`https://image.tmdb.org/t/p/w500${informacion.poster_path}`} alt={informacion.title} />
                         </div>
@@ -102,8 +102,8 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
                             <p className='random'>
                                 {clasificacionPelicula && <span className='clasificacion'>{clasificacionPelicula} </span>}
                                 {fechaLanzamientoLocal && <span>{convertirAFechaConDiagonal(fechaLocal)} ({pais}) • </span>}
-                                {informacion.genres && <span>{informacion.genres.map(i => i.name).join(', ')} • </span> }
-                                {informacion.runtime && <span>{convertirMinutosAHoras(informacion.runtime)}</span>}
+                                {informacion.genres && <span>{informacion.genres.map(i => i.name).join(', ')}</span> }
+                                {(informacion.runtime > "0") && <span> • {convertirMinutosAHoras(informacion.runtime)}</span>}
                             </p>
                             :
                             <p className='random'>

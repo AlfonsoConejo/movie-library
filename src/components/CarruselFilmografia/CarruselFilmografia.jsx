@@ -24,7 +24,6 @@ const CarruselFilmografia = () => {
     })
     .slice(0, 10);
 
-    console.log(combinadosOrdenados);
     return(
         <section className="contenedorCarruselFilmografia">
             <h2>Conocido/a por</h2>
