@@ -1,7 +1,7 @@
 import './InfoPersonaTarjeta.css';
 import CarruselFilmografia from '../CarruselFilmografia/CarruselFilmografia.jsx';
 import TimelineFilmografia from '../TimelineFilmografia/TimelineFilmografia.jsx';
-import ImageNotFound from '../../assets/img_not_found.jpg';
+import ImageNotFound from '../../assets/img_not_found2.jpg';
 import { convertirAFechaCompleta, traduccionesOcupacion } from '../../utils.js';
 
 const InfoPersonaTarjeta = ({informacion, informacionIngles}) => {
@@ -40,8 +40,8 @@ const InfoPersonaTarjeta = ({informacion, informacionIngles}) => {
                         {informacion.place_of_birth && (<p className='negritas'>Lugar de nacimiento</p>)}
                         {informacion.place_of_birth && (<p className='dato'>{informacion.place_of_birth}</p>)}
 
-                        {informacion.gender && (<p className='negritas'>Sexo</p >)}
-                        {informacion.gender && (<p className='dato'>{sexo}</p>)}
+                        {informacion.gender != "0" && (<p className='negritas'>Sexo</p >)}
+                        {informacion.gender != "0"  && (<p className='dato'>{sexo}</p>)}
 
                         {informacion.birthday && (<p className='negritas'>Nacimiento</p>)}
                         {informacion.birthday && (<p className='dato'>{convertirAFechaCompleta(informacion.birthday)}</p>)}

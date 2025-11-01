@@ -1,7 +1,6 @@
 .infoPeliculaTarjeta{
     position:relative;
     width: 100%;
-    min-height: 510px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

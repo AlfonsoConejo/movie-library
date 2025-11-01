@@ -1,6 +1,6 @@
 import './Item.css';
 import { convertirFecha } from '../../utils.js';
-import ImageNotFound from '../../assets/img_not_found.jpg'
+import ImageNotFound from '../../assets/img_not_found2.jpg'
 import { useNavigate } from 'react-router-dom';
 
 export default function Item({id, poster_path, mediaType, titulo, lanzamiento}){

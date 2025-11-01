@@ -1,6 +1,7 @@
 import './InfoPeliculaTarjeta.css'
 import SkeletonInfoPeliculaTarjeta from '../SkeletonInfoPeliculaTarjeta/SkeletonInfoPeliculaTarjeta.jsx'
 import { convertirMinutosAHoras, sliceYear, convertirAFechaConDiagonal } from '../../utils.js'
+import ImageNotFound from '../../assets/img_not_found2.jpg';
 import { useState, useEffect } from 'react';
 
 export default function InfoPeliculaTarjeta({informacion, informacionIngles, fechasLanzamiento, creditos, tvRatings, mediaType, contenidoCargado}){
@@ -82,7 +83,7 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
                 <div className="contenedorInformacion">
                     <div className="contenedorPoster" style={{backgroundImage: (isMobile && informacion.backdrop_path ) ? `url(https://image.tmdb.org/t/p/w780${informacion.backdrop_path})` : "none"}}>
                         <div className="poster">
-                            <img src={`https://image.tmdb.org/t/p/w500${informacion.poster_path}`} alt={informacion.title} />
+                            <img src={informacion.poster_path ? `https://image.tmdb.org/t/p/w500${informacion.poster_path}` : ImageNotFound} alt={informacion.title} />
                         </div>
                     </div>
                     

@@ -1,5 +1,5 @@
 import './ActorReparto.css'
-import ImageNotFound from '../../assets/img_not_found.jpg'
+import ImageNotFound from '../../assets/img_not_found2.jpg'
 import { useNavigate } from 'react-router-dom';
 
 export default function ActorReparto({id, nombre, personaje, rutaImagen}) {
