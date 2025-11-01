@@ -13,3 +13,9 @@
   overflow-x: auto;
   padding-bottom: 12px;
 }
+
+@media (max-width: 720px) {
+  .contenedorCarruselFilmografia h2 {
+    padding-left: 15px;
+  }
+}

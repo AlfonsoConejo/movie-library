@@ -53,7 +53,7 @@ const InfoPersonaTarjeta = ({informacion, informacionIngles}) => {
                 <div className="columnaDer">
                     {informacion.name && <h1>{informacion.name}</h1>}
 
-                    {(informacion?.biography != "" || informacionIngles.biography != "") && <h2>Biografía</h2>}
+                    {(informacion?.biography != "" || informacionIngles.biography != "") && <h2 className='biografiaTitulo'>Biografía</h2>}
                     {(informacion?.biography != ""|| informacionIngles.biography  != "") && <p>{biografia}</p>}
 
                     <CarruselFilmografia/>

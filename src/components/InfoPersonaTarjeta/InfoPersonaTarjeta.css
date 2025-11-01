@@ -132,10 +132,10 @@
         display: none;
     }
 
-    .contenedorInfoPersona .columnaDer h2{
+    .contenedorInfoPersona .columnaDer .biografiaTitulo{
         padding-left: 15px;
     }
-
+    
     .contenedorInfoPersona .columnaDer p{
         padding-left: 15px;
         padding-right: 15px;
