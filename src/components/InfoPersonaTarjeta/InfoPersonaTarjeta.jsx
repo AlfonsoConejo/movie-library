@@ -21,7 +21,9 @@ const InfoPersonaTarjeta = ({informacion, informacionIngles}) => {
                         />
                     </div>
                     <div className="DatosPersonales">
-                        <h2>Información Personal</h2>
+                        <h2 className="subtitulo">Información Personal</h2>
+                        {informacion.name && <h2 className="nombrePersona">{informacion.name}</h2>}
+                        
 
                         {informacion.homepage &&
                             <div className="sitioOficial">

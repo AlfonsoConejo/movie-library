@@ -48,6 +48,10 @@
     margin-bottom: 10px;
 }
 
+.contenedorInfoPersona .columnaIzq  .nombrePersona{
+    display: none;
+}
+
 .columnaDer {
   flex: 1 1 0;       /* flexible */
   max-width: 100%;    /* nunca excede el ancho disponible */
@@ -68,4 +72,49 @@
 
 .contenedorInfoPersona .contenedorImagenPersona img{
     width: 100%;
+}
+
+@media (width <= 910px) {
+    .contenedorInfoPersona{
+        padding: 30px 15px;
+    }
+}
+
+@media (max-width: 720px) {
+    .contenedorInfoPersona{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .contenedorInfoPersona .columnaIzq{
+        display: flex;
+        width: 100%;
+    }
+
+    .contenedorInfoPersona .contenedorImagenPersona{
+        min-width: 210px;
+        max-width: 210px;
+        min-height: 315px;
+        max-height: 315px;
+    }
+
+    .contenedorInfoPersona .DatosPersonales{
+        padding-left: 25px;
+    }
+
+    .contenedorInfoPersona .columnaIzq  .nombrePersona{
+        display: block;
+        font-size: 30px;
+        margin-top: 0px;
+        margin-bottom: 15px;
+    }
+
+    .contenedorInfoPersona .columnaIzq  .subtitulo{
+        display: none;
+    }
+
+    .contenedorInfoPersona .columnaDer h1{
+        display: none;
+    }
 }
