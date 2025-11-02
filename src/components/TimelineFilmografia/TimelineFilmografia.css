@@ -1,6 +1,3 @@
-.tabla-departamento{
-}
-
 .tabla-departamento table{
     width: 100%;
     box-shadow: 0px 0px 5px rgb(162, 157, 157);
@@ -44,6 +41,25 @@
 .tabla-departamento .derecha-arriba span{
     cursor: pointer;
 }
+
 .tabla-departamento .derecha-arriba span:hover{
     color: #2651a7;
+}
+
+@media (max-width: 460px) {
+    .tabla-departamento h2{
+        font-size: 20px;
+    }
+
+    .tabla-departamento .fila-grid {
+        grid-template-columns: 70px 1fr; /* ⬅️ ancho fijo para la izquierda */
+    }
+
+    .tabla-departamento .izquierda{
+        font-size: 18px;
+    }
+
+    .tabla-departamento .derecha-arriba span{
+        font-size: 16px;
+    }
 }

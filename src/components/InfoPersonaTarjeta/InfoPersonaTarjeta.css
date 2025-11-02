@@ -11,6 +11,13 @@
     flex-grow: 0;
 }
 
+.contenedorInfoPersona .contenedorImagenPersona{
+    width: 100%;
+    height: 450px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
 .contenedorInfoPersona .contenedorImagenPersona img{
     width: 100%;
     height: 100%;
@@ -75,20 +82,13 @@
     margin: 0;
 }
 
-.contenedorInfoPersona .contenedorImagenPersona{
-    width: 100%;
-    height: 450px;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
 @media (width <= 910px) {
     .contenedorInfoPersona{
         padding: 30px 15px;
     }
 }
 
-@media (max-width: 720px) {
+@media (min-width: 461px) and (max-width: 720px) {
     .contenedorInfoPersona{
         flex-direction: column;
         align-items: center;
@@ -143,5 +143,79 @@
 
     .contenedorInfoPersona .columnaDer .tabla-departamento{
         padding: 0px 15px 0px 15px;
+    }
+}
+
+@media (max-width: 460px) {
+
+    .contenedorInfoPersona {
+       flex-direction: column; 
+       justify-content: center;
+       align-items: center; 
+    }
+
+    .contenedorInfoPersona .columnaIzq{
+        display: flex;
+       flex-direction: column;
+       justify-content: center;
+       align-items: center;   
+    }
+
+    .contenedorInfoPersona .contenedorImagenPersona{
+        min-width: 150px;
+        max-width: 150px;
+        min-height: 190px;
+        max-height: 190px;
+    }
+
+    .contenedorInfoPersona .contenedorImagenPersona img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;          /* llena el contenedor sin deformarse */
+        object-position: top;       /* muestra siempre la parte superior */
+        box-shadow: 0px 0px 8px 1px rgba(217,212,212,0.53);
+        -webkit-box-shadow: 0px 0px 8px 1px rgba(217,212,212,0.53);
+        -moz-box-shadow: 0px 0px 8px 1px rgba(217,212,212,0.53);
+    }
+
+    .contenedorInfoPersona .DatosPersonales{
+        padding-left: 0px;
+        text-align: center;
+    }
+
+    .contenedorInfoPersona .columnaIzq  .nombrePersona{
+        display: block;
+        margin: 7px 0px;
+        font-size: 22px;
+    }
+
+    .contenedorInfoPersona .sitioOficial{
+        display: flex;
+        justify-content: center;
+    }
+
+    .contenedorInfoPersona .sitioOficial .negritas_sitio_oficial{
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .contenedorInfoPersona .columnaIzq .subtitulo{
+        display: none;  
+    }
+
+    .contenedorInfoPersona .negritas{
+        font-size: 16px;
+    }
+
+    .contenedorInfoPersona .columnaDer  h1{
+        display: none;
+    }
+
+    .contenedorInfoPersona .columnaDer .biografiaTitulo{
+        font-size: 20px;
+    }
+
+    .contenedorInfoPersona .columnaDer p{
+        font-size: 16px;
     }
 }
