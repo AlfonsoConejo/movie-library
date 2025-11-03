@@ -1,0 +1,17 @@
+.contenedorProximamente{
+    flex: 1; /* para que crezca entre header y footer */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 30px 0px 30px; /* altura del header */
+}
+.contenedorProximamente p{
+  text-align: center;
+}
+
+@media (max-width: 500px){
+    .contenedorProximamente h1{
+        font-size: 23px;
+    }
+}

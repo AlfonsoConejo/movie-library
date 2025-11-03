@@ -8,6 +8,7 @@ import BarraBusqueda from './components/BarraBusqueda/BarraBusqueda.jsx'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState, createContext } from 'react'
 import MenuDeslizable from './components/MenuDeslizable/MenuDeslizable.jsx'
+import Proximamente from './paginas/Proximamente.jsx'
 
 //Creamos un contexto para manipular el menpu deslizable
 export const MenuDeslizableContext = createContext();
@@ -60,6 +61,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/:media_type/:id" element={<Movie/>}/>
+        <Route path="/peliculas" element={<Proximamente/>}/>
+        <Route path="/series" element={<Proximamente/>}/>
+        <Route path="/personas" element={<Proximamente/>}/>
       </Routes>
       <Footer/>
       
