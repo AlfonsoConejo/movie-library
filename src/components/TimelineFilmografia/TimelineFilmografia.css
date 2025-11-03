@@ -46,7 +46,17 @@
     color: #2651a7;
 }
 
+@media (min-width: 461px) and (max-width: 720px) {
+    .tabla-departamento{
+        padding: 0px 15px 0px 15px;
+    }
+}
+
 @media (max-width: 460px) {
+    .tabla-departamento{
+        padding: 0px 15px 0px 15px;
+    }
+    
     .tabla-departamento h2{
         font-size: 20px;
     }

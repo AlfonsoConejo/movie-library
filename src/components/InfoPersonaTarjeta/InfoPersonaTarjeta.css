@@ -144,10 +144,6 @@
         padding-left: 15px;
         padding-right: 15px;
     }
-
-    .contenedorInfoPersona .columnaDer .tabla-departamento{
-        padding: 0px 15px 0px 15px;
-    }
 }
 
 @media (max-width: 460px) {
@@ -155,7 +151,9 @@
     .contenedorInfoPersona {
        flex-direction: column; 
        justify-content: center;
-       align-items: center; 
+       align-items: center;
+       padding-left: 0px;
+       padding-right: 0px;
     }
 
     .contenedorInfoPersona .columnaIzq{
@@ -217,9 +215,12 @@
 
     .contenedorInfoPersona .columnaDer .biografiaTitulo{
         font-size: 20px;
+        padding-left: 15px;
     }
-
+    
     .contenedorInfoPersona .columnaDer p{
+        padding-left: 15px;
+        padding-right: 15px;
         font-size: 16px;
     }
 }
