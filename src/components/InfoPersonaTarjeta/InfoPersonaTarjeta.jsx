@@ -2,7 +2,6 @@ import './InfoPersonaTarjeta.css';
 import ImageNotFound from '../../assets/img_not_found2.jpg';
 import CarruselFilmografia from '../CarruselFilmografia/CarruselFilmografia.jsx';
 import TimelineFilmografia from '../TimelineFilmografia/TimelineFilmografia.jsx';
-import SkeletonInfoPersonaTarjeta from '../SkeletonInfoPersonaTarjeta/SkeletonInfoPersonaTarjeta.jsx'
 import { convertirAFechaCompleta, traduccionesOcupacion } from '../../utils.js';
 
 const InfoPersonaTarjeta = ({informacion, informacionIngles, contenidoCargado}) => {

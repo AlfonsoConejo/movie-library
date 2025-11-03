@@ -2,7 +2,7 @@ import './CarruselFilmografia.css'
 import ItemSmall from '../ItemSmall/ItemSmall';
 import { useContext } from 'react';
 import {creditosCombinadosContexto} from '../../paginas/movie'
-import Item from '../Item/Item';
+
 const CarruselFilmografia = () => {
 
     const {creditosCombinados} = useContext(creditosCombinadosContexto);
