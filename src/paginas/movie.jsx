@@ -105,6 +105,7 @@ if(media_type === 'tv' || media_type === 'movie'){
                 <InfoPersonaTarjeta
                     informacion = {informacion}
                     informacionIngles = {informacionIngles}
+                    contenidoCargado = {contenidoCargado}
                 />
             </creditosCombinadosContexto.Provider>
         </div>

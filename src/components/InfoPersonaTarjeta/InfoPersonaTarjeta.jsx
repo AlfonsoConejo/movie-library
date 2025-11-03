@@ -1,14 +1,15 @@
 import './InfoPersonaTarjeta.css';
+import ImageNotFound from '../../assets/img_not_found2.jpg';
 import CarruselFilmografia from '../CarruselFilmografia/CarruselFilmografia.jsx';
 import TimelineFilmografia from '../TimelineFilmografia/TimelineFilmografia.jsx';
-import ImageNotFound from '../../assets/img_not_found2.jpg';
+import SkeletonInfoPersonaTarjeta from '../SkeletonInfoPersonaTarjeta/SkeletonInfoPersonaTarjeta.jsx'
 import { convertirAFechaCompleta, traduccionesOcupacion } from '../../utils.js';
 
-const InfoPersonaTarjeta = ({informacion, informacionIngles}) => {
+const InfoPersonaTarjeta = ({informacion, informacionIngles, contenidoCargado}) => {
     const biografia = informacion.biography || informacionIngles?.biography || null;
     const sexo = informacion?.gender === 2 ? 'Masculino' : 'Femenino';
 
-    if(informacion){
+    if(informacion && contenidoCargado){
         return(
             <div className="contenedorInfoPersona">
                 <div className="columnaIzq">
@@ -57,11 +58,17 @@ const InfoPersonaTarjeta = ({informacion, informacionIngles}) => {
                     {(informacion?.biography != ""|| informacionIngles.biography  != "") && <p>{biografia}</p>}
 
                     <CarruselFilmografia/>
+
                     <TimelineFilmografia/>
                 </div>
             </div>
         ); 
     } else{
+        return(
+            <div className='divCarga'>
+                <span className="loader"></span>
+            </div>
+        );
     }   
 }
 

@@ -1,3 +1,6 @@
 .contenido {
-    padding-top: 60px; 
+  flex: 1; /* para que crezca entre header y footer */
+  display: flex;
+  flex-direction: column;
+  padding-top: 60px; /* altura del header */
 }
