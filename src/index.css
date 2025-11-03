@@ -26,8 +26,8 @@ body{
 
 
 .loader {
-    width: 90px;
-    height: 90px;
+    width: 60px;
+    height: 60px;
     border: 7px solid var(--tmdbDarkBlue);
     border-bottom-color: transparent;
     border-radius: 50%;
