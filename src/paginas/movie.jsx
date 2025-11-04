@@ -28,55 +28,54 @@ export default function Movie(){
         if (!media_type || !id) return;
         setContenidoCargado(false);
         const obtenerDatos = async () => {
-        try {
+            try {
+                // 1️⃣ Información principal
+                const resInfo = await fetch(`/api/contenido?media_type=${media_type}&id=${id}`);
+                const data = await resInfo.json();
+                setInformacion(data);
 
-            // 1️⃣ Información principal
-            const resInfo = await fetch(`/api/contenido?media_type=${media_type}&id=${id}`);
-            const data = await resInfo.json();
-            setInformacion(data);
+                //Si nuestra consulta en inglés no tiene overview
+                if(!data.overview){
+                    const resInfoIngles = await fetch(`/api/contenidoIngles?media_type=${media_type}&id=${id}`);
+                    const infoIngles = await resInfoIngles.json();
+                    setInformacionIngles(infoIngles);
+                }
 
-            //Si nuestra consulta en inglés no tiene overview
-            if(!data.overview){
-                const resInfoIngles = await fetch(`/api/contenidoIngles?media_type=${media_type}&id=${id}`);
-                const infoIngles = await resInfoIngles.json();
-                setInformacionIngles(infoIngles);
+                if (media_type === 'movie') {
+                    // 2️⃣ Fechas de lanzamiento
+                    const resFechas = await fetch(`/api/movie/fechasLanzamiento?id=${data.id}`);
+                    const fechas = await resFechas.json();
+                    setFechasLanzamiento(fechas.results || []);    
+                } 
+
+                if (media_type === 'tv'){
+                    // 2️⃣ Clasificación de edad por país
+                    const resRatings = await fetch(`/api/tv/ratings?id=${data.id}`);
+                    const ratings = await resRatings.json();
+                    setTvRatings(ratings.results || []);
+                }
+
+                if (media_type === 'person'){
+                    // Créditos combinados
+                    const resCreditosComb = await fetch(`/api/person/creditosCombinados?id=${data.id}`);
+                    const dataCreditosComb = await resCreditosComb.json();
+                    setCreditosCombinados(dataCreditosComb || []);
+                }
+
+                if (media_type === 'movie' || media_type === 'tv'){
+                    // 3️⃣ Créditos
+                    const resCreditos = await fetch(`/api/contenido/creditos?media_type=${media_type}&id=${id}`);
+                    const trabajadores = await resCreditos.json();
+                    setCreditos(trabajadores);
+                }
+
+                setContenidoCargado(true);
+            } catch (err) {
+                console.error("Error general:", err);
             }
+        };
 
-            if (media_type === 'movie') {
-                // 2️⃣ Fechas de lanzamiento
-                const resFechas = await fetch(`/api/movie/fechasLanzamiento?id=${data.id}`);
-                const fechas = await resFechas.json();
-                setFechasLanzamiento(fechas.results || []);    
-            } 
-
-            if (media_type === 'tv'){
-                // 2️⃣ Clasificación de edad por país
-                const resRatings = await fetch(`/api/tv/ratings?id=${data.id}`);
-                const ratings = await resRatings.json();
-                setTvRatings(ratings.results || []);
-            }
-
-            if (media_type === 'person'){
-                // Créditos combinados
-                const resCreditosComb = await fetch(`/api/person/creditosCombinados?id=${data.id}`);
-                const dataCreditosComb = await resCreditosComb.json();
-                setCreditosCombinados(dataCreditosComb || []);
-            }
-
-            if (media_type === 'movie' || media_type === 'tv'){
-                // 3️⃣ Créditos
-                const resCreditos = await fetch(`/api/contenido/creditos?media_type=${media_type}&id=${id}`);
-                const trabajadores = await resCreditos.json();
-                setCreditos(trabajadores);
-            }
-
-        setContenidoCargado(true);
-        } catch (err) {
-        console.error("Error general:", err);
-        }
-    };
-
-    obtenerDatos();
+        obtenerDatos();
     }, [media_type, id]);
 
 if(media_type === 'tv' || media_type === 'movie'){

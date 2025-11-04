@@ -148,6 +148,19 @@ app.get("/api/person/creditosCombinados", (req, res) => {
   .catch(err => res.status(500).json({error: err.message}));
 });
 
+// Búsqueda combinada de información
+app.get("/api/buscar/buscarMulti", (req, res) => {
+  const busqueda = req.query.busqueda; // <-- corrección aquí
+  fetch(`https://api.themoviedb.org/3/search/multi?query=${busqueda}&include_adult=false&language=es-MX&page=1`, {
+    headers: {
+      Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
+    },
+  })
+    .then(response => response.json())
+    .then(data => res.json(data))
+    .catch(err => res.status(500).json({ error: err.message }));
+});
+
 // ------------------ SERVIR REACT EN PRODUCCIÓN ------------------ //
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
