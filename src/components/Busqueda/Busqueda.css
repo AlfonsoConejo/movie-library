@@ -21,8 +21,18 @@
   align-items: center;
 }
 
+.contenedorFlexBusqueda .cuadro-busqueda:focus-within {
+  outline: 2px solid #01b4e4; /* color azul tipo TMDB */
+  outline-offset: 2px;
+}
+
+.contenedorFlexBusqueda .cuadro-busqueda input:focus {
+  outline: none;
+}
 
 .contenedorFlexBusqueda .seach-icon-wrapper{
+  border: none;
+  background: none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,6 +41,7 @@
   width: 30px;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
+  cursor: pointer;
 }
 
 .contenedorFlexBusqueda .cuadro-busqueda > .material-symbols-outlined {

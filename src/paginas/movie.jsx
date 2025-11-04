@@ -23,11 +23,11 @@ export default function Movie(){
     const { media_type, id } = useParams();
 
     useEffect(() => {
-    window.scrollTo(0, 0);
-    // Validar que los parámetros existan
-    if (!media_type || !id) return;
-    setContenidoCargado(false);
-    const obtenerDatos = async () => {
+        window.scrollTo(0, 0);
+        // Validar que los parámetros existan
+        if (!media_type || !id) return;
+        setContenidoCargado(false);
+        const obtenerDatos = async () => {
         try {
 
             // 1️⃣ Información principal
