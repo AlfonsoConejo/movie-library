@@ -10,7 +10,7 @@ export default function Busqueda(){
 
     const navigateToSearch = () =>  {
         if (!searchWord.trim()) return; // evita búsqueda vacía
-        setSearchWord('');
+        //setSearchWord('');
         navigate(`/buscar?busqueda=${searchWord.trim()}`);
     };
 

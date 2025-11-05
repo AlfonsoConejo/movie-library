@@ -24,6 +24,13 @@ body{
   padding-bottom: env(safe-area-inset-bottom);
 }
 
+.divCarga {
+    flex: 1; /* llena el espacio disponible */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px; /* por si el contenedor no logra expandirse */
+}
 
 .loader {
     width: 60px;
