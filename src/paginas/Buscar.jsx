@@ -1,7 +1,7 @@
 import './Buscar.css';
 import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import PeliculaEncontrada from '../components/ResultadoBusqueda/PeliculaEncontrada/PeliculaEncontrada';
+import ContenidoEncontrado from '../components/ResultadoBusqueda/ContenidoEncontrado/ContenidoEncontrado';
 
 const Buscar = () => {
     const [searchParams] = useSearchParams();
@@ -155,37 +155,58 @@ const Buscar = () => {
 
                             
                     <div className="contenedorResultados">
-                        {filtroActivo === 'peliculas' &&
-                            resultadoBusquedaPeliculas?.results?.map((p) => (
-                                <PeliculaEncontrada 
-                                key = { p.id }
-                                id = {p.id}
-                                mediaType = 'movie'
-                                posterPath = {p.poster_path}
-                                titulo = { p.title }
-                                release_date = {p.release_date}
-                                resumen = {p.overview}
-                                />
+                        {filtroActivo === 'peliculas' && (
+                            resultadoBusquedaPeliculas?.results.length > 0 ? (
+                                resultadoBusquedaPeliculas?.results?.map((p) => (
+                                    <ContenidoEncontrado 
+                                    key = { p.id }
+                                    id = {p.id}
+                                    mediaType = 'movie'
+                                    imagePath = {p.poster_path}
+                                    titulo = { p.title }
+                                    release_date = {p.release_date}
+                                    resumen = {p.overview}
+                                    />
+                            ))
+                            ) : (
+                                <p>No hay resultados para esta búsqueda</p>
+                            )
+                        )}
 
-                            ))}
+                        {filtroActivo === 'series' && (
+                            resultadoBusquedaSeries?.results.length > 0 ? (
+                                resultadoBusquedaSeries?.results?.map((s) => (
+                                    <ContenidoEncontrado 
+                                    key = { s.id }
+                                    id = {s.id}
+                                    mediaType = 'tv'
+                                    imagePath = {s.poster_path}
+                                    titulo = { s.name }
+                                    release_date = {s.first_air_date}
+                                    resumen = {s.overview}
+                                    />
+                            ))
+                            ) : (
+                                <p>No hay resultados para esta búsqueda</p>
+                            )
+                        )}
 
-                        {filtroActivo === 'series' &&
-                            resultadoBusquedaSeries?.results?.map((s) => (
-                                <PeliculaEncontrada 
-                                key = { s.id }
-                                id = {s.id}
-                                mediaType = 'tv'
-                                posterPath = {s.poster_path}
-                                titulo = { s.name }
-                                release_date = {s.first_air_date}
-                                resumen = {s.overview}
-                                />
-                            ))}
-
-                        {filtroActivo === 'personas' &&
-                            resultadoBusquedaPersona?.results?.map((per) => (
-                                <div key={per.id}>{per.name}</div>
-                            ))}
+                        {filtroActivo === 'personas' && (
+                            resultadoBusquedaPersona?.results?.length > 0 ? (
+                                resultadoBusquedaPersona?.results?.map((per) => (
+                                    <ContenidoEncontrado 
+                                    key={per.id}
+                                    id={per.id}
+                                    mediaType="person"
+                                    imagePath={per.profile_path}
+                                    name={per.name}
+                                    departamento={per.known_for_department}
+                                    />
+                            ))
+                            ) : (
+                            <p>No hay resultados para esta búsqueda</p>
+                            )
+                        )}
                     </div>
 
                     {/* Ejemplo de paginación (simple) */}
