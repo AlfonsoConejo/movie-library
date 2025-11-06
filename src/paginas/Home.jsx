@@ -1,4 +1,4 @@
-import Carrusel from "../components/Carrusel/Carrusel";
+import Carrusel from "../components/Home/Carrusel/Carrusel";
 import { useState, useEffect } from "react";
 import useCarousel from "../customHooks/useCarousel";
 import './Home.css'

@@ -7,9 +7,10 @@ html, body, #root {
 }
 
 :root {
+  --azul-hover: #2651a7;
   --tmdbDarkBlue: rgb(3,37,65);
-   --soft-gray: #e0e0e0;
-   --light-blue: 1,180,228;
+  --soft-gray: #e0e0e0;
+  --light-blue: 1,180,228;
   --light-green: 30,213,169;
    box-sizing: border-box;
    color: white;

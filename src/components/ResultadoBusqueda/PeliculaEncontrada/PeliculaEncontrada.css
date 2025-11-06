@@ -1,0 +1,55 @@
+.peliculaEcontrada {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 5px rgb(162, 157, 157);
+    overflow: hidden;
+    display: flex;
+}
+
+.peliculaEcontrada .contenedorPoster{
+    min-width: 105px;
+    max-width: 105px;
+    min-height: 157.5px;
+    max-height: 157.5px;
+    cursor: pointer;
+}
+
+.peliculaEcontrada .contenedorPoster img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 🔹 ajusta la imagen para llenar el contenedor sin deformarse */
+    object-position: center;
+}
+
+.peliculaEcontrada .contenedorInformacion{
+    flex: 1;
+    padding: 10px 15px;
+}
+
+.peliculaEcontrada .contenedorInformacion{
+    flex: 1;
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.peliculaEcontrada .contenedorInformacion h3{
+    font-weight: 500;
+    margin-bottom: 10px;
+    margin: 0 0 20px 0;
+    cursor: pointer;   
+}
+
+.peliculaEcontrada .contenedorInformacion h3:hover{
+    color: var(--azul-hover);  
+}
+
+
+.peliculaEcontrada .contenedorInformacion .resumen{
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden; 
+    font-weight: 350;
+}

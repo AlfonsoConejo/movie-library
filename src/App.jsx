@@ -1,10 +1,10 @@
 import './App.css'
-import Header from './components/Header/Header.jsx'
+import Header from './components/Encabezado/Header/Header.jsx'
 import Home from './paginas/Home.jsx'
 import Movie from './paginas/movie.jsx'
 import Footer from './components/Footer/Footer.jsx'
 import Overlay from './components/Overlay/Overlay.jsx'
-import BarraBusqueda from './components/BarraBusqueda/BarraBusqueda.jsx'
+import BarraBusqueda from './components/Encabezado/BarraBusqueda/BarraBusqueda.jsx'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState, createContext } from 'react'
 import MenuDeslizable from './components/MenuDeslizable/MenuDeslizable.jsx'

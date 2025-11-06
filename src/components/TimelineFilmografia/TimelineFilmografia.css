@@ -43,7 +43,7 @@
 }
 
 .tabla-departamento .derecha-arriba span:hover{
-    color: #2651a7;
+    color: var(--azul-hover);
 }
 
 @media (min-width: 461px) and (max-width: 720px) {
