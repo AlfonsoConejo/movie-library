@@ -14,41 +14,43 @@ const Paginador = ({totalPaginas, paginaActual, setPagina}) => {
         paginas.push(i);
     }
 
-    return(
-        <div className="paginador">
-            <button disabled={paginaActual === 1} onClick={() => setPagina(1)}> 
-                <span class="material-symbols-outlined">
-                keyboard_double_arrow_left
-                </span>
-            </button>
-            <button disabled={paginaActual === 1} onClick={() => setPagina(paginaActual - 1)}>
-                <span class="material-symbols-outlined">
-                keyboard_arrow_left
-                </span>
-            </button>
-
-            {paginas.map((num) => (
-                <button
-                key={num}
-                onClick={() => setPagina(num)}
-                className={num === paginaActual ? "pagina-activa" : ""}
-                >
-                {num}
+    if(totalPaginas > 1) {
+        return(
+            <div className="paginador">
+                <button disabled={paginaActual === 1} onClick={() => setPagina(1)}> 
+                    <span className="material-symbols-outlined">
+                    keyboard_double_arrow_left
+                    </span>
                 </button>
-            ))}
+                <button disabled={paginaActual === 1} onClick={() => setPagina(paginaActual - 1)}>
+                    <span className="material-symbols-outlined">
+                    keyboard_arrow_left
+                    </span>
+                </button>
 
-            <button disabled={paginaActual === totalPaginas} onClick={() => setPagina(paginaActual + 1)}>
-                <span class="material-symbols-outlined">
-                keyboard_arrow_right
-                </span>
-            </button>
-            <button disabled={paginaActual === totalPaginas} onClick={() => setPagina(totalPaginas)}> 
-                <span class="material-symbols-outlined">
-                keyboard_double_arrow_right
-                </span>
-            </button>
-        </div>
-    );
+                {paginas.map((num) => (
+                    <button
+                    key={num}
+                    onClick={() => setPagina(num)}
+                    className={num === paginaActual ? "pagina-activa" : ""}
+                    >
+                    {num}
+                    </button>
+                ))}
+
+                <button disabled={paginaActual === totalPaginas} onClick={() => setPagina(paginaActual + 1)}>
+                    <span className="material-symbols-outlined">
+                    keyboard_arrow_right
+                    </span>
+                </button>
+                <button disabled={paginaActual === totalPaginas} onClick={() => setPagina(totalPaginas)}> 
+                    <span className="material-symbols-outlined">
+                    keyboard_double_arrow_right
+                    </span>
+                </button>
+            </div>
+        );
+    }
 }
 
 export default Paginador;
