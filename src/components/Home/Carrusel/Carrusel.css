@@ -34,15 +34,15 @@
     }
 
     .carruselContenedor .encabezadoCarrusel > h1{
-        margin-left: 10px;
+        margin-left: 15px;
     }
 
     .carruselContenedor .carrusel > *:first-child {
-        margin-left: 10px; /* padding inicial */
+        margin-left: 15px; /* padding inicial */
     }
 
     .carruselContenedor .carrusel > *:last-child {
-        margin-right: 10px; /* padding final */
+        margin-right: 15px; /* padding final */
     }
 }
 
@@ -50,10 +50,12 @@
     .carruselContenedor .encabezadoCarrusel{
         flex-direction: column;
         align-items: flex-start;
+        margin-left: 15px;
     }
 
     .carruselContenedor .encabezadoCarrusel > h1{
         font-size: 22px;
+        margin-left: 0px;
         margin-bottom: 10px;
     }
 }

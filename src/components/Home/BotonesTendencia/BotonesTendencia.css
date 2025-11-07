@@ -22,7 +22,7 @@
 
 @media (width <= 600px) {
     .contenedor-botones-tendencia{
-        padding-left: 10px;
+        padding-left: 0px;
         margin-bottom: 12px;
     }
 }
