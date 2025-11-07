@@ -1,0 +1,28 @@
+.paginador{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 3px;
+}
+
+.paginador button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 200;
+}
+
+.paginador .pagina-activa{
+    background-color: #247cda;
+    color: white;
+    border-radius: 5px;
+}
+
+.paginador button .material-symbols-outlined{
+    font-size: 25px;
+    font-weight: 100;
+}
