@@ -11,12 +11,27 @@ const Buscar = () => {
 
     // Estados principales
     const [contenidoCargado, setContenidoCargado] = useState(false);
-    const [paginaCargada, setPaginaCargada] = useState(false);
+    //const [paginaCargada, setPaginaCargada] = useState(false);
+    const [ultimoFetchRealizado, setUltimoFetchRealizado] = useState([
+        { mediaType: 'movie', page: '' },
+        { mediaType: 'tv', page: '' },
+        { mediaType: 'person', page: '' }
+    ]);
     const [resultadoBusquedaPeliculas, setResultadoBusquedaPeliculas] = useState([]);
     const [resultadoBusquedaSeries, setResultadoBusquedaSeries] = useState([]);
     const [resultadoBusquedaPersona, setResultadoBusquedaPersona] = useState([]);
     const [pagina, setPagina] = useState(1);
     const [filtroActivo, setFiltroActivo] = useState(null);
+
+    const actualizarPaginaFetch = (media_type, nuevaPagina) => {
+    setUltimoFetchRealizado(prev =>
+        prev.map(item =>
+        item.mediaType === media_type
+            ? { ...item, page: nuevaPagina }
+            : item
+        )
+    );
+    };
 
     // UseEffect para obtener los totales y primera página de resultados
     useEffect(() => {
@@ -53,6 +68,9 @@ const Buscar = () => {
             } catch (err) {
                 console.error('Error general:', err);
             } finally {
+                actualizarPaginaFetch('movie',1);
+                actualizarPaginaFetch('tv',1);
+                actualizarPaginaFetch('person',1);
                 setContenidoCargado(true);
             }
         };
@@ -70,25 +88,8 @@ const Buscar = () => {
                 ? 'tv'
                 : 'person';
 
-        // ✅ Detectar si ya tenemos datos cargados para la página actual
-        const resultadosPrevios =
-            filtroActivo === 'peliculas'
-                ? resultadoBusquedaPeliculas
-                : filtroActivo === 'series'
-                ? resultadoBusquedaSeries
-                : resultadoBusquedaPersona;
-
-        const yaTenemosEstaPagina =
-            resultadosPrevios?.page === pagina && resultadosPrevios?.results?.length > 0;
-
-        // 👉 Si ya tenemos la página actual cargada, no recargues
-        if (yaTenemosEstaPagina) {
-            setPaginaCargada(true);
-            return;
-        }
-
         const consultarPagina = async () => {
-            setPaginaCargada(false);
+            //setPaginaCargada(false);
             try {
                 const url = `/api/buscar?busqueda=${encodeURIComponent(busqueda)}&media_type=${tipo}&pagina=${pagina}`;
                 const res = await fetch(url);
@@ -100,7 +101,8 @@ const Buscar = () => {
             } catch (err) {
                 console.error('Error general:', err);
             } finally {
-                setPaginaCargada(true);
+                actualizarPaginaFetch(tipo,pagina);
+                //setPaginaCargada(true);
             }
         };
 
@@ -169,10 +171,10 @@ const Buscar = () => {
                 {/* Columna derecha (resultados dinámicos) */}
                 <div className="columnaResultados">
                     {filtroActivo === 'peliculas' && (
-                        paginaCargada ? (
+                        ultimoFetchRealizado.find(item => item.mediaType === 'movie')?.page === pagina ? (
                             resultadoBusquedaPeliculas?.results.length > 0 ? (
                                 <div className="contenedorResultados">
-                                {resultadoBusquedaPeliculas.results.map((p) => (
+                                {resultadoBusquedaPeliculas?.results?.map((p) => (
                                     <ContenidoEncontrado
                                         key={p.id}
                                         id={p.id}
@@ -199,8 +201,8 @@ const Buscar = () => {
                     )}
 
                     {filtroActivo === 'series' && (
-                        paginaCargada ? (
-                            resultadoBusquedaSeries?.results.length > 0 ? (
+                        ultimoFetchRealizado.find(item => item.mediaType === 'tv')?.page === pagina ? (
+                            resultadoBusquedaSeries?.results?.length > 0 ? (
                                 <div className="contenedorResultados">
                                 {
                                 resultadoBusquedaSeries?.results?.map((s) => (
@@ -231,8 +233,7 @@ const Buscar = () => {
                     )}
 
                     {filtroActivo === 'personas' && (
-                        paginaCargada ? (
-                            console.log('Hola'),
+                        ultimoFetchRealizado.find(item => item.mediaType === 'person')?.page === pagina ? (
                             resultadoBusquedaPersona?.results?.length > 0 ? (
                                 <div className="contenedorResultados">
                                 {resultadoBusquedaPersona?.results?.map((per) => (
