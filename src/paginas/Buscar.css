@@ -122,7 +122,8 @@
     scrollbar-width: none; /* Oculta el scroll en Firefox */
     -ms-overflow-style: none; /* Oculta el scroll en Edge */
     gap: 10px;
-    padding: 10px 15px;
+    padding: 10px 0px;
+    scroll-padding-left: 15px;
   }
 
   .contenedorBuscar .wrapperConsulta .columnaFiltro ul::-webkit-scrollbar {
@@ -137,6 +138,14 @@
     padding: 10px 16px;
     white-space: nowrap;
     gap: 10px;
+  }
+
+    .contenedorBuscar .wrapperConsulta .columnaFiltro li:first-child{
+      margin-left: 15px;
+  }
+
+  .contenedorBuscar .wrapperConsulta .columnaFiltro li:last-child{
+      margin-right: 15px;
   }
 
   .contenedorBuscar .wrapperConsulta .columnaFiltro li.activo {

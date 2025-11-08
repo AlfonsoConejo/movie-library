@@ -2,7 +2,8 @@ import './Buscar.css';
 import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import ContenidoEncontrado from '../components/ResultadoBusqueda/ContenidoEncontrado/ContenidoEncontrado';
-import Paginador from '../components/Paginador/Paginador';
+import Paginador from '../components/ResultadoBusqueda/Paginador/Paginador';
+import SkeletonContenidoEncontrado from '../components/ResultadoBusqueda/SkeletonContenidoEncontrado/SkeletonContenidoEncontrado';
 
 const Buscar = () => {
     const [searchParams] = useSearchParams();
@@ -10,6 +11,7 @@ const Buscar = () => {
 
     // Estados principales
     const [contenidoCargado, setContenidoCargado] = useState(false);
+    const [paginaCargada, setPaginaCargada] = useState(false);
     const [resultadoBusquedaPeliculas, setResultadoBusquedaPeliculas] = useState([]);
     const [resultadoBusquedaSeries, setResultadoBusquedaSeries] = useState([]);
     const [resultadoBusquedaPersona, setResultadoBusquedaPersona] = useState([]);
@@ -58,34 +60,47 @@ const Buscar = () => {
         consultarBusquedaInicial();
     }, [busqueda]);
 
-    // 🧩 2️⃣ useEffect — carga de página/filtro activo
     useEffect(() => {
         if (!busqueda || !filtroActivo) return;
 
+        const tipo =
+            filtroActivo === 'peliculas'
+                ? 'movie'
+                : filtroActivo === 'series'
+                ? 'tv'
+                : 'person';
+
+        // ✅ Detectar si ya tenemos datos cargados para la página actual
+        const resultadosPrevios =
+            filtroActivo === 'peliculas'
+                ? resultadoBusquedaPeliculas
+                : filtroActivo === 'series'
+                ? resultadoBusquedaSeries
+                : resultadoBusquedaPersona;
+
+        const yaTenemosEstaPagina =
+            resultadosPrevios?.page === pagina && resultadosPrevios?.results?.length > 0;
+
+        // 👉 Si ya tenemos la página actual cargada, no recargues
+        if (yaTenemosEstaPagina) {
+            setPaginaCargada(true);
+            return;
+        }
+
         const consultarPagina = async () => {
-            //setContenidoCargado(false);
-
+            setPaginaCargada(false);
             try {
-                const tipo =
-                    filtroActivo === 'peliculas'
-                        ? 'movie'
-                        : filtroActivo === 'series'
-                        ? 'tv'
-                        : 'person';
-
-                console.log(`Este es el valor actual de page: ${pagina}`);
                 const url = `/api/buscar?busqueda=${encodeURIComponent(busqueda)}&media_type=${tipo}&pagina=${pagina}`;
                 const res = await fetch(url);
                 const data = await res.json();
 
-                console.log(data);
                 if (filtroActivo === 'peliculas') setResultadoBusquedaPeliculas(data);
                 if (filtroActivo === 'series') setResultadoBusquedaSeries(data);
                 if (filtroActivo === 'personas') setResultadoBusquedaPersona(data);
             } catch (err) {
                 console.error('Error general:', err);
             } finally {
-                //setContenidoCargado(true);
+                setPaginaCargada(true);
             }
         };
 
@@ -154,75 +169,94 @@ const Buscar = () => {
                 {/* Columna derecha (resultados dinámicos) */}
                 <div className="columnaResultados">
                     {filtroActivo === 'peliculas' && (
-                        resultadoBusquedaPeliculas?.results.length > 0 ? (
-                            <div className="contenedorResultados">
-                            {resultadoBusquedaPeliculas.results.map((p) => (
-                                <ContenidoEncontrado
-                                    key={p.id}
-                                    id={p.id}
-                                    mediaType="movie"
-                                    imagePath={p.poster_path}
-                                    titulo={p.title}
-                                    release_date={p.release_date}
-                                    resumen={p.overview}
-                                />
-                            ))}
-                            <Paginador 
-                                totalPaginas= {totalPaginas}
-                                paginaActual = {pagina}
-                                setPagina = {setPagina}/>
-                            </div>
+                        paginaCargada ? (
+                            resultadoBusquedaPeliculas?.results.length > 0 ? (
+                                <div className="contenedorResultados">
+                                {resultadoBusquedaPeliculas.results.map((p) => (
+                                    <ContenidoEncontrado
+                                        key={p.id}
+                                        id={p.id}
+                                        mediaType="movie"
+                                        imagePath={p.poster_path}
+                                        titulo={p.title}
+                                        release_date={p.release_date}
+                                        resumen={p.overview}
+                                    />
+                                ))}
+                                <Paginador 
+                                    totalPaginas= {totalPaginas}
+                                    paginaActual = {pagina}
+                                    setPagina = {setPagina}/>
+                                </div>
+                            ) : (
+                                <p>No hay resultados para esta búsqueda.</p>
+                            )
                         ) : (
-                            <p>No hay resultados para esta búsqueda.</p>
+                            <div className="contenedorResultados">
+                                {Array(10).fill().map((_, i) => <SkeletonContenidoEncontrado key={i} mediaType={'movie'}/>)}
+                            </div>
                         )
                     )}
 
                     {filtroActivo === 'series' && (
-                        resultadoBusquedaSeries?.results.length > 0 ? (
-                            <div className="contenedorResultados">
-                            {
-                            resultadoBusquedaSeries?.results?.map((s) => (
-                                <ContenidoEncontrado 
-                                key = { s.id }
-                                id = {s.id}
-                                mediaType = 'tv'
-                                imagePath = {s.poster_path}
-                                titulo = { s.name }
-                                release_date = {s.first_air_date}
-                                resumen = {s.overview}
-                                />
-                                    
-                            ))}
-                            <Paginador 
-                                totalPaginas= {totalPaginas}
-                                paginaActual = {pagina}
-                                setPagina = {setPagina}/> 
-                            </div>
+                        paginaCargada ? (
+                            resultadoBusquedaSeries?.results.length > 0 ? (
+                                <div className="contenedorResultados">
+                                {
+                                resultadoBusquedaSeries?.results?.map((s) => (
+                                    <ContenidoEncontrado 
+                                    key = { s.id }
+                                    id = {s.id}
+                                    mediaType = 'tv'
+                                    imagePath = {s.poster_path}
+                                    titulo = { s.name }
+                                    release_date = {s.first_air_date}
+                                    resumen = {s.overview}
+                                    />  
+                                ))}
+                                <Paginador 
+                                    totalPaginas= {totalPaginas}
+                                    paginaActual = {pagina}
+                                    setPagina = {setPagina}/> 
+                                </div>
+                            ) : (
+                                <p>No hay resultados para esta búsqueda.</p>
+                            )
                         ) : (
-                            <p>No hay resultados para esta búsqueda.</p>
+                            <div className="contenedorResultados">
+                                {Array(10).fill().map((_, i) => <SkeletonContenidoEncontrado key={i} mediaType={'tv'}/>)}
+                            </div> 
                         )
+                        
                     )}
 
                     {filtroActivo === 'personas' && (
-                        resultadoBusquedaPersona?.results?.length > 0 ? (
-                            <div className="contenedorResultados">
-                            {resultadoBusquedaPersona?.results?.map((per) => (
-                                <ContenidoEncontrado 
-                                key={per.id}
-                                id={per.id}
-                                mediaType="person"
-                                imagePath={per.profile_path}
-                                name={per.name}
-                                departamento={per.known_for_department}
-                                />   
-                            ))}
-                            <Paginador 
-                                totalPaginas= {totalPaginas}
-                                paginaActual = {pagina}
-                                setPagina = {setPagina}/>
-                            </div>
+                        paginaCargada ? (
+                            console.log('Hola'),
+                            resultadoBusquedaPersona?.results?.length > 0 ? (
+                                <div className="contenedorResultados">
+                                {resultadoBusquedaPersona?.results?.map((per) => (
+                                    <ContenidoEncontrado 
+                                        key={per.id}
+                                        id={per.id}
+                                        mediaType="person"
+                                        imagePath={per.profile_path}
+                                        name={per.name}
+                                        departamento={per.known_for_department}
+                                    />   
+                                ))}
+                                <Paginador 
+                                    totalPaginas= {totalPaginas}
+                                    paginaActual = {pagina}
+                                    setPagina = {setPagina}/>
+                                </div>
+                            ) : (
+                            <p>No hay resultados para esta búsqueda.</p>
+                            )
                         ) : (
-                        <p>No hay resultados para esta búsqueda.</p>
+                            <div className="contenedorResultados">
+                                {Array(10).fill().map((_, i) => <SkeletonContenidoEncontrado key={i} mediaType={'person'}/>)}
+                            </div> 
                         )
                     )}
                 </div>

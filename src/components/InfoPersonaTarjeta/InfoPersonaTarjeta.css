@@ -158,9 +158,10 @@
 
     .contenedorInfoPersona .columnaIzq{
         display: flex;
-       flex-direction: column;
-       justify-content: center;
-       align-items: center;   
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;  
+        width: 100%;
     }
 
     .contenedorInfoPersona .contenedorImagenPersona{
@@ -207,6 +208,10 @@
 
     .contenedorInfoPersona .negritas{
         font-size: 16px;
+    }
+
+    .contenedorInfoPersona .columnaDer {
+        width: 100%;
     }
 
     .contenedorInfoPersona .columnaDer  h1{

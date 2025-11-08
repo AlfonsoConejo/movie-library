@@ -75,7 +75,5 @@ export default function Home(){
                 setBotonPresionado = {setBotonPresionadoPersona}
             />
         </div>
- 
-
     );
 }

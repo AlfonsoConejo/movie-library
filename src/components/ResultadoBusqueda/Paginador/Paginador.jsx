@@ -17,12 +17,12 @@ const Paginador = ({totalPaginas, paginaActual, setPagina}) => {
     if(totalPaginas > 1) {
         return(
             <div className="paginador">
-                <button disabled={paginaActual === 1} onClick={() => setPagina(1)}> 
+                <button disabled={paginaActual === 1} onClick={() => {setPagina(1); window.scrollTo(0, 0);}}> 
                     <span className="material-symbols-outlined">
                     keyboard_double_arrow_left
                     </span>
                 </button>
-                <button disabled={paginaActual === 1} onClick={() => setPagina(paginaActual - 1)}>
+                <button disabled={paginaActual === 1} onClick={() => {setPagina(paginaActual - 1); window.scrollTo(0, 0);}}>
                     <span className="material-symbols-outlined">
                     keyboard_arrow_left
                     </span>
@@ -31,19 +31,19 @@ const Paginador = ({totalPaginas, paginaActual, setPagina}) => {
                 {paginas.map((num) => (
                     <button
                     key={num}
-                    onClick={() => setPagina(num)}
+                    onClick={() => {setPagina(num); window.scrollTo(0, 0);}}
                     className={num === paginaActual ? "pagina-activa" : ""}
                     >
                     {num}
                     </button>
                 ))}
 
-                <button disabled={paginaActual === totalPaginas} onClick={() => setPagina(paginaActual + 1)}>
+                <button disabled={paginaActual === totalPaginas} onClick={() => {setPagina(paginaActual + 1); window.scrollTo(0, 0);}}>
                     <span className="material-symbols-outlined">
                     keyboard_arrow_right
                     </span>
                 </button>
-                <button disabled={paginaActual === totalPaginas} onClick={() => setPagina(totalPaginas)}> 
+                <button disabled={paginaActual === totalPaginas} onClick={() => {setPagina(totalPaginas); window.scrollTo(0, 0);}}> 
                     <span className="material-symbols-outlined">
                     keyboard_double_arrow_right
                     </span>

@@ -3,12 +3,12 @@ import ImageNotFound from '../../../assets/img_not_found2.jpg';
 import { sliceYear, traduccionesOcupacion } from '../../../utils';
 import { useNavigate } from 'react-router-dom';
 
-const ContenidoEncontrado = ({id, mediaType, imagePath, titulo, release_date, resumen, name, departmento}) => {
+const ContenidoEncontrado = ({id, mediaType, imagePath, titulo, release_date, resumen, name, departamento}) => {
     const navigate = useNavigate();
 
     let deptoTraducido;
-    if(departmento){
-        deptoTraducido = traduccionesOcupacion[departmento] || departmento;
+    if(departamento){
+        deptoTraducido = traduccionesOcupacion[departamento] || departamento;
     }
 
     if (mediaType === 'movie' || mediaType === 'tv'){
