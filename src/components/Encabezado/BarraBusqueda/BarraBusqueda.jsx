@@ -7,6 +7,8 @@ const BarraBusqueda = ({isSearchBarOpen, toogleMostarBarraBusqueda, searchWord, 
     const navigateToSearch = () =>  {
         if (!searchWord.trim()) return; // evita búsqueda vacía
         //setSearchWord('');
+        //Quita el foco del input
+        searchInputRef.current.blur();
         toogleMostarBarraBusqueda();
         navigate(`/buscar?busqueda=${searchWord.trim()}`);
     };
