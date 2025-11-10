@@ -79,6 +79,7 @@ const handleSearchFocus = () => {
         <Route path="/series" element={<Proximamente/>}/>
         <Route path="/personas" element={<Proximamente/>}/>
         <Route path="/buscar" element={<Buscar/>}/>
+        <Route path="/perfil" element={<Proximamente/>}/>
       </Routes>
       <Footer/>
       

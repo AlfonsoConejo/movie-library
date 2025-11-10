@@ -9,6 +9,7 @@
 .contenedorFlexAccount .material-symbols-outlined{
     font-size: 40px;
     cursor: pointer;
+    color: white;
 }
 
 @media (max-width: 914px) {

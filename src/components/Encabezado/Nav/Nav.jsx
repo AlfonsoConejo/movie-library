@@ -9,7 +9,7 @@ export default function Nav() {
                 <ul>
                     <li><Link to="/peliculas">Películas</Link></li>
                     <li><Link to="/series">Series</Link></li>
-                    <li><Link to="/personas">Personas</Link></li>
+                    <li hidden><Link to="/personas">Personas</Link></li>
                 </ul>
             </nav>
         </div>
