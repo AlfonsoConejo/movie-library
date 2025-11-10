@@ -4,9 +4,15 @@ import {MenuDeslizableContext} from '../../../App'
 
 const BusquedaMovil = () =>{
     const {toogleMostarBarraBusqueda} = useContext(MenuDeslizableContext);
+    const {handleSearchFocus} = useContext(MenuDeslizableContext);
+
+    const activarBarraBusqueda = () =>{
+        toogleMostarBarraBusqueda();
+        handleSearchFocus();
+    }
 
     return(
-        <div className="botonBuscarMovil" onClick={toogleMostarBarraBusqueda}>
+        <div className="botonBuscarMovil" onClick={activarBarraBusqueda}>
             <span className="material-symbols-outlined">
             search
             </span>

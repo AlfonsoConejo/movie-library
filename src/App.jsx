@@ -6,7 +6,7 @@ import Footer from './components/Footer/Footer.jsx'
 import Overlay from './components/Overlay/Overlay.jsx'
 import BarraBusqueda from './components/Encabezado/BarraBusqueda/BarraBusqueda.jsx'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useState, createContext } from 'react'
+import { useState, createContext, useRef } from 'react'
 import MenuDeslizable from './components/MenuDeslizable/MenuDeslizable.jsx'
 import Proximamente from './paginas/Proximamente.jsx'
 import Buscar from './paginas/Buscar.jsx'
@@ -19,6 +19,14 @@ function App() {
   const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [searchWord, setSearchWord] = useState('');
+
+  //Referencia para el input de búsqueda
+  const searchInputRef = useRef(null); 
+
+const handleSearchFocus = () => {
+    searchInputRef.current?.focus();
+    console.log('Esto se ejecutó');
+};
 
   const toogleMostarOcultarMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -49,7 +57,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <MenuDeslizableContext.Provider value={{isMenuOpen, isOverlayVisible, toogleMostarOcultarMenu, isSearchBarOpen, toogleMostarBarraBusqueda, searchWord, setSearchWord}}>
+      <MenuDeslizableContext.Provider value={{isMenuOpen, isOverlayVisible, toogleMostarOcultarMenu, isSearchBarOpen, toogleMostarBarraBusqueda, searchWord, setSearchWord, searchInputRef, handleSearchFocus}}>
         <Header/>
         <MenuDeslizable/>
         <Overlay 
@@ -62,6 +70,7 @@ function App() {
         toogleMostarBarraBusqueda = {toogleMostarBarraBusqueda}
         searchWord = {searchWord}
         setSearchWord = {setSearchWord}
+        searchInputRef = {searchInputRef}
       />
       <Routes>
         <Route path="/" element={<Home/>}/>
