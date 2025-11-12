@@ -10,7 +10,7 @@ import { useState, createContext, useRef } from 'react'
 import MenuDeslizable from './components/MenuDeslizable/MenuDeslizable.jsx'
 import Proximamente from './paginas/Proximamente.jsx'
 import Buscar from './paginas/Buscar.jsx'
-import Login from './paginas/login.jsx'
+
 
 //Creamos un contexto para manipular el menpu deslizable
 export const MenuDeslizableContext = createContext();
