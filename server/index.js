@@ -2,12 +2,12 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
+import { connectToDatabase, getDb } from "./db.js";
 import dotenv from "dotenv";
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
@@ -163,6 +163,30 @@ app.get("/api/buscar", (req, res) => {
     .catch(err => res.status(500).json({ error: err.message }));
 });
 
+// ------------------ RUTA DE PRUEBA PARA MONGO ------------------ //
+app.post("/api/favoritos", async (req, res) => {
+  try {
+    const db = getDb(); // obtiene la DB ya conectada
+
+    // puedes enviar el body desde Postman o usar datos fijos de prueba
+    const { movieId, title } = req.body || {};
+
+    const result = await db.collection("favoritos").insertOne({
+      movieId: movieId || 123,
+      title: title || "Película de prueba",
+      createdAt: new Date(),
+    });
+
+    res.status(201).json({
+      success: true,
+      insertedId: result.insertedId,
+    });
+  } catch (err) {
+    console.error("❌ Error al guardar favorito:", err);
+    res.status(500).json({ error: "Error al guardar el favorito" });
+  }
+});
+
 // ------------------ SERVIR REACT EN PRODUCCIÓN ------------------ //
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -181,6 +205,16 @@ app.use((req, res, next) => {
 });
 
 // ------------------ INICIAR SERVIDOR ------------------ //
-app.listen(PORT, () => {
-  console.log(`✅ Servidor escuchando en http://localhost:${PORT}`);
-});
+const PORT = process.env.PORT || 5000;
+
+// Conectar a MongoDB y luego iniciar el servidor
+connectToDatabase()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`✅ Servidor escuchando en http://localhost:${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("❌ Error conectando a MongoDB:", err);
+    process.exit(1);
+  });

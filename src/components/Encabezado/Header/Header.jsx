@@ -7,7 +7,6 @@ import MenuHamburguesa from '../../MenuHamburguesa/MenuHamburguesa';
 import BusquedaMovil from './../BusquedaMovil/BusquedaMovil';
 
 export default function Header() {
-
     return (
         <header>
             <Logo/>

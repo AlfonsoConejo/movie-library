@@ -1,14 +1,22 @@
 import './AccountIcon.css'
-import { Link } from 'react-router-dom';
+import TooltipAccount from '../TooltipAccount/TooltipAccount';
+import { useState } from 'react';
+
 
 export default function AccountIcon(){
+
+    const [tooltipVisible, setTooltipVisible] = useState(false);
+
     return(
         <div className="contenedorFlexAccount">
-            <Link to="/perfil">
+            <button className="accountButton" onClick={() => {setTooltipVisible(!tooltipVisible)}}>
                 <span className="material-symbols-outlined">
                     account_circle
                 </span>
-            </Link>
+            </button>
+            <TooltipAccount
+                tooltipVisible = {tooltipVisible}
+                setTooltipVisible = {setTooltipVisible}/>
         </div>
     );
 }

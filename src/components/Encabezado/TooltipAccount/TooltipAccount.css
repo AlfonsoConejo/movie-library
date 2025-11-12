@@ -1,0 +1,60 @@
+.tooltipContainer {
+    width: 150px;
+    position: absolute;
+    top: 120%;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 0.2s ease;
+    pointer-events: none;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+}
+
+.tooltipContainer.visible {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+/* Aquí viene el piquito del tooltip */
+.tooltipContainer::before {
+  content: "";
+  position: absolute;
+  top: -6px; /* lo coloca justo arriba del tooltip */
+  right: 18px; /* ajusta según la posición del ícono */
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-left: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  transform: rotate(45deg);
+  box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.tooltipContainer .login-button{
+    font-size: 16px;
+    cursor: pointer;
+    background: #e1e0e0;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 0px;
+    margin-bottom: 5px;
+
+}
+
+.tooltipContainer p{
+    font-size: 15px;
+    text-align: center;
+    color: black;
+}
+
+.tooltipContainer p .new-account-button{
+    cursor: pointer;
+}

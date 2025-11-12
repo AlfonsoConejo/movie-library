@@ -4,12 +4,19 @@
     align-items: center;
     color: white;
     order: 4;
+    position: relative;
+}
+
+.contenedorFlexAccount .accountButton{
+    background: none;
+    border: none;
 }
 
 .contenedorFlexAccount .material-symbols-outlined{
     font-size: 40px;
     cursor: pointer;
     color: white;
+    background: none;
 }
 
 @media (max-width: 914px) {
