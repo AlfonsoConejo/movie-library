@@ -5,16 +5,22 @@ import Movie from './paginas/movie.jsx'
 import Footer from './components/Footer/Footer.jsx'
 import Overlay from './components/Overlay/Overlay.jsx'
 import BarraBusqueda from './components/Encabezado/BarraBusqueda/BarraBusqueda.jsx'
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useState, createContext, useRef } from 'react'
 import MenuDeslizable from './components/MenuDeslizable/MenuDeslizable.jsx'
 import Proximamente from './paginas/Proximamente.jsx'
 import Buscar from './paginas/Buscar.jsx'
+import Login from './paginas/login.jsx'
 
 //Creamos un contexto para manipular el menpu deslizable
 export const MenuDeslizableContext = createContext();
 
 function App() {
+
+  //Manejamos la visibilidad del header y el footer
+  const location = useLocation();
+  const hideLayout = location.pathname === "/login" || location.pathname === "/registro";
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
@@ -56,14 +62,16 @@ const handleSearchFocus = () => {
   // }, [botonPresionado]);
 
   return (
-    <BrowserRouter>
+    <>
       <MenuDeslizableContext.Provider value={{isMenuOpen, isOverlayVisible, toogleMostarOcultarMenu, isSearchBarOpen, toogleMostarBarraBusqueda, searchWord, setSearchWord, searchInputRef, handleSearchFocus}}>
-        <Header/>
-        <MenuDeslizable/>
-        <Overlay 
-          isSearchBarOpen = {isSearchBarOpen}
-          toogleMostarBarraBusqueda = {toogleMostarBarraBusqueda}
-        />
+        {!hideLayout && <Header />}
+        {!hideLayout && <MenuDeslizable />}
+        {!hideLayout && (
+          <Overlay
+            isSearchBarOpen={isSearchBarOpen}
+            toogleMostarBarraBusqueda={toogleMostarBarraBusqueda}
+          />
+        )}
       </MenuDeslizableContext.Provider>
       <BarraBusqueda 
         isSearchBarOpen = {isSearchBarOpen}
@@ -79,11 +87,11 @@ const handleSearchFocus = () => {
         <Route path="/series" element={<Proximamente/>}/>
         <Route path="/personas" element={<Proximamente/>}/>
         <Route path="/buscar" element={<Buscar/>}/>
-        <Route path="/perfil" element={<Proximamente/>}/>
+        <Route path="/login" element={<Login/>}/>
       </Routes>
-      <Footer/>
       
-    </BrowserRouter>
+      {!hideLayout && <Footer />}
+    </> 
   )
 }
 
