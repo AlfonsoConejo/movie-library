@@ -7,7 +7,8 @@ const uri = process.env.DATABASE;
 if (!uri) throw new Error("Falta la variable de entorno DATABASE en .env");
 
 const client = new MongoClient(uri, {
-  serverApi: { version: '1', strict: true, deprecationErrors: true },
+  tls: true,
+  maxPoolSize: 10,
 });
 
 let db = null;
