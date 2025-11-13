@@ -12,6 +12,7 @@ html, body, #root {
   --soft-gray: #e0e0e0;
   --light-blue: 1,180,228;
   --light-green: 30,213,169;
+  --yellow-button: #F5C518;
    box-sizing: border-box;
    color: white;
 }

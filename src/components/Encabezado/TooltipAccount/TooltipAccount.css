@@ -41,7 +41,7 @@
 .tooltipContainer .login-button{
     font-size: 16px;
     cursor: pointer;
-    background: #F5C518;;
+    background: var(--yellow-button);
     border: none;
     border-radius: 8px;
     padding: 6px 0px;
