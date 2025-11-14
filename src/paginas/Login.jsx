@@ -35,7 +35,7 @@ const Login = () => {
 
   /*Event listener de BLUR para el email*/
   const handleMailBlur = (e) => {
-    const value = e.target.value;
+    const value = e.target.value.trim();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setErrors(prev => ({
       ...prev,
@@ -43,6 +43,23 @@ const Login = () => {
     }));
   };
 
+  /*Event listener de FOCUS para la contraseña*/
+  const handlePasswordFocus = (e) => {
+    setErrors(prev => ({
+      ...prev,
+      password: false // true = error
+    }));
+  };
+
+  /*Event listener de BLUR para la contraseña*/
+  const handlePasswordBlur = (e) => {
+    const valueLength = e.target.value.length;
+    const isPasswordWrong = !(valueLength >= 8); 
+    setErrors(prev => ({
+      ...prev,
+      password: isPasswordWrong // true = error
+    }));
+  };
 
   /*Controlar el envío de datos a Mongo*/
   const handleSubmit = (e) => {
@@ -72,9 +89,9 @@ const Login = () => {
                 )}
               </div>
               <div className="contenedorCampo">
-                <div className="passwordGroup">
+                <div className={`passwordGroup ${errors.password ? "inputError" : ""}`}>
                   <div className="inputGroup">
-                    <input type={showPassword ? 'text' : 'password'} id="password" name="password" minLength="4" maxLength="50" size="10" autoComplete="off" placeholder=" " value={formData.password} onChange={handleChange} required/>
+                    <input type={showPassword ? 'text' : 'password'} id="password" name="password" minLength="8"  size="10" autoComplete="off" placeholder=" " value={formData.password} onChange={handleChange} onFocus={handlePasswordFocus} onBlur={handlePasswordBlur} required/>
                     <label htmlFor="password">Contraseña</label>
                   </div>
                   <div className="visibilityToggleContainer" tabIndex="0">
@@ -90,12 +107,14 @@ const Login = () => {
                     )}
                   </div>
                 </div>
-                <p className='invalidPassword'>
-                  <span className="material-symbols-outlined">
-                  close
-                  </span>
-                  Ingrese una contreseña
-                </p>
+                {errors.password && (
+                  <p className='invalidPassword'>
+                    <span className="material-symbols-outlined">
+                    close
+                    </span>
+                    Ingrese una contreseña
+                  </p>
+                )}
               </div>
               <input type="submit" name='submit' value= "Iniciar sesión"/>
               <Link to="/forgot-password" className='recuperarPassword'>Olvidé mi constraseña.</Link>
