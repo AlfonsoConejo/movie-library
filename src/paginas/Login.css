@@ -1,31 +1,63 @@
-.loginContainer{
-    width: 100%;
+.loginPage{
+    min-width: 100%;
     min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.loginPage .banner {
+    width: 100%;
+    height: 60px;
+    background: var(--tmdbDarkBlue);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.loginContainer .contenedorFormulario{
+.loginPage .banner .wrapperLogo {
+    width: 110px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    cursor: default;
+}
+
+.loginPage .banner img {
+    width: 100%;
+    cursor: default;
+}
+
+.loginPage .loginContainer{
+    width: 100%;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;  /* NO estira verticalmente */
+}
+
+.loginPage .contenedorFormulario{
     width: 450px;
     background: white;
     padding:  48px;
     border-radius: 10px;
+    margin-top: 48px;
 }
 
-.loginContainer .contenedorFormulario h1{
+.loginPage .contenedorFormulario h1{
     margin: 0 0 20px;
     font-size: 36px;
     color: #0d0d68;
 }
 
-.loginContainer .contenedorFormulario form{
+.loginPage .contenedorFormulario form{
     width: 100%;
     display: flex;
     flex-direction: column;
 }
 
-.loginContainer .contenedorCampo{
+.loginPage .contenedorCampo{
     display: flex;
     flex-direction: column;
     margin-bottom: 25px;
@@ -40,11 +72,11 @@
     border-radius: 10px;
 }
 
-.inputError {
+.loginPage .inputError {
   border: 3px solid #e63946 !important;
 }
 
-.loginContainer .inputGroup input[type="email"] {
+.loginPage .inputGroup input[type="email"] {
     width: 100%;
     height: 56px;
     border-radius: 10px;
@@ -55,7 +87,7 @@
     background: transparent;
 }
 
-.loginContainer .contenedorFormulario .passwordGroup{
+.loginPage .contenedorFormulario .passwordGroup{
     display: flex;
     width: 100%;
     height: 56px;
@@ -65,18 +97,18 @@
     background: transparent;
 }
 
-.loginContainer .contenedorFormulario .passwordGroup:focus-within{
+.loginPage .contenedorFormulario .passwordGroup:focus-within{
     outline: 3px solid var(--yellow-button);
     border-radius: 10px;
 }
 
-.loginContainer .contenedorFormulario .passwordGroup .inputGroup {
+.loginPage .contenedorFormulario .passwordGroup .inputGroup {
     position: relative;
     flex: 1;
     height: 100%;
 }
 
-.loginContainer .inputGroup input[type="password"] {
+.loginPage .inputGroup input[type="password"] {
     width: 100%;
     height: 100%;
     border-radius: 10px;
@@ -87,7 +119,7 @@
     background: transparent;
 }
 
-.loginContainer .inputGroup input[type="text"] {
+.loginPage .inputGroup input[type="text"] {
     width: 100%;
     height: 100%;
     border-radius: 10px;
@@ -98,7 +130,7 @@
     background: transparent;
 }
 
-.loginContainer .passwordGroup .visibilityToggleContainer{
+.loginPage .passwordGroup .visibilityToggleContainer{
     width: 42px;
     height: 100%;
     display: none;
@@ -108,17 +140,17 @@
     user-select: none;
 }
 
-.loginContainer .passwordGroup:focus-within .visibilityToggleContainer {
+.loginPage .passwordGroup:focus-within .visibilityToggleContainer {
     display: flex;
 }
 
-.loginContainer .passwordGroup .visibilityToggleContainer .material-symbols-outlined{
+.loginPage .passwordGroup .visibilityToggleContainer .material-symbols-outlined{
     cursor: pointer;
     font-size: 25px;
     color: #818080;
 }
 
-.loginContainer .inputGroup label {
+.loginPage .inputGroup label {
     position: absolute;
     left: 15px;
     top: 18px;
@@ -130,8 +162,8 @@
 }
 
 /* Cuando el input está enfocado o tiene contenido */
-.loginContainer .inputGroup input:focus + label,
-.loginContainer .inputGroup input:not(:placeholder-shown) + label {
+.loginPage .inputGroup input:focus + label,
+.loginPage .inputGroup input:not(:placeholder-shown) + label {
     top: 7px;
     left: 10px;
     font-size: 12px;
@@ -139,7 +171,7 @@
 }
 
 /* Submit */
-.loginContainer .contenedorFormulario input[type="submit"] {
+.loginPage .contenedorFormulario input[type="submit"] {
     background-color: var(--yellow-button);
     border: none;
     height: 40px;
@@ -151,21 +183,21 @@
     transition: 0.2s;
 }
 
-.loginContainer .contenedorFormulario input[type="submit"]:hover {
+.loginPage .contenedorFormulario input[type="submit"]:hover {
     filter: brightness(0.95);
 }
 
-.loginContainer .contenedorFormulario .recuperarPassword {
+.loginPage .contenedorFormulario .recuperarPassword {
     margin-bottom: 8px;
     color: var(--azul-hover);
 }
 
-.loginContainer .contenedorFormulario .crearCuenta {
+.loginPage .contenedorFormulario .crearCuenta {
     color: var(--azul-hover);
 }
 
-.invalidPassword, .invalidEmail {
-    display: flex;
+.loginPage .invalidPassword, .loginPage .invalidEmail {
+    display: flex; 
     align-items: center;
     color: #e61c1c;
     margin-top: 5px;

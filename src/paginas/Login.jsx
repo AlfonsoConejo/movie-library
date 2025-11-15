@@ -2,6 +2,7 @@ import './Login.css'
 import loginImage from '../assets/movie-theater.jpg'
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import imageLogo from '../assets/movie-database-logo-md.png';
 
 const Login = () => {
     
@@ -68,6 +69,12 @@ const Login = () => {
   };
 
     return(
+      <div className="loginPage">
+        <div className='banner'>
+          <div className="wrapperLogo">
+            <img src={imageLogo} alt="Logo"/>
+          </div>
+        </div>
         <div className="loginContainer" style={{
           background: `linear-gradient(rgba(0, 0, 50, 0.5), rgba(0, 0, 50, 0.5)), url('${loginImage}') center/cover no-repeat`,
         }}> 
@@ -84,7 +91,7 @@ const Login = () => {
                     <span className="material-symbols-outlined">
                     close
                     </span>
-                    Ingrese un correo válido
+                    Ingrese un correo válido.
                   </p>
                 )}
               </div>
@@ -112,7 +119,7 @@ const Login = () => {
                     <span className="material-symbols-outlined">
                     close
                     </span>
-                    Ingrese una contreseña
+                    Ingrese una contreseña de al menos 8 caracteres.
                   </p>
                 )}
               </div>
@@ -122,6 +129,7 @@ const Login = () => {
             </form>
           </div>
         </div>
+      </div>
     );
 }
 
