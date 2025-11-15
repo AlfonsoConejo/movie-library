@@ -104,7 +104,7 @@ const Login = () => {
                   <div className="visibilityToggleContainer" tabIndex="0">
                     {showPassword ? 
                     (
-                      <span class="material-symbols-outlined" onClick={() => setShowPassword(!showPassword)}>
+                      <span className="material-symbols-outlined" onClick={() => setShowPassword(!showPassword)}>
                       visibility_off
                       </span>
                     ) : (
@@ -125,7 +125,7 @@ const Login = () => {
               </div>
               <input type="submit" name='submit' value= "Iniciar sesión"/>
               <Link to="/forgot-password" className='recuperarPassword'>Olvidé mi constraseña.</Link>
-              <span>¿Aún no tienes una cuenta? <Link to="/registrarse" className='crearCuenta'>Regístrate aquí.</Link></span>
+              <span>¿Aún no tienes una cuenta? <Link to="/registro" className='crearCuenta'>Regístrate aquí.</Link></span>
             </form>
           </div>
         </div>

@@ -11,6 +11,7 @@ import MenuDeslizable from './components/MenuDeslizable/MenuDeslizable.jsx'
 import Proximamente from './paginas/Proximamente.jsx'
 import Buscar from './paginas/Buscar.jsx'
 import Login from './paginas/Login.jsx'
+import Registro from './paginas/Registro.jsx'
 
 //Creamos un contexto para manipular el menpu deslizable
 export const MenuDeslizableContext = createContext();
@@ -88,6 +89,7 @@ const handleSearchFocus = () => {
         <Route path="/personas" element={<Proximamente/>}/>
         <Route path="/buscar" element={<Buscar/>}/>
         <Route path="/login" element={<Login/>}/>
+        <Route path="/registro" element={<Registro/>}/>
       </Routes>
       
       {!hideLayout && <Footer />}

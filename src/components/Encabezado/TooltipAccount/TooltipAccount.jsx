@@ -6,7 +6,7 @@ const TooltipAccount = ({tooltipVisible, setTooltipVisible}) => {
     return(
         <div className={`tooltipContainer ${tooltipVisible ? 'visible' : ''}`}>
             <button className="login-button" onClick={() => {navigate('/login'); setTooltipVisible(false)}}>Iniciar sesión</button>
-            <p>o&nbsp;<Link to="/perfil" className="new-account-button">crear cuenta</Link> </p>
+            <p>o&nbsp;<Link to="/registro" className="new-account-button" onClick={() => setTooltipVisible(false)}>crear cuenta</Link> </p>
         </div>
     );
 };
