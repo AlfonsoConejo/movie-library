@@ -72,8 +72,14 @@
     border-radius: 10px;
 }
 
-.loginPage .inputError {
-  border: 3px solid #e63946 !important;
+/* Rojo cuando hay error y NO hay focus */
+.loginPage .contenedorFormulario .passwordGroup.inputError {
+  border: 3px solid #e63946;
+}
+
+/* Si hay error PERO también focus → gana el amarillo */
+.loginPage .contenedorFormulario .passwordGroup.inputError:focus-within {
+  border: 3px solid var(--yellow-button);
 }
 
 .loginPage .inputGroup input[type="email"] {
@@ -87,19 +93,22 @@
     background: transparent;
 }
 
-.loginPage .contenedorFormulario .passwordGroup{
-    display: flex;
-    width: 100%;
-    height: 56px;
-    border-radius: 10px;
-    border: 1px solid #b7b6b6;
-    outline: none;
-    background: transparent;
+.loginPage .inputGroup input.inputError {
+  border: 3px solid #e63946;
 }
 
-.loginPage .contenedorFormulario .passwordGroup:focus-within{
-    outline: 3px solid var(--yellow-button);
-    border-radius: 10px;
+.loginPage .contenedorFormulario .passwordGroup {
+  display: flex;
+  width: 100%;
+  height: 56px;
+  border-radius: 10px;
+  border: 1px solid #b7b6b6;
+  background: transparent;
+  transition: border 0.15s ease;
+}
+
+.loginPage .contenedorFormulario .passwordGroup:focus-within {
+  border: 3px solid var(--yellow-button);
 }
 
 .loginPage .contenedorFormulario .passwordGroup .inputGroup {
