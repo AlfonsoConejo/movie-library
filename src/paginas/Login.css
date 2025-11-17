@@ -168,6 +168,12 @@
     transition: 0.2s;
 }
 
+.loginPage .contenedorFormulario input[type="submit"].deshabilitado {
+    background-color: #cccccc;
+    color: #777;
+    cursor: not-allowed;
+}
+
 .loginPage .contenedorFormulario input[type="submit"]:hover {
     filter: brightness(0.95);
 }
