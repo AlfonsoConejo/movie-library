@@ -5,30 +5,6 @@
     flex-direction: column;
 }
 
-.loginPage .banner {
-    width: 100%;
-    height: 60px;
-    background: var(--tmdbDarkBlue);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.loginPage .banner .wrapperLogo {
-    width: 110px;
-    flex-shrink: 0;
-    flex-grow: 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    cursor: default;
-}
-
-.loginPage .banner img {
-    width: 100%;
-    cursor: default;
-}
-
 .loginPage .loginContainer{
     width: 100%;
     flex: 1;
@@ -211,4 +187,3 @@
     color: #e61c1c;
     margin-top: 5px;
 }
-

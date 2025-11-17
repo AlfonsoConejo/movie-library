@@ -2,7 +2,7 @@ import './Login.css'
 import loginImage from '../assets/movie-theater.jpg'
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import imageLogo from '../assets/movie-database-logo-md.png';
+import HeaderSimple from '../components/HeaderSimple/HeaderSimple';
 
 const Login = () => {
     
@@ -69,11 +69,7 @@ const Login = () => {
 
   return(
     <div className="loginPage">
-      <div className='banner'>
-        <div className="wrapperLogo">
-          <img src={imageLogo} alt="Logo"/>
-        </div>
-      </div>
+      <HeaderSimple/>
       <div
         className="loginContainer"
         style={{
