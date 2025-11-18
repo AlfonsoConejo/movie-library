@@ -32,3 +32,188 @@
     display: flex;
     flex-direction: column;
 }
+
+.registerPage .contenedorCampo{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+}
+
+.registerPage .contenedorFormulario .inputGroup{
+    position: relative;
+}
+
+.registerPage form  .contenedorCampo> .inputGroup:first-of-type:focus-within {
+    outline: 3px solid var(--yellow-button);
+    border-radius: 10px;
+}
+
+/* Rojo cuando hay error y NO hay focus */
+.registerPage .contenedorFormulario .passwordGroup.inputError {
+  border: 3px solid #e63946;
+}
+
+/* Si hay error PERO también focus → gana el amarillo */
+.registerPage .contenedorFormulario .passwordGroup.inputError:focus-within {
+  border: 3px solid var(--yellow-button);
+}
+
+.registerPage .inputGroup input[type="email"] {
+    width: 100%;
+    height: 56px;
+    border-radius: 10px;
+    border: 1px solid #b7b6b6;
+    padding: 20px 15px 4px 15px;
+    font-size: 16px;
+    outline: none;
+    background: transparent;
+}
+
+.registerPage .inputGroup input.inputError {
+  border: 3px solid #e63946;
+}
+
+.registerPage .contenedorFormulario .passwordGroup {
+  display: flex;
+  width: 100%;
+  height: 56px;
+  border-radius: 10px;
+  border: 1px solid #b7b6b6;
+  background: transparent;
+  transition: border 0.15s ease;
+}
+
+.registerPage .contenedorFormulario .passwordGroup:focus-within {
+  border: 3px solid var(--yellow-button);
+}
+
+.registerPage .contenedorFormulario .passwordGroup .inputGroup {
+    position: relative;
+    flex: 1;
+    height: 100%;
+}
+
+.registerPage .inputGroup input[type="password"] {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    border: none;
+    padding: 20px 15px 4px 15px;
+    font-size: 16px;
+    outline: none;
+    background: transparent;
+}
+
+.registerPage .inputGroup input[type="text"] {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    border: none;
+    padding: 20px 15px 4px 15px;
+    font-size: 16px;
+    outline: none;
+    background: transparent;
+}
+
+.registerPage .passwordGroup .visibilityToggleContainer{
+    width: 42px;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding-right: 15px;
+    user-select: none;
+}
+
+.registerPage .passwordGroup:focus-within .visibilityToggleContainer {
+    display: flex;
+}
+
+.registerPage .passwordGroup .visibilityToggleContainer .material-symbols-outlined{
+    cursor: pointer;
+    font-size: 25px;
+    color: #818080;
+}
+
+.registerPage .inputGroup label {
+    position: absolute;
+    left: 15px;
+    top: 18px;
+    color: #777;
+    background: white;
+    padding: 0 5px;
+    transition: 0.2s ease all;
+    pointer-events: none;
+}
+
+/* Cuando el input está enfocado o tiene contenido */
+.registerPage .inputGroup input:focus + label,
+.registerPage .inputGroup input:not(:placeholder-shown) + label {
+    top: 7px;
+    left: 10px;
+    font-size: 12px;
+    /*color: #0d0d68;*/
+}
+
+/* Submit */
+.registerPage .contenedorFormulario input[type="submit"] {
+    background-color: var(--yellow-button);
+    border: none;
+    height: 40px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    font-size: 17px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.registerPage .contenedorFormulario input[type="submit"].deshabilitado {
+    background-color: #cccccc;
+    color: #777;
+    cursor: not-allowed;
+}
+
+.registerPage .contenedorFormulario input[type="submit"]:hover {
+    filter: brightness(0.95);
+}
+
+.registerPage .contenedorFormulario .recuperarPassword {
+    margin-bottom: 8px;
+    color: var(--azul-hover);
+}
+
+.registerPage .contenedorFormulario .crearCuenta {
+    color: var(--azul-hover);
+}
+
+.registerPage .invalidEmail {
+    display: flex; 
+    align-items: center;
+    color: #e61c1c;
+    margin-top: 5px;
+    font-size: 15px;
+}
+
+.registerPage .invalidPassword {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 5px;
+    font-size: 15px;
+}
+
+.registerPage .invalidPassword ul{
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+.registerPage .invalidPassword ul li.rule_ok{
+    color: #1ba72b;
+}
+
+.registerPage .invalidPassword ul li.rule_error{
+    color: #e61c1c;
+}
+
