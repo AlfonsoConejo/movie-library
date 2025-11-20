@@ -164,16 +164,17 @@ app.get("/api/buscar", (req, res) => {
 });
 
 // ------------------ RUTA DE PRUEBA PARA MONGO ------------------ //
-app.post("/api/favoritos", async (req, res) => {
+app.post("/api/registrar", async (req, res) => {
   try {
     const db = getDb(); // obtiene la DB ya conectada
 
     // puedes enviar el body desde Postman o usar datos fijos de prueba
-    const { movieId, title } = req.body || {};
+    const { email, password } = req.body || {};
 
-    const result = await db.collection("favoritos").insertOne({
-      movieId: movieId || 123,
-      title: title || "Película de prueba",
+    const result = await db.collection("users").insertOne({
+      user: email,
+      password: password,
+      verified: false,
       createdAt: new Date(),
     });
 

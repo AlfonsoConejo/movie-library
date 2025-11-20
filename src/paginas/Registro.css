@@ -156,7 +156,7 @@
 }
 
 /* Submit */
-.registerPage .contenedorFormulario input[type="submit"] {
+.registerPage .contenedorFormulario .btn-submit {
     background-color: var(--yellow-button);
     border: none;
     height: 40px;
@@ -166,13 +166,23 @@
     font-weight: 500;
     cursor: pointer;
     transition: 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.registerPage .contenedorFormulario input[type="submit"].deshabilitado {
+.registerPage .contenedorFormulario .btn-submit.deshabilitado {
     background-color: #cccccc;
     color: #777;
     cursor: not-allowed;
 }
+
+.registerPage .contenedorFormulario .btn-submit.deshabilitado .contenedorPuntos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 .registerPage .contenedorFormulario input[type="submit"]:hover {
     filter: brightness(0.95);

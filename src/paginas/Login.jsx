@@ -73,7 +73,6 @@ const Login = () => {
           ...prev,
           password: true // La contraseña es válida
         }));
-        console.log('la contraseña tiene 8 caracteres o más');
       } else {
         setvalid(prev => ({
           ...prev,
@@ -87,10 +86,8 @@ const Login = () => {
   useEffect(() => {
     if (valid.email && valid.password) {
       setIsFormValid(true);
-      console.log('El formulario es válido');
     } else {
       setIsFormValid(false);
-      console.log('El formulario no es válido');
     }
   }, [valid]);
 
@@ -120,7 +117,6 @@ const Login = () => {
   /*Controlar el envío de datos a Mongo*/
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
   };
 
   return(

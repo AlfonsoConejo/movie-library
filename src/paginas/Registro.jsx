@@ -3,6 +3,7 @@ import HeaderSimple from '../components/HeaderSimple/HeaderSimple';
 import registerImage from '../assets/clapperboard.jpg'
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import SuccessAnimation from '../components/SuccesAnimation/SuccesAnimation';
 
 const Registro = () => {
 
@@ -118,10 +119,8 @@ const Registro = () => {
     useEffect(() => {
         if (isEmailValid && isPasswordValid.hasMinLength && isPasswordValid.hasUppercase && isPasswordValid.hasNumber) {
           setIsFormValid(true);
-          console.log('El formulario es válido');
         } else {
           setIsFormValid(false);
-          console.log('El formulario no es válido');
         }
     }, [isEmailValid, isPasswordValid]);
 
@@ -148,11 +147,40 @@ const Registro = () => {
         }));
     };
 
-    const handleSubmit = () => {
+    //Estados del formulario
+    const [enviado, setEnviado] = useState(false);
+    const [error, setError] = useState(false);
+    const [enviando, setEnviando] = useState(false);
 
+    async function handleSubmit(e) {
+        e.preventDefault();
+
+        setEnviado(false);
+        setError(false);
+        setEnviando(true);
+
+        try {
+            const res = await fetch('/api/registrar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+
+            if (!res.ok) {
+                const data = await res.json().catch(() => ({}));
+                throw new Error(data.message || 'Error al registrarse');
+            }
+
+            setEnviado(true);
+        } catch {
+            setError(true);
+        } finally{
+            setEnviando(false);
+        }
     };
 
     return(
+        
         <div className="registerPage">
             <HeaderSimple/>
             <div
@@ -162,136 +190,157 @@ const Registro = () => {
                 }}
             >
                 <div className="contenedorFormulario">
-                    <h1>Crea una cuenta</h1>
-                    <form onSubmit={handleSubmit}>
-                        {/* EMAIL */}
-                        <div className="contenedorCampo">
-                            <div className="inputGroup">
-                                <input
-                                className={errors.email ? "inputError" : ""}
-                                type="email"
-                                id="email"
-                                name="email"
-                                minLength="4"
-                                maxLength="70"
-                                size="10"
-                                autoComplete="off"
-                                placeholder=" "
-                                value={formData.email}
-                                onChange={handleChange}
-                                onFocus={handleMailFocus}
-                                onBlur={handleMailBlur}
-                                required
-                                />
-                                <label htmlFor="email">Correo electrónico</label>
-                            </div>
-                            {touched.email && errors.email && (
-                                <p className='invalidEmail'>
-                                <span className="material-symbols-outlined">
-                                    close
-                                </span>
-                                Ingrese un correo válido.
-                                </p>
-                            )}
-                        </div>
-
-                        {/* PASSWORD */}
-                        <div className="contenedorCampo">
-                            <div
-                                className={`passwordGroup ${errors.password ? "inputError" : ""}`}
-                                onFocus={() => {
-                                setIsPasswordGroupFocused(true);
-                                setErrors(prev => ({
-                                    ...prev,
-                                    password: false, // ocultar error mientras corrige (opcional)
-                                }));
-                                }}
-                                onBlur={(e) => {
-                                    // Si el foco sigue en algún hijo (input u ojito),
-                                    // no disparamos validación todavía.
-                                    if (e.currentTarget.contains(e.relatedTarget)) {
-                                        return;
-                                    }
-                                    
-                                    const value = e.target.value;
-
-                                    //Verificamos que la contraseña cumpla con todos los requisitos
-                                    const hasMinLength = cumpleLongitud(value);
-                                    const hasUppercase = upperCaseRegex.test(value);
-                                    const hasNumber = numeroRegex.test(value);
-                                    
-                                    const isPasswordValid = hasMinLength && hasUppercase && hasNumber;
-                                    const isPasswordWrong = !isPasswordValid;
-
-                                    setTouched(prev => ({
-                                        ...prev,
-                                        password: true,
-                                    }));
-
-                                    setErrors(prev => ({
-                                        ...prev,
-                                        password: isPasswordWrong,
-                                    }));
-
-                                    setIsPasswordGroupFocused(false);
-                                }}
-                            >
-                            <div className="inputGroup">
-                                <input
-                                    type={showPassword ? 'text' : 'password'}
-                                    id="password"
-                                    name="password"
-                                    minLength="8"
+                    {!enviado ? (
+                        <form onSubmit={handleSubmit}>
+                            <h1>Crea una cuenta</h1>
+                            {/* EMAIL */}
+                            <div className="contenedorCampo">
+                                <div className="inputGroup">
+                                    <input
+                                    className={errors.email ? "inputError" : ""}
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    minLength="4"
+                                    maxLength="70"
                                     size="10"
                                     autoComplete="off"
                                     placeholder=" "
-                                    value={formData.password}
+                                    value={formData.email}
                                     onChange={handleChange}
+                                    onFocus={handleMailFocus}
+                                    onBlur={handleMailBlur}
                                     required
-                                />
-                                <label htmlFor="password">Contraseña</label>
-                            </div>
-
-                            <div className="visibilityToggleContainer" tabIndex="0">
-                                {showPassword ? (
-                                    <span
-                                    className="material-symbols-outlined"
-                                    onClick={() => setShowPassword(false)}
-                                    >
-                                    visibility_off
+                                    />
+                                    <label htmlFor="email">Correo electrónico</label>
+                                </div>
+                                {touched.email && errors.email && (
+                                    <p className='invalidEmail'>
+                                    <span className="material-symbols-outlined">
+                                        close
                                     </span>
-                                ) : (
-                                    <span
-                                    className="material-symbols-outlined"
-                                    onClick={() => setShowPassword(true)}
-                                    >
-                                    visibility
-                                    </span>
+                                    Ingrese un correo válido.
+                                    </p>
                                 )}
-                                </div>
                             </div>
 
-                            {touched.password && errors.password && !isPasswordGroupFocused && (
-                                <div className='invalidPassword'>
-                                La contraseña de contener al menos:
-                                    <ul>
-                                        <li className={isPasswordValid.hasMinLength ? 'rule_ok' : ''}>8 caracteres.</li>
-                                        <li className={isPasswordValid.hasUppercase ? 'rule_ok' : ''}>1 letra mayúscula.</li>
-                                        <li className={isPasswordValid.hasNumber ? 'rule_ok' : ''}>1 número.</li>
-                                    </ul>
-                                </div>
-                            )}
-                        </div>
+                            {/* PASSWORD */}
+                            <div className="contenedorCampo">
+                                <div
+                                    className={`passwordGroup ${errors.password ? "inputError" : ""}`}
+                                    onFocus={() => {
+                                    setIsPasswordGroupFocused(true);
+                                    setErrors(prev => ({
+                                        ...prev,
+                                        password: false, // ocultar error mientras corrige (opcional)
+                                    }));
+                                    }}
+                                    onBlur={(e) => {
+                                        // Si el foco sigue en algún hijo (input u ojito),
+                                        // no disparamos validación todavía.
+                                        if (e.currentTarget.contains(e.relatedTarget)) {
+                                            return;
+                                        }
+                                        
+                                        const value = e.target.value;
 
-                        <input className={isFormValid ? '' : 'deshabilitado' }type="submit" name='submit' value="Iniciar sesión"/>
-                        <span>
-                        ¿Ya tienes una cuenta?{" "}
-                            <Link to="/login" className='crearCuenta'>
-                                Inicia sesión.
-                            </Link>
-                        </span>
-                    </form>
+                                        //Verificamos que la contraseña cumpla con todos los requisitos
+                                        const hasMinLength = cumpleLongitud(value);
+                                        const hasUppercase = upperCaseRegex.test(value);
+                                        const hasNumber = numeroRegex.test(value);
+                                        
+                                        const isPasswordValid = hasMinLength && hasUppercase && hasNumber;
+                                        const isPasswordWrong = !isPasswordValid;
+
+                                        setTouched(prev => ({
+                                            ...prev,
+                                            password: true,
+                                        }));
+
+                                        setErrors(prev => ({
+                                            ...prev,
+                                            password: isPasswordWrong,
+                                        }));
+
+                                        setIsPasswordGroupFocused(false);
+                                    }}
+                                >
+                                <div className="inputGroup">
+                                    <input
+                                        type={showPassword ? 'text' : 'password'}
+                                        id="password"
+                                        name="password"
+                                        minLength="8"
+                                        size="10"
+                                        autoComplete="off"
+                                        placeholder=" "
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                    <label htmlFor="password">Contraseña</label>
+                                </div>
+
+                                <div className="visibilityToggleContainer" tabIndex="0">
+                                    {showPassword ? (
+                                        <span
+                                        className="material-symbols-outlined"
+                                        onClick={() => setShowPassword(false)}
+                                        >
+                                        visibility_off
+                                        </span>
+                                    ) : (
+                                        <span
+                                        className="material-symbols-outlined"
+                                        onClick={() => setShowPassword(true)}
+                                        >
+                                        visibility
+                                        </span>
+                                    )}
+                                    </div>
+                                </div>
+
+                                {touched.password && errors.password && !isPasswordGroupFocused && (
+                                    <div className='invalidPassword'>
+                                    La contraseña de contener al menos:
+                                        <ul>
+                                            <li className={isPasswordValid.hasMinLength ? 'rule_ok' : ''}>8 caracteres.</li>
+                                            <li className={isPasswordValid.hasUppercase ? 'rule_ok' : ''}>1 letra mayúscula.</li>
+                                            <li className={isPasswordValid.hasNumber ? 'rule_ok' : ''}>1 número.</li>
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
+
+                            <button
+                            type="submit"
+                            name="submit"
+                            className={`
+                                btn-submit
+                                ${!isFormValid ? 'deshabilitado' : ''}
+                            `}
+                            >
+                            {enviando ? (
+                                <div className="contenedorPuntos">
+                                    <div className="loadingDots" />
+                                </div>
+                            ) : (
+                                'Crear cuenta'
+                            )}
+                            </button>
+                            <span>
+                            ¿Ya tienes una cuenta?{" "}
+                                <Link to="/login" className='crearCuenta'>
+                                    Inicia sesión.
+                                </Link>
+                            </span>
+                        </form>
+                    ) : (
+                    <SuccessAnimation/>
+                    )
+                    }
                 </div>
+                
             </div> 
         </div>
     );
