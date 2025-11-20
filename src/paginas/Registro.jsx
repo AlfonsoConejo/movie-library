@@ -3,7 +3,7 @@ import HeaderSimple from '../components/HeaderSimple/HeaderSimple';
 import registerImage from '../assets/clapperboard.jpg'
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import SuccessAnimation from '../components/SuccesAnimation/SuccesAnimation';
+import SuccessAnimation from '../components/RegistroExitoso/RegistroExitoso';
 
 const Registro = () => {
 
@@ -152,6 +152,7 @@ const Registro = () => {
     const [error, setError] = useState(false);
     const [enviando, setEnviando] = useState(false);
 
+    //Controlamos el envío de información a mongo
     async function handleSubmit(e) {
         e.preventDefault();
 
@@ -189,7 +190,7 @@ const Registro = () => {
                     background: `linear-gradient(rgba(43, 50, 0, 0.5), rgba(43, 50, 0, 0.5)), url('${registerImage}') center/cover no-repeat`,
                 }}
             >
-                <div className="contenedorFormulario">
+                <div className={`contenedorFormulario ${enviado ? 'success' : ''}`}>
                     {!enviado ? (
                         <form onSubmit={handleSubmit}>
                             <h1>Crea una cuenta</h1>
@@ -339,8 +340,7 @@ const Registro = () => {
                     <SuccessAnimation/>
                     )
                     }
-                </div>
-                
+                </div> 
             </div> 
         </div>
     );

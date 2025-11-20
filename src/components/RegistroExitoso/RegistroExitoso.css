@@ -1,0 +1,21 @@
+.registroExitoso {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.registroExitoso .animationContainer {
+    width: 150px;
+    height: 150px;
+    margin: auto;
+}
+
+.registroExitoso h2 {
+    text-align: center;
+    margin: 4px 0;
+}
+
+.registroExitoso p {
+    text-align: center;
+}
