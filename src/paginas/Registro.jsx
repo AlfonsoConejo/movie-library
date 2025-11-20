@@ -157,7 +157,7 @@ const Registro = () => {
         e.preventDefault();
 
         setEnviado(false);
-        setError(false);
+        setError(null);
         setEnviando(true);
 
         try {
@@ -167,14 +167,25 @@ const Registro = () => {
                 body: JSON.stringify(formData),
             });
 
+            const data = await res.json().catch(() => ({}));
+            console.log(`Este es el estatus: ${data}`);
             if (!res.ok) {
-                const data = await res.json().catch(() => ({}));
-                throw new Error(data.message || 'Error al registrarse');
+                if (res.status === 400){
+                    setError(data.error || 'Faltan campos obligatorios');
+                } else if (res.status === 404){
+                    setError(data.error || 'Ruta no encontrada');
+                } else if (res.status === 500){
+                    setError(data.error || 'Error interno del servidor');
+                } else {
+                    setError(data.error || 'Error al registrarse');
+                }
+                return;
             }
 
             setEnviado(true);
-        } catch {
-            setError(true);
+        } catch (err){
+            console.error(err);
+            setError('No se pudo conectar con el servidor');
         } finally{
             setEnviando(false);
         }
@@ -194,6 +205,12 @@ const Registro = () => {
                     {!enviado ? (
                         <form onSubmit={handleSubmit}>
                             <h1>Crea una cuenta</h1>
+                            {error && (
+                                <div className='backendAlert'>
+                                    <span>{error}</span>
+                                </div>
+                            )
+                            }
                             {/* EMAIL */}
                             <div className="contenedorCampo">
                                 <div className="inputGroup">

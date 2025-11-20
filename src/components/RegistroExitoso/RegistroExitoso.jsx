@@ -7,7 +7,8 @@ export default function RegistroExitoso() {
     <div className='registroExitoso'>
       <div className='animationContainer'>
         <DotLottieReact
-          src='../../../public/Success.json'
+        //Los archivos de la carpeta Public son servidos desde la raíz
+          src='../../../Success.json'
           loopCount='1'
           autoplay
         />

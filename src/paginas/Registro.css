@@ -33,6 +33,18 @@
     flex-direction: column;
 }
 
+.registerPage .contenedorFormulario .backendAlert{
+    width: 100%;
+    background: #ed4a58;
+    /*Candidatos
+    background: #e74552;
+    */
+    color: white;
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 20px;
+}
+
 .registerPage .contenedorCampo{
     display: flex;
     flex-direction: column;

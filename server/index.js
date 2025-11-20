@@ -4,6 +4,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { connectToDatabase, getDb } from "./db.js";
 import dotenv from "dotenv";
+import { error } from "console";
 
 dotenv.config();
 
@@ -168,23 +169,39 @@ app.post("/api/registrar", async (req, res) => {
   try {
     const db = getDb(); // obtiene la DB ya conectada
 
-    // puedes enviar el body desde Postman o usar datos fijos de prueba
+    // Obtenemos las variables que recibimos del body
     const { email, password } = req.body || {};
 
+    //Verificamos que no se hayan enviado campos vacíos
+    if(!email, !password ) {
+      return res.status(400).json({ error: "Faltan campos obligatorios"});
+    }
+
+    //Revisamos que el correo no exista
+    const correoDuplicado = await db.collection("users").findOne({email});
+    if (correoDuplicado){
+      console.log("El correo ya había sido registrado");
+      return res.status(400).json({ error:"Este correo ya está registrado." }) 
+    }
+    
+    console.log("El correo es nuevo");
+    //Insertamos el correo en la base de datos
     const result = await db.collection("users").insertOne({
-      user: email,
-      password: password,
-      verified: false,
+      email,
+      passwordHash: password,
+      confirmed: false,
       createdAt: new Date(),
     });
 
+    //Marcamos el estatus como exitoso
     res.status(201).json({
       success: true,
       insertedId: result.insertedId,
     });
+
   } catch (err) {
-    console.error("❌ Error al guardar favorito:", err);
-    res.status(500).json({ error: "Error al guardar el favorito" });
+    console.error("Error al crear la cuenta.", err);
+    res.status(500).json({ error: "Error interno del servidor." });
   }
 });
 
