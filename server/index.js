@@ -3,10 +3,14 @@ import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 import { connectToDatabase, getDb } from "./db.js";
-import dotenv from "dotenv";
-import { error } from "console";
 
+//Inicializamos dotenv
+import dotenv from "dotenv";
 dotenv.config();
+
+//Configuramos bcryp
+import bcrypt from "bcrypt";
+const SALT_ROUNDS = 10;
 
 const app = express();
 
@@ -180,15 +184,15 @@ app.post("/api/registrar", async (req, res) => {
     //Revisamos que el correo no exista
     const correoDuplicado = await db.collection("users").findOne({email});
     if (correoDuplicado){
-      console.log("El correo ya había sido registrado");
       return res.status(400).json({ error:"Este correo ya está registrado." }) 
     }
-    
-    console.log("El correo es nuevo");
+
+    const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
+
     //Insertamos el correo en la base de datos
     const result = await db.collection("users").insertOne({
       email,
-      passwordHash: password,
+      passwordHash: passwordHash,
       confirmed: false,
       createdAt: new Date(),
     });
