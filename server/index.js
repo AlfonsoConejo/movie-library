@@ -3,7 +3,7 @@ import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 import { connectToDatabase, getDb } from "./db.js";
-import { enviarCorreo } from "./mailer.js";
+import { enviarCorreoDeRegistro } from "./mailController.js";
 
 //Inicializamos dotenv
 import dotenv from "dotenv";
@@ -183,7 +183,7 @@ app.post("/api/registrar", async (req, res) => {
     }
     
     //Verificamos que no se hayan enviado campos vacíos
-    if(!email, !password ) {
+    if(!email || !password ) {
       return res.status(400).json({ error: "Faltan campos obligatorios"});
     }
 
@@ -200,8 +200,19 @@ app.post("/api/registrar", async (req, res) => {
       email,
       passwordHash: passwordHash,
       confirmed: false,
+      emailSent:false,
       createdAt: new Date(),
     });
+
+    //Enviamos el correo de registro al usuario
+    try {
+      await enviarCorreoDeRegistro(email);
+      await db.collection("users").updateOne({ _id: result.insertedId },{ $set: { emailSent: true } });
+    } catch (errCorreo) {
+      console.error("Fallo el envío de correo de registro:", errCorreo);
+      // Opcional: avisar al usuario que no se pudo enviar el email
+      // o reintentar más tarde
+    }
 
     //Marcamos el estatus como exitoso
     res.status(201).json({

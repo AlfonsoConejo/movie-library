@@ -230,7 +230,7 @@ const Registro = () => {
             >
                 <div className={`contenedorFormulario ${enviado ? 'success' : ''}`}>
                     {!enviado ? (
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit} noValidate>
                             <h1>Crea una cuenta</h1>
                             {error && (
                                 <div className='backendAlert'>
