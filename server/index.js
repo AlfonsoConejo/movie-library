@@ -3,6 +3,7 @@ import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 import { connectToDatabase, getDb } from "./db.js";
+import { enviarCorreo } from "./mailer.js";
 
 //Inicializamos dotenv
 import dotenv from "dotenv";
@@ -168,14 +169,19 @@ app.get("/api/buscar", (req, res) => {
     .catch(err => res.status(500).json({ error: err.message }));
 });
 
-// ------------------ RUTA DE PRUEBA PARA MONGO ------------------ //
+// ------------------ RUTAS PARA OPERACIONES EN BASE DE DATOS ------------------ //
 app.post("/api/registrar", async (req, res) => {
   try {
     const db = getDb(); // obtiene la DB ya conectada
 
     // Obtenemos las variables que recibimos del body
-    const { email, password } = req.body || {};
+    let { email, password } = req.body;
 
+    // Normalizamos el correo
+    if (email) {
+      email = email.toLowerCase().trim();
+    }
+    
     //Verificamos que no se hayan enviado campos vacíos
     if(!email, !password ) {
       return res.status(400).json({ error: "Faltan campos obligatorios"});
@@ -202,6 +208,7 @@ app.post("/api/registrar", async (req, res) => {
       success: true,
       insertedId: result.insertedId,
     });
+
 
   } catch (err) {
     console.error("Error al crear la cuenta.", err);

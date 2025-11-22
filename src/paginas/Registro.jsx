@@ -13,6 +13,7 @@ const Registro = () => {
 
     /*Estado para saber si el formulario es válido*/
     const [isFormValid, setIsFormValid] = useState(false);
+    console.log(isFormValid);
     
     /*Estados de la información de cada campo*/
     const [formData, setFormData] = useState({
@@ -57,16 +58,20 @@ const Registro = () => {
     /*Actualizar el valor de los estados*/
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
 
         //Si se modificó el correo
         if(name === 'email'){
-            const valorSinEspacios = value.trim();
+            //Guardamos el correo normalizado en una variable
+            const correoNormalizado = value.toLowerCase().replace(/\s+/g, '');
+
+            //Actualizamos el estado
+            setFormData(prevState => ({
+                ...prevState,
+                [name]: correoNormalizado
+            }));
+
             //Si el correo es válido
-            if(emailRegex.test(valorSinEspacios)){
+            if(emailRegex.test(correoNormalizado)){
                 setIsEmailValid(true);
             }
             //Si el correo es inválido
@@ -76,6 +81,12 @@ const Registro = () => {
         }
 
         if(name=== 'password'){
+            //Actualizamos el estado
+            setFormData(prevState => ({
+                ...prevState,
+                [name]: value
+            }));
+
             if (cumpleLongitud(value)){
                 setIsPasswordValid(prev => ({
                 ...prev,
@@ -111,7 +122,6 @@ const Registro = () => {
                 hasNumber: false //No cumple con los números
                 }));
             }
-
         }
     };
 
@@ -155,6 +165,23 @@ const Registro = () => {
     //Controlamos el envío de información a mongo
     async function handleSubmit(e) {
         e.preventDefault();
+        
+        //Si una de las condiciones para enviar el forumulario no se cumple, terminamos la ejecución
+        if(!emailRegex.test(formData.email.trim())){
+            return;
+        }
+
+        if(!cumpleLongitud(formData.password)){
+            return;
+        }
+
+        if(!upperCaseRegex.test(formData.password)){
+            return;
+        }
+        
+        if(!numeroRegex.test(formData.password)){
+            return;
+        }
 
         setEnviado(false);
         setError(null);
