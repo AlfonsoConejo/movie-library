@@ -1,5 +1,5 @@
 import './Logo.css'
-import logo from '../../../assets/movie-database-logo-md.png';
+import logo from '../../../assets/brible-logo.png';
 import { useNavigate } from 'react-router-dom';
 
 export default function Logo(){

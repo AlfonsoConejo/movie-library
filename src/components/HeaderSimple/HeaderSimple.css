@@ -20,4 +20,5 @@
 .headerSimple img {
     width: 100%;
     cursor: default;
+    cursor: pointer;
 }
