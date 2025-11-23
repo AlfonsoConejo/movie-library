@@ -1,22 +1,37 @@
 import './AccountIcon.css'
 import TooltipAccount from '../TooltipAccount/TooltipAccount';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import userIcon from '../../../assets/user-icon.png'
 
 
 export default function AccountIcon(){
+    const [open, setOpen] = useState(false);
+    const closeTimeout = useRef(null);
+    const navigate = useNavigate();
 
-    const [tooltipVisible, setTooltipVisible] = useState(false);
+    const openTooltip = () => {
+        clearTimeout(closeTimeout.current);
+        setOpen(true);
+    }
 
-    return(
-        <div className="contenedorFlexAccount">
-            <button className="accountButton" onClick={() => {setTooltipVisible(!tooltipVisible)}}>
-                <span className="material-symbols-outlined">
-                    account_circle
-                </span>
+    const closeTooltip = () => {
+        closeTimeout.current = setTimeout( () => {
+            setOpen(false);
+        }, 250);
+    }
+
+    return (
+        <div 
+            className="contenedorFlexAccount"
+            onMouseEnter={openTooltip}
+            onMouseLeave={closeTooltip}
+        >
+            <button className="accountButton" >
+                <img src={userIcon} onClick={() => {navigate('/login')}}/>
             </button>
-            <TooltipAccount
-                tooltipVisible = {tooltipVisible}
-                setTooltipVisible = {setTooltipVisible}/>
+
+            <TooltipAccount visible={open} />
         </div>
     );
 }

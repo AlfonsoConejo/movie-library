@@ -1,12 +1,12 @@
 import './TooltipAccount.css'
 import { useNavigate, Link } from 'react-router-dom';
 
-const TooltipAccount = ({tooltipVisible, setTooltipVisible}) => {
+const TooltipAccount = ({visible}) => {
     const navigate = useNavigate();
     return(
-        <div className={`tooltipContainer ${tooltipVisible ? 'visible' : ''}`}>
-            <button className="login-button" onClick={() => {navigate('/login'); setTooltipVisible(false)}}>Iniciar sesión</button>
-            <p>o&nbsp;<Link to="/registro" className="new-account-button" onClick={() => setTooltipVisible(false)}>crear cuenta</Link> </p>
+        <div className={`tooltipContainer ${visible ? 'visible' : ''}`}>
+        <button className="login-button" onClick={() => {navigate('/login');}}>Iniciar sesión</button>
+            <p>o&nbsp;<Link to="/registro" className="new-account-button">crear cuenta</Link> </p>
         </div>
     );
 };
