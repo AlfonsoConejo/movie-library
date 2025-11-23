@@ -11,6 +11,7 @@ dotenv.config();
 
 //Configuramos bcryp
 import bcrypt from "bcrypt";
+import { error } from "console";
 const SALT_ROUNDS = 10;
 
 const app = express();
@@ -210,8 +211,6 @@ app.post("/api/registrar", async (req, res) => {
       await db.collection("users").updateOne({ _id: result.insertedId },{ $set: { emailSent: true } });
     } catch (errCorreo) {
       console.error("Fallo el envío de correo de registro:", errCorreo);
-      // Opcional: avisar al usuario que no se pudo enviar el email
-      // o reintentar más tarde
     }
 
     //Marcamos el estatus como exitoso
@@ -220,13 +219,59 @@ app.post("/api/registrar", async (req, res) => {
       insertedId: result.insertedId,
     });
 
-
   } catch (err) {
     console.error("Error al crear la cuenta.", err);
     res.status(500).json({ error: "Error interno del servidor." });
   }
 });
 
+//Ruta para valider el inicio de sesión
+app.post("/api/login", async (req, res) => {
+  try{
+    const db = getDb(); // obtiene la DB ya conectada
+    
+    // Obtenemos las variables que recibimos del body
+    let { email, password } = req.body;
+
+    // Normalizamos el correo
+    if (email) {
+      email = email.toLowerCase().trim();
+    }
+
+    //Verificamos que no se hayan enviado campos vacíos
+    if(!email || !password ) {
+      return res.status(400).json({ error: "Faltan campos obligatorios"});
+    }
+
+    //Revisamos si el correo está registrado
+    const usuario = await db.collection("users").findOne({email});
+    if (!usuario){
+      return res.status(400).json({ error:"Usuario o contraseña incorrectos." }) 
+    }
+
+    //Verificamos si la contraseña es válida con bcrypt
+    const esValido = await bcrypt.compare(password, usuario.passwordHash);
+
+    if(esValido){
+      const { passwordHash, ...usuarioSinPassword } = usuario;
+      //Marcamos el estatus como exitoso
+      res.status(200).json({
+        success: true,
+        user: usuarioSinPassword,
+      });
+      console.log("Inicio de sesión exitoso");
+    } else{
+      //Marcamos estatus como que hubo error en la autorización
+      res.status(401).json({
+        error: "Usuario o contraseña inválidos."
+      });
+    }
+  }
+  catch (err){
+    console.log("Error al iniciar sesión", err);
+    res.status(500).json({ error: "Error interno del servidor." });
+  }
+});
 // ------------------ SERVIR REACT EN PRODUCCIÓN ------------------ //
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

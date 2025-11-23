@@ -36,9 +36,6 @@
 .registerPage .contenedorFormulario .backendAlert{
     width: 100%;
     background: #ed4a58;
-    /*Candidatos
-    background: #e74552;
-    */
     color: white;
     border-radius: 5px;
     padding: 8px;
@@ -183,6 +180,10 @@
     align-items: center;
 }
 
+.registerPage .contenedorFormulario .btn-submit:hover {
+    filter: brightness(0.95);
+}
+
 .registerPage .contenedorFormulario .btn-submit.deshabilitado {
     background-color: #cccccc;
     color: #777;
@@ -193,11 +194,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-
-.registerPage .contenedorFormulario input[type="submit"]:hover {
-    filter: brightness(0.95);
 }
 
 .registerPage .contenedorFormulario .recuperarPassword {

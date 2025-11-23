@@ -114,9 +114,53 @@ const Login = () => {
     }));
   };
 
+  //Estados del formulario
+  const [enviado, setEnviado] = useState(false);
+  const [error, setError] = useState(false);
+  const [enviando, setEnviando] = useState(false);
+
   /*Controlar el envío de datos a Mongo*/
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
+
     e.preventDefault();
+
+    //Asignamos valores a los estados del formulario
+    setEnviado(false);
+    setError(null);
+    setEnviando(true);
+
+    try {
+      const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json().catch(() => ({}));
+    console.log(`Este es el estatus: ${data}`);
+
+    if (!res.ok) {
+      if (res.status === 400){
+        setError(data.error || 'Faltan campos obligatorios');
+      } else if (res.status === 401){
+        setError(data.error || 'Usuario o contraseña inválidos');
+      } else if (res.status === 404){
+        setError(data.error || 'Ruta no encontrada');
+      } else if (res.status === 500){
+        setError(data.error || 'Error interno del servidor');
+      } else {
+        setError(data.error || 'Error al iniciar sesión');
+      }
+      return;
+    }
+
+    setEnviado(true);
+    } catch (err){
+      console.error(err);
+      setError('No se pudo conectar con el servidor');
+    } finally{
+      setEnviando(false);
+    }
   };
 
   return(
@@ -130,6 +174,11 @@ const Login = () => {
       > 
         <div className="contenedorFormulario">
           <h1>Iniciar sesión</h1>
+          {error && (
+              <div className='backendAlert'>
+                <span>{error}</span>
+              </div>
+          )}
           <form onSubmit={handleSubmit}>
             {/* EMAIL */}
             <div className="contenedorCampo">
@@ -240,7 +289,22 @@ const Login = () => {
               )}
             </div>
 
-            <input className={isFormValid ? '' : 'deshabilitado'} type="submit" name='submit' value="Iniciar sesión" disabled={!isFormValid}/>
+            <button
+              type="submit"
+              name="submit"
+              className={`
+                btn-submit
+                ${!isFormValid ? 'deshabilitado' : ''}
+              `}
+            >
+              {enviando ? (
+                <div className="contenedorPuntos">
+                  <div className="loadingDots" />
+                </div>
+              ) : (
+                'Iniciar sesión'
+              )}
+            </button>
             
             <Link to="/forgot-password" className='recuperarPassword'>
               Olvidé mi constraseña.
