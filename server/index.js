@@ -4,6 +4,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { connectToDatabase, getDb } from "./db.js";
 import { enviarCorreoDeRegistro } from "./mailController.js";
+import {initCronjobs} from "./initCronjobs.js";
 
 //Inicializamos dotenv
 import dotenv from "dotenv";
@@ -11,7 +12,6 @@ dotenv.config();
 
 //Configuramos bcryp
 import bcrypt from "bcrypt";
-import { error } from "console";
 const SALT_ROUNDS = 10;
 
 const app = express();
@@ -295,6 +295,10 @@ const PORT = process.env.PORT || 5000;
 // Conectar a MongoDB y luego iniciar el servidor
 connectToDatabase()
   .then(() => {
+
+    //Inicializamos los cronjobs
+    initCronjobs();
+
     app.listen(PORT, () => {
       console.log(`✅ Servidor escuchando en http://localhost:${PORT}`);
     });
