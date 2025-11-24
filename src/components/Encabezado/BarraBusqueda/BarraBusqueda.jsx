@@ -29,7 +29,7 @@ const BarraBusqueda = ({isSearchBarOpen, toogleMostarBarraBusqueda, searchWord, 
                     <button onClick={navigateToSearch}>
                         <span className="material-symbols-outlined">search</span>
                     </button>
-                    <input type="text" placeholder='Buscar en TMDB' value={searchWord} ref={searchInputRef} onChange={(e)=> {setSearchWord(e.target.value)}} onKeyDown={handleKeyDown}/>
+                    <input type="text" placeholder='Buscar en Brible' value={searchWord} ref={searchInputRef} onChange={(e)=> {setSearchWord(e.target.value)}} onKeyDown={handleKeyDown}/>
                 </div>
             </div>
         </div>

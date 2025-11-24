@@ -86,6 +86,15 @@
     margin: 0;
 }
 
+.contenedorInfoPersona .columnaDer p button{
+    display: inline;
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: var(--azul-hover);
+    cursor: pointer;
+}
+
 @media (width <= 910px) {
     .contenedorInfoPersona{
         padding: 30px 15px;

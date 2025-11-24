@@ -14,6 +14,8 @@
 
 .contenedorFlexLogo .wrapperLogo img{
     width: 100%;
+    object-fit: cover; /* 🔹 ajusta la imagen para llenar el contenedor sin deformarse */
+    object-position: center;
 }
 
 @media (max-width: 914px) {

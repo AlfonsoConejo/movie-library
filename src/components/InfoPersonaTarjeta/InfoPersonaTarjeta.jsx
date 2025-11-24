@@ -3,9 +3,22 @@ import ImageNotFound from '../../assets/img_not_found2.jpg';
 import CarruselFilmografia from '../CarruselFilmografia/CarruselFilmografia.jsx';
 import TimelineFilmografia from '../TimelineFilmografia/TimelineFilmografia.jsx';
 import { convertirAFechaCompleta, traduccionesOcupacion } from '../../utils.js';
+import { useState } from 'react';
 
 const InfoPersonaTarjeta = ({informacion, informacionIngles, contenidoCargado}) => {
-    const biografia = informacion.biography || informacionIngles?.biography || null;
+    //Estado para controlar el texto de la biografía
+    const [expanded, setExpanded] = useState(false);
+    //Caracteres máximos permitidos en la biografía
+    const max = 350;
+    
+    let biografia = informacion.biography 
+    || informacionIngles?.biography 
+    || "";
+    
+    
+    const isLong = biografia.length > max;
+    biografia = expanded ? biografia : biografia.slice(0, max);
+
     const sexo = informacion?.gender === 2 ? 'Masculino' : 'Femenino';
 
     if(informacion && contenidoCargado){
@@ -54,8 +67,18 @@ const InfoPersonaTarjeta = ({informacion, informacionIngles, contenidoCargado}) 
                     {informacion.name && <h1>{informacion.name}</h1>}
 
                     {(informacion?.biography != "" || informacionIngles.biography != "") && <h2 className='biografiaTitulo'>Biografía</h2>}
-                    {(informacion?.biography != ""|| informacionIngles.biography  != "") && <p>{biografia}</p>}
-
+                    {(informacion?.biography != ""|| informacionIngles.biography  != "") && <p>
+                        {biografia}
+                        {!expanded && isLong && "…"}
+                            {isLong && (
+                            <button className='expandText'
+                                onClick={() => setExpanded(!expanded)} 
+                            >
+                            {expanded ? "Mostrar menos" : "Mostrar más"}
+                            </button>
+                        )}
+                    </p>}
+                        
                     <CarruselFilmografia/>
 
                     <TimelineFilmografia/>
