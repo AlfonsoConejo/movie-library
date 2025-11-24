@@ -19,6 +19,7 @@ const MenuDeslizable = () => {
                     <li><Link to="/peliculas" onClick={toogleMostarOcultarMenu}>Películas</Link></li>
                     <li><Link to="/series" onClick={toogleMostarOcultarMenu}>Series</Link></li>
                     <li><Link to="/personas" onClick={toogleMostarOcultarMenu}>Personas</Link></li>
+                    <li className='identify'><Link to="/login" onClick={toogleMostarOcultarMenu}>Identificarse</Link></li>
                 </ul>
             </div>
         </div>

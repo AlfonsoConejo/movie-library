@@ -48,6 +48,10 @@
     margin-bottom: 20px;
 }
 
+.menuDeslizable li.identify a{
+    color: var(--yellow-button) !important; 
+}
+
 .menuDeslizable a{
     font-size: 30px;
     text-decoration: none;
