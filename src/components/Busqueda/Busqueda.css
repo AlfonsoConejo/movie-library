@@ -22,7 +22,7 @@
 }
 
 .contenedorFlexBusqueda .cuadro-busqueda:focus-within {
-  outline: 2px solid #01b4e4; /* color azul tipo TMDB */
+  outline: 2px solid #ff847b; /* color azul tipo TMDB */
   outline-offset: 2px;
 }
 
