@@ -1,10 +1,13 @@
 import express from "express";
 import cors from "cors";
 import path from "path";
+import cookieParser from "cookie-parser";
 import { fileURLToPath } from "url";
 import { connectToDatabase, getDb } from "./db.js";
 import { enviarCorreoDeRegistro } from "./mailController.js";
 import {initCronjobs} from "./initCronjobs.js";
+import { createAccessToken, createRefreshToken, sendRefreshTokenToDB } from "./jwtController.js";
+import { auth } from "./middleware/auth.js";
 
 //Inicializamos dotenv
 import dotenv from "dotenv";
@@ -19,6 +22,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 // ------------------ RUTAS DE API ------------------ //
 
@@ -221,11 +225,11 @@ app.post("/api/registrar", async (req, res) => {
 
   } catch (err) {
     console.error("Error al crear la cuenta.", err);
-    res.status(500).json({ error: "Error interno del servidor." });
+    return res.status(500).json({ error: "Error interno del servidor." });
   }
 });
 
-//Ruta para valider el inicio de sesión
+//Ruta para validar el inicio de sesión
 app.post("/api/login", async (req, res) => {
   try{
     const db = getDb(); // obtiene la DB ya conectada
@@ -252,26 +256,132 @@ app.post("/api/login", async (req, res) => {
     //Verificamos si la contraseña es válida con bcrypt
     const esValido = await bcrypt.compare(password, usuario.passwordHash);
 
-    if(esValido){
-      const { passwordHash, ...usuarioSinPassword } = usuario;
-      //Marcamos el estatus como exitoso
-      res.status(200).json({
-        success: true,
-        user: usuarioSinPassword,
-      });
-      console.log("Inicio de sesión exitoso");
-    } else{
+    if(!esValido){
       //Marcamos estatus como que hubo error en la autorización
-      res.status(401).json({
+      return res.status(401).json({
         error: "Usuario o contraseña inválidos."
       });
     }
+
+    //Recibimos AccessToken (JWT) y RefreshToken (opaco)
+    const accessToken = createAccessToken(usuario._id);
+    const refreshToken = createRefreshToken(); 
+    await sendRefreshTokenToDB( usuario._id, refreshToken ); 
+
+    const { passwordHash, ...usuarioSinPassword } = usuario;
+    //Marcamos el estatus como exitoso
+    res
+      .cookie("refreshToken", refreshToken, {
+        httpOnly: true, // No accesible por JS → súper importante
+        secure: false, // En producción cambia a true (HTTPS)
+        sameSite: "strict", // Evita CSRF
+        maxAge: 7 * 24 * 60 * 60 * 1000 // 7 días, la misma fecha de expiración que el refreshToken
+      })
+      .status(200)
+      .json({
+      success: true,
+      accessToken,
+      user: usuarioSinPassword,
+    });
+    console.log("Inicio de sesión exitoso");
   }
   catch (err){
     console.log("Error al iniciar sesión", err);
-    res.status(500).json({ error: "Error interno del servidor." });
+    return res.status(500).json({ error: "Error interno del servidor." });
   }
 });
+
+//Ruta para refrescar el access token
+app.post("/api/refresh-token", async (req, res) => {
+
+  try {
+
+    const db = getDb(); // obtiene la DB ya conectada  
+
+    //Leemos el refresh token guardado en la cooke HTTPOnly
+    const incomingToken = req.cookies.refreshToken;
+    if (!incomingToken) {
+      return res.status(401).json({ error: "No hay refresh token." });
+    }
+
+    //Buscamos si el token existe en la bd
+    const stored = await db.collection("refreshTokens").findOne({ token: incomingToken });
+    if (!stored) {
+      return res.status(403).json({ error: "Refresh token inválido." });
+    }
+
+    //Resivamos si el token ya expiró
+    if (new Date() > stored.expiresAt) {
+      return res.status(403).json({ error: "Refresh token expirado." });
+    }
+
+    //Generamos un nuevo access token
+    const newAccessToken = createAccessToken(stored.userId);
+
+    //Creamos un nuevo refreshToken
+    const newRefresh = createRefreshToken();
+
+    //Eliminamos el refreshToken anterior
+    await db.collection("refreshTokens").deleteOne( {token: incomingToken } );
+
+    //Cargamos a la BD el nuevo refreshToken
+    await sendRefreshTokenToDB(stored.userId, newRefresh);
+
+    //Guardamos la nueva cookie
+    res.cookie("refreshToken", newRefresh, {
+      httpOnly: true,
+      secure: false, // Cambiar a true en producción (HTTPS)
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    //Devolvemos un nuevo access token
+    return res.status(200).json({
+      success: true,
+      accessToken: newAccessToken,
+    });
+
+  } catch (err){
+    console.log("Error en refresh-token:", err);
+    return res.status(500).json({ error: "Error interno del servidor." });
+  }
+
+});
+
+//Invalidamos access token para el logout
+app.post("/api/logout", async (req, res) => {
+  
+  try {
+    //Obtenemos el refresh token de las cookies
+    const incomingToken = req.cookies.refreshToken
+
+    //Si el token existe, lo eliminamos
+    if (incomingToken) {
+        const db = getDb();
+        await db.collection("refreshTokens").deleteOne({ token: incomingToken });
+    }
+  
+    //Borramos la cookie
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: false,
+      sameSite: "strict"
+    });
+
+    //Enviamos la respuesta
+    return res.json({ success: true, message: "Sesión cerrada."});
+
+  } catch (err) {
+    console.log("Error en /api/logout:", err);
+    return res.status(500).json({ error: "Error interno del servidor." });
+  }
+});
+
+//Endpoint para obtener la información del perfil del usuario
+app.get("/api/perfil", auth, (req, res) => {
+    res.json({ message: "Acceso exitoso!", user: req.user });
+});
+
 // ------------------ SERVIR REACT EN PRODUCCIÓN ------------------ //
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
