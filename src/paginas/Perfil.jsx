@@ -1,0 +1,18 @@
+// pages/Perfil.jsx
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
+
+export default function Perfil() {
+  const { user } = useContext(UserContext);
+
+  return (
+    <div>
+      <h1>Mi Perfil</h1>
+      {user && (
+        <>
+          <p>Correo: {user.email}</p>
+        </>
+      )}
+    </div>
+  );
+}

@@ -1,10 +1,22 @@
 import './Login.css'
 import loginImage from '../assets/movie-theater.jpg'
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { UserContext } from "../context/UserContext";
+import { Navigate } from "react-router-dom";
 import HeaderSimple from '../components/HeaderSimple/HeaderSimple';
 
 const Login = () => {
+  // En tu componente Login
+  const { cargandoUsuario, user, login } = useContext(UserContext);
+  
+  if (cargandoUsuario) {
+    return null; // o un spinner global, o pantalla en blanco
+  }
+
+  if (user) {
+    return <Navigate to="/perfil" replace />;
+  }
     
   /*Estado para mostar la contraseña*/
   const [showPassword, setShowPassword] = useState(false);
@@ -116,7 +128,7 @@ const Login = () => {
 
   //Estados del formulario
   const [enviado, setEnviado] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const [enviando, setEnviando] = useState(false);
 
   /*Controlar el envío de datos a Mongo*/
@@ -133,28 +145,33 @@ const Login = () => {
       const res = await fetch('/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: "include",
       body: JSON.stringify(formData),
     });
 
+
     const data = await res.json().catch(() => ({}));
-    console.log(`Este es el estatus: ${data}`);
+    console.log("Este es el dato:", data);
 
     if (!res.ok) {
       if (res.status === 400){
-        setError(data.error || 'Faltan campos obligatorios');
+        return setError(data.error || 'Faltan campos obligatorios');
       } else if (res.status === 401){
-        setError(data.error || 'Usuario o contraseña inválidos');
+        return setError(data.error || 'Usuario o contraseña inválidos');
       } else if (res.status === 404){
-        setError(data.error || 'Ruta no encontrada');
+        return setError(data.error || 'Ruta no encontrada');
       } else if (res.status === 500){
-        setError(data.error || 'Error interno del servidor');
+        return setError(data.error || 'Error interno del servidor');
       } else {
-        setError(data.error || 'Error al iniciar sesión');
+        return setError(data.error || 'Error al iniciar sesión');
       }
-      return;
     }
 
     setEnviado(true);
+
+    //Guardamos usuario y access token en el Context global
+    login(data.user, data.accessToken);
+
     } catch (err){
       console.error(err);
       setError('No se pudo conectar con el servidor');

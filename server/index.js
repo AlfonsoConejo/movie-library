@@ -8,6 +8,7 @@ import { enviarCorreoDeRegistro } from "./mailController.js";
 import {initCronjobs} from "./initCronjobs.js";
 import { createAccessToken, createRefreshToken, sendRefreshTokenToDB } from "./jwtController.js";
 import { auth } from "./middleware/auth.js";
+import { ObjectId } from "mongodb";
 
 //Inicializamos dotenv
 import dotenv from "dotenv";
@@ -20,7 +21,10 @@ const SALT_ROUNDS = 10;
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173", 
+  credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -270,11 +274,10 @@ app.post("/api/login", async (req, res) => {
 
     const { passwordHash, ...usuarioSinPassword } = usuario;
     //Marcamos el estatus como exitoso
-    res
-      .cookie("refreshToken", refreshToken, {
+    res.cookie("refreshToken", refreshToken, {
         httpOnly: true, // No accesible por JS → súper importante
-        secure: false, // En producción cambia a true (HTTPS)
-        sameSite: "strict", // Evita CSRF
+        secure: true, // En producción cambia a true (HTTPS)
+        sameSite: "none", // Evita CSRF
         maxAge: 7 * 24 * 60 * 60 * 1000 // 7 días, la misma fecha de expiración que el refreshToken
       })
       .status(200)
@@ -330,8 +333,8 @@ app.post("/api/refresh-token", async (req, res) => {
     //Guardamos la nueva cookie
     res.cookie("refreshToken", newRefresh, {
       httpOnly: true,
-      secure: false, // Cambiar a true en producción (HTTPS)
-      sameSite: "strict",
+      secure: true, // Cambiar a true en producción (HTTPS)
+      sameSite: "none", //"strict" en producción y "lax" en local 
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
@@ -364,8 +367,8 @@ app.post("/api/logout", async (req, res) => {
     //Borramos la cookie
     res.clearCookie("refreshToken", {
       httpOnly: true,
-      secure: false,
-      sameSite: "strict"
+      secure: true,
+      sameSite: "none"
     });
 
     //Enviamos la respuesta
@@ -377,9 +380,30 @@ app.post("/api/logout", async (req, res) => {
   }
 });
 
-//Endpoint para obtener la información del perfil del usuario
-app.get("/api/perfil", auth, (req, res) => {
-    res.json({ message: "Acceso exitoso!", user: req.user });
+// Obtener perfil del usuario con el access token
+app.get("/api/me", auth, async (req, res) => {
+  try{
+
+    const userId = req.user.sub; // viene del token decodificado
+    console.log(userId)
+    
+    const db = getDb();
+
+    const user = await db.collection("users").findOne(
+      { _id: new ObjectId(userId) },
+      { projection: { password: 0 } } // no mandar password
+    );
+
+    console.log(`TOKEN: ${user}`);
+
+    if (!user) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
+    res.json({ user });
+  } catch (error) {
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
 });
 
 // ------------------ SERVIR REACT EN PRODUCCIÓN ------------------ //

@@ -12,6 +12,8 @@ import Proximamente from './paginas/Proximamente.jsx'
 import Buscar from './paginas/Buscar.jsx'
 import Login from './paginas/Login.jsx'
 import Registro from './paginas/Registro.jsx'
+import Perfil from './paginas/Perfil.jsx'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
 
 //Creamos un contexto para manipular el menpu deslizable
 export const MenuDeslizableContext = createContext();
@@ -82,6 +84,7 @@ const handleSearchFocus = () => {
         searchInputRef = {searchInputRef}
       />
       <Routes>
+        {/* Rutas públicas*/}
         <Route path="/" element={<Home/>}/>
         <Route path="/:media_type/:id" element={<Movie/>}/>
         <Route path="/peliculas" element={<Proximamente/>}/>
@@ -90,6 +93,16 @@ const handleSearchFocus = () => {
         <Route path="/buscar" element={<Buscar/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/registro" element={<Registro/>}/>
+
+        {/* Rutas protegidas*/}
+        <Route
+          path="/perfil"
+          element={
+            <ProtectedRoute>
+              <Perfil />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       
       {!hideLayout && <Footer />}

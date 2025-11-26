@@ -2,8 +2,12 @@ import Carrusel from "../components/Home/Carrusel/Carrusel";
 import { useState, useEffect } from "react";
 import useCarousel from "../customHooks/useCarousel";
 import './Home.css'
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
 export default function Home(){
+    const { user, cargandoUsuario } = useContext(UserContext);
+    console.log("user en Home:", user);
     //Usamos el useCarousel para cargar lo más visto del momento
     const [botonPresionadoGeneral, setBotonPresionadoGeneral] = useState('day');
 
