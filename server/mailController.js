@@ -8,6 +8,9 @@ export async function enviarCorreoDeRegistro(email) {
     from: `"Brible" <${process.env.GMAIL_USER}>`,
     to: email,
     subject: "Bienvenido a Mi App",
-    html: `<h1>¡Hola!</h1><p>Gracias por registrarte.</p>`,
+    html: `
+    <img src=""></img>
+    <h1>¡Hola!</h1>
+    <p>Gracias por registrarte.</p>`,
   });
 }
