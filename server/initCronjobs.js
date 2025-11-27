@@ -45,9 +45,7 @@ function initCronjobs(){
                 }
             );
 
-            //Recorremos todos los usuarios obtenidos
             for await (const user of cursor) {
-                //Enviamos el correo de registro al usuario
                 try {
                     //Borramos los tokens anteriores emitidos para el usuario
                     await db

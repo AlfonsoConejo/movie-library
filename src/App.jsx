@@ -5,7 +5,7 @@ import Movie from './paginas/movie.jsx'
 import Footer from './components/Footer/Footer.jsx'
 import Overlay from './components/Overlay/Overlay.jsx'
 import BarraBusqueda from './components/Encabezado/BarraBusqueda/BarraBusqueda.jsx'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { useState, createContext, useRef } from 'react'
 import MenuDeslizable from './components/MenuDeslizable/MenuDeslizable.jsx'
 import Proximamente from './paginas/Proximamente.jsx'
@@ -13,6 +13,7 @@ import Buscar from './paginas/Buscar.jsx'
 import Login from './paginas/Login.jsx'
 import Registro from './paginas/Registro.jsx'
 import Perfil from './paginas/Perfil.jsx'
+import NotFound from './paginas/NotFound.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 
 //Creamos un contexto para manipular el menpu deslizable
@@ -20,9 +21,10 @@ export const MenuDeslizableContext = createContext();
 
 function App() {
 
-  //Manejamos la visibilidad del header y el footer
+  // Rutas donde sí se mostrarán el header y el footer 
   const location = useLocation();
-  const hideLayout = location.pathname === "/login" || location.pathname === "/registro";
+  const showLayoutPaths = ["/", "/:media_type/:id", "/peliculas", "/series", "/personas", "/buscar", "/perfil"];
+  const showLayout = showLayoutPaths.includes(location.pathname);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
@@ -47,29 +49,12 @@ const handleSearchFocus = () => {
     setIsOverlayVisible(!isOverlayVisible);
   }
 
-
-  // const [cargado, setCargado] = useState(false);
-  // const [peliculas, setPeliculas] = useState([]);
-  // const [botonPresionado, setBotonPresionado] = useState('day');
-
-  // useEffect(() => {
-  //   setCargado(false);
-  //   fetch(`/api/trending/movies?time=${botonPresionado}`)
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       setPeliculas(data.results) // <-- guarda el array de películas
-  //       setCargado(true); // <-- guardamos que ya terminó de cargar
-  //       console.log(data.results);
-  //     })
-  //     .catch(err => console.error(err));
-  // }, [botonPresionado]);
-
   return (
     <>
       <MenuDeslizableContext.Provider value={{isMenuOpen, isOverlayVisible, toogleMostarOcultarMenu, isSearchBarOpen, toogleMostarBarraBusqueda, searchWord, setSearchWord, searchInputRef, handleSearchFocus}}>
-        {!hideLayout && <Header />}
-        {!hideLayout && <MenuDeslizable />}
-        {!hideLayout && (
+        {showLayout && <Header />}
+        {showLayout && <MenuDeslizable />}
+        {showLayout && (
           <Overlay
             isSearchBarOpen={isSearchBarOpen}
             toogleMostarBarraBusqueda={toogleMostarBarraBusqueda}
@@ -101,11 +86,15 @@ const handleSearchFocus = () => {
             <ProtectedRoute>
               <Perfil />
             </ProtectedRoute>
-          }
+          } 
         />
+
+        {/* Todas las rutas no declaradas*/}
+        <Route path="*" element={<NotFound />} />
+
       </Routes>
       
-      {!hideLayout && <Footer />}
+      {showLayout && <Footer />}
     </> 
   )
 }

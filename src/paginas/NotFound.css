@@ -1,0 +1,61 @@
+.notFoundContainer{
+    width: 100%;
+    min-height: 100dvh;
+    background-color: #eaebed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.notFoundContainer .contenedorLogoMensaje{
+    min-width: 200px;
+    width: 350px;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.notFoundContainer .mensaje{
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.notFoundContainer .logo {
+    display: flex;
+    justify-content: center;
+}
+
+.notFoundContainer .logo img{
+    width: 50px;
+    height: 50px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+.notFoundContainer .mensaje h1{
+    margin: 7px 0;
+}
+
+.notFoundContainer .mensaje h1, p{
+    text-align: center;
+}
+
+.notFoundContainer .mensaje button{
+    width: 100px;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--yellow-button);
+    margin-top: 10px;
+    cursor: pointer;
+}
