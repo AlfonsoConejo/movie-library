@@ -1,12 +1,14 @@
 import express from "express";
 import cors from "cors";
 import path from "path";
+import crypto from "crypto";
 import cookieParser from "cookie-parser";
 import { fileURLToPath } from "url";
 import { connectToDatabase, getDb } from "./db.js";
 import { enviarCorreoDeRegistro } from "./mailController.js";
 import {initCronjobs} from "./initCronjobs.js";
 import { createAccessToken, createRefreshToken, sendRefreshTokenToDB } from "./jwtController.js";
+import { generarTokenConfirmacionEmail } from "./utils.js";
 import { auth } from "./middleware/auth.js";
 import { ObjectId } from "mongodb";
 
@@ -199,9 +201,10 @@ app.post("/api/registrar", async (req, res) => {
     //Revisamos que el correo no exista
     const correoDuplicado = await db.collection("users").findOne({email});
     if (correoDuplicado){
-      return res.status(400).json({ error:"Este correo ya está registrado." }) 
+      return res.status(400).json({ error:"Este correo ya está registrado." });
     }
 
+    //Hasheamos la contraseña con bcrypt
     const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
 
     //Insertamos el correo en la base de datos
@@ -213,9 +216,20 @@ app.post("/api/registrar", async (req, res) => {
       createdAt: new Date(),
     });
 
+    //Creamos un nuevo token
+    const { verifyEmailToken, createdAt, expiresAt } = generarTokenConfirmacionEmail();
+
+    //Cargamos los datos a la colección account_confirm_tokens
+    await db.collection("account_confirm_tokens").insertOne({ 
+      userId: result.insertedId,
+      confirmationToken: verifyEmailToken,
+      createdAt: createdAt,
+      expiresAt: expiresAt
+    });
+
     //Enviamos el correo de registro al usuario
     try {
-      await enviarCorreoDeRegistro(email);
+      await enviarCorreoDeRegistro(email, verifyEmailToken);
       await db.collection("users").updateOne({ _id: result.insertedId },{ $set: { emailSent: true } });
     } catch (errCorreo) {
       console.error("Fallo el envío de correo de registro:", errCorreo);
