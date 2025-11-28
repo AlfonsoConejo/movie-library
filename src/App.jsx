@@ -23,8 +23,12 @@ function App() {
 
   // Rutas donde sí se mostrarán el header y el footer 
   const location = useLocation();
-  const showLayoutPaths = ["/", "/:media_type/:id", "/peliculas", "/series", "/personas", "/buscar", "/perfil"];
-  const showLayout = showLayoutPaths.includes(location.pathname);
+  const showLayoutPaths = ["/", "/:movie/:id", "/peliculas", "/series", "/personas", "/buscar", "/perfil"];
+  const showLayout =
+  showLayoutPaths.includes(location.pathname) ||
+  location.pathname.startsWith("/movie/") ||
+  location.pathname.startsWith("/person/") ||
+  location.pathname.startsWith("/tv/");
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);

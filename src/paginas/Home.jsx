@@ -12,7 +12,7 @@ export default function Home(){
     const [botonPresionadoGeneral, setBotonPresionadoGeneral] = useState('day');
 
     const { peliculas: general, cargado: cargadoGeneral } = useCarousel(
-    () => `/api/trending/all?time=${botonPresionadoGeneral}`,
+    () => `/api/tmdb/trending/all?time=${botonPresionadoGeneral}`,
     [botonPresionadoGeneral]
     );
 
@@ -20,7 +20,7 @@ export default function Home(){
     const [botonPresionadoPeliculas, setBotonPresionadoPeliculas] = useState('day');
 
     const { peliculas: peliculas, cargado: cargadoPeliculas } = useCarousel(
-    () => `/api/trending/movies?time=${botonPresionadoPeliculas}`,
+    () => `/api/tmdb/trending/movies?time=${botonPresionadoPeliculas}`,
     [botonPresionadoPeliculas]
     );
 
@@ -28,7 +28,7 @@ export default function Home(){
     const [botonPresionadoSeries, setBotonPresionadoSeries] = useState('day');
 
     const { peliculas: series, cargado: cargadoSeries } = useCarousel(
-    () => `/api/trending/tv?time=${botonPresionadoSeries}`,
+    () => `/api/tmdb/trending/tv?time=${botonPresionadoSeries}`,
     [botonPresionadoSeries]
     );
 
@@ -37,7 +37,7 @@ export default function Home(){
     const [botonPresionadoPersona, setBotonPresionadoPersona] = useState('day');
 
     const { peliculas: personas, cargado: cargadoPersonas } = useCarousel(
-    () => `/api/trending/people?time=${botonPresionadoPersona}`,
+    () => `/api/tmdb/trending/people?time=${botonPresionadoPersona}`,
     [botonPresionadoPersona]
     );
 

@@ -1,4 +1,4 @@
-.notFoundContainer{
+.error404-container{
     width: 100%;
     min-height: 100dvh;
     background-color: #eaebed;
@@ -8,7 +8,7 @@
     padding: 20px;
 }
 
-.notFoundContainer .contenedorLogoMensaje{
+.error404-container .contenedorLogoMensaje{
     min-width: 200px;
     width: 350px;
     border-radius: 8px;
@@ -18,7 +18,7 @@
     justify-content: center;
 }
 
-.notFoundContainer .mensaje{
+.error404-container .notfound_mensaje{
     width: 100%;
     background: white;
     border-radius: 8px;
@@ -29,12 +29,12 @@
     align-items: center;
 }
 
-.notFoundContainer .logo {
+.error404-container .logo {
     display: flex;
     justify-content: center;
 }
 
-.notFoundContainer .logo img{
+.error404-container .logo img{
     width: 50px;
     height: 50px;
     margin-bottom: 12px;
@@ -42,19 +42,20 @@
     justify-content: center;
 }
 
-.notFoundContainer .mensaje h1{
+.notFoundContainer .notfound_mensaje h1{
     margin: 7px 0;
 }
 
-.notFoundContainer .mensaje h1, p{
+.error404-container > .notfound_mensaje > h1,.error404-container > .notfound_mensaje > p{
     text-align: center;
 }
 
-.notFoundContainer .mensaje button{
+.error404-container .notfound_mensaje button{
     width: 100px;
     padding: 5px;
     border: none;
     border-radius: 5px;
+    color: black;
     background-color: var(--yellow-button);
     margin-top: 10px;
     cursor: pointer;

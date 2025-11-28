@@ -44,9 +44,9 @@ const Buscar = () => {
 
             try {
                 const urls = [
-                    `/api/buscar?busqueda=${encodeURIComponent(busqueda)}&media_type=movie&pagina=1`,
-                    `/api/buscar?busqueda=${encodeURIComponent(busqueda)}&media_type=tv&pagina=1`,
-                    `/api/buscar?busqueda=${encodeURIComponent(busqueda)}&media_type=person&pagina=1`,
+                    `/api/tmdb/buscar?busqueda=${encodeURIComponent(busqueda)}&media_type=movie&pagina=1`,
+                    `/api/tmdb/buscar?busqueda=${encodeURIComponent(busqueda)}&media_type=tv&pagina=1`,
+                    `/api/tmdb/buscar?busqueda=${encodeURIComponent(busqueda)}&media_type=person&pagina=1`,
                 ];
 
                 const [resMovie, resTV, resPerson] = await Promise.all(urls.map(url => fetch(url)));
@@ -91,7 +91,7 @@ const Buscar = () => {
         const consultarPagina = async () => {
             //setPaginaCargada(false);
             try {
-                const url = `/api/buscar?busqueda=${encodeURIComponent(busqueda)}&media_type=${tipo}&pagina=${pagina}`;
+                const url = `/api/tmdb/buscar?busqueda=${encodeURIComponent(busqueda)}&media_type=${tipo}&pagina=${pagina}`;
                 const res = await fetch(url);
                 const data = await res.json();
 
