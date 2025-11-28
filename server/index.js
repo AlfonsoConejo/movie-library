@@ -275,11 +275,47 @@ app.get("/api/me", auth, async (req, res) => {
 
 
 app.post("/api/verificarCuenta", async (req, res) => {
-
   try{
+    const db = getDb();
+    const { token } = req.body || {};
+
+    if (!token){
+      return res.status(400).json({
+        error: "Falta el token de confirmación.",
+      });
+    }
+
+    // Buscamos si el token existe en la base de datos
+    const infoToken = await db.collection("account_confirm_tokens").findOne({confirmationToken: token});
+    if (!infoToken){
+      return res.status(401).json({ error:"Enlace de confirmación inválido. Solicite uno nuevo." }) 
+    }
+
+    // Verificamos que el token no haya expirado
+    if (infoToken.expiresAt < new Date()) {
+      await db.collection("account_confirm_tokens").deleteOne({ _id: infoToken._id });
+      return res.status(410).json({ error:"Enlace de confirmación vencido. Solicite uno nuevo." });
+    }
+
+    // Marcamos la cuenta del usuario como confirmada.
+    const result = await db.collection("users").updateOne(
+      { _id: infoToken.userId },
+      { $set: { confirmed: true } }
+    );
+
+    if (result.matchedCount === 0) {
+      await db.collection("account_confirm_tokens").deleteOne({ _id: infoToken._id });
+      return res.status(404).json({ error: "Usuario no encontrado." });
+    }
+
+    // Borramos el token de la base de datos
+    await db.collection("account_confirm_tokens").deleteOne({ _id: infoToken._id });
+
+    return res.status(200).json({ mensaje: "Cuenta confirmada exitosamente."});
 
   } catch (error) {
-
+    console.error("Error al verificar cuenta:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 });
 
