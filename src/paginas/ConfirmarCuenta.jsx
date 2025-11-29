@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import emailIcon from '../../src/assets/email.png'
 import chainIcon from '../../src/assets/broken-chain.png'
 import bribleLogo from '../../public/brible-logo.png'
+import Logo from '../../src/components/Encabezado/Logo/Logo'
 
 const ConfirmarCuenta = () => {
 
@@ -56,7 +57,7 @@ const ConfirmarCuenta = () => {
   return(
     <div className="confirmarCuentaWrapper">
 		<div className="headerConfirmacion">
-			<img src={bribleLogo} alt="Logo" onClick={() => navigate('/')}/>
+			<Logo/>
 		</div>
 			
 		<div className="contenedorMensajeVerificacion">

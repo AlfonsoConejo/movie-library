@@ -80,12 +80,14 @@ app.post("/api/registrar", async (req, res) => {
       expiresAt: expiresAt
     });
 
-    //Enviamos el correo de registro al usuario
-    try {
-      await enviarCorreoDeRegistro(email, verifyEmailToken);
-      await db.collection("users").updateOne({ _id: result.insertedId },{ $set: { emailSent: true } });
-    } catch (errCorreo) {
-      console.error("Fallo el envío de correo de registro:", errCorreo);
+    if(process.env.ENVIRONMENT === 'DEVELOPMENT'){
+      //Enviamos el correo de registro al usuario
+      try {
+        await enviarCorreoDeRegistro(email, verifyEmailToken);
+        await db.collection("users").updateOne({ _id: result.insertedId },{ $set: { emailSent: true } });
+      } catch (errCorreo) {
+        console.error("Fallo el envío de correo de registro:", errCorreo);
+      }
     }
 
     //Marcamos el estatus como exitoso

@@ -6,19 +6,3 @@
     justify-content: center;
     align-items: center;
 }
-
-.headerSimple .wrapperLogo {
-    width: 110px;
-    flex-shrink: 0;
-    flex-grow: 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    cursor: default;
-}
-
-.headerSimple img {
-    width: 100%;
-    cursor: default;
-    cursor: pointer;
-}

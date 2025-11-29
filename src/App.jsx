@@ -57,6 +57,7 @@ const handleSearchFocus = () => {
     <>
       <MenuDeslizableContext.Provider value={{isMenuOpen, isOverlayVisible, toogleMostarOcultarMenu, isSearchBarOpen, toogleMostarBarraBusqueda, searchWord, setSearchWord, searchInputRef, handleSearchFocus}}>
         {showLayout && <Header />}
+        {showLayout && <BarraBusqueda />}
         {showLayout && <MenuDeslizable />}
         {showLayout && (
           <Overlay

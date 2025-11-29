@@ -15,13 +15,6 @@
     align-items: center;
 }
 
-.confirmarCuentaWrapper .headerConfirmacion img{
-    width: 120px;
-    cursor: default;
-    cursor: pointer;
-    object-fit: cover;
-    object-position: center;
-}
 
 .confirmarCuentaWrapper .contenedorMensajeVerificacion {
     width: 100%;
