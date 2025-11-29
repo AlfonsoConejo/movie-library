@@ -3,10 +3,35 @@
     min-height: 100dvh;
     background-color: #eaebed;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.confirmarCuentaWrapper .headerConfirmacion {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirmarCuentaWrapper .headerConfirmacion img{
+    width: 120px;
+    cursor: default;
+    cursor: pointer;
+    object-fit: cover;
+    object-position: center;
+}
+
+.confirmarCuentaWrapper .contenedorMensajeVerificacion {
+    width: 100%;
+    flex: 1;
+    display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
 }
+
 
 .confirmarCuentaWrapper .mensajeVerificacion{
     background: white;
@@ -38,12 +63,20 @@
 .confirmarCuentaWrapper .mensajeVerificacion button {
     font-size: 16px;
     cursor: pointer;
-    background-color: var(--yellow-button);
     border: none;
     border-radius: 8px;
     padding: 6px 0;
     margin-top: 12px;
     margin-bottom: 5px;
     width: 200px;
+}
+
+.confirmarCuentaWrapper .mensajeVerificacion button.botonAmarillo {
     color: black;
+    background-color: var(--yellow-button);
+}
+
+.confirmarCuentaWrapper .mensajeVerificacion button.botonAzul {
+    color: white;
+    background-color: #5694eb;
 }

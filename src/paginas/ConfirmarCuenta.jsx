@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import emailIcon from '../../src/assets/email.png'
 import chainIcon from '../../src/assets/broken-chain.png'
+import bribleLogo from '../../public/brible-logo.png'
 
 const ConfirmarCuenta = () => {
 
@@ -54,24 +55,30 @@ const ConfirmarCuenta = () => {
 
   return(
     <div className="confirmarCuentaWrapper">
+		<div className="headerConfirmacion">
+			<img src={bribleLogo} alt="Logo" onClick={() => navigate('/')}/>
+		</div>
 			
-				{contenidoCargado ? (
-					<div className="mensajeVerificacion">
-						<div className="contenedorImagen">
-							{mensaje ? (<img src={emailIcon} />) : (<img src={chainIcon} />)}
-						</div>
-						<h2>{error || mensaje}</h2>
-						{mensaje && (
-							<button onClick={() =>{navigate("/login")}}>Iniciar Sesión</button>
-						)}
+		<div className="contenedorMensajeVerificacion">
+			{contenidoCargado ? (
+				<div className="mensajeVerificacion">
+					<div className="contenedorImagen">
+						{mensaje ? (<img src={emailIcon} />) : (<img src={chainIcon} />)}
 					</div>
-				) : (
-					<div className='divCarga'>
-            <span className="loader"></span>
-          </div>
-				)}
+					<h2>{error || mensaje}</h2>
+					{mensaje ? (
+						<button className='botonAmarillo' onClick={() =>{navigate("/login")}}>Iniciar Sesión</button>
+					) : (
+						<button className='botonAzul' onClick={() =>{navigate("/")}}>Regresar a Inicio</button>
+					)}
+				</div>
+			) : (
+			<div className='divCarga'>
+				<span className="loader"></span>
 			</div>
-    
+			)}
+		</div>
+	</div>
   );
 }
 
