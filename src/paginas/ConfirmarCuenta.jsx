@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import emailIcon from '../../src/assets/email.png'
+import chainIcon from '../../src/assets/broken-chain.png'
 
 const ConfirmarCuenta = () => {
 
@@ -57,7 +58,7 @@ const ConfirmarCuenta = () => {
 				{contenidoCargado ? (
 					<div className="mensajeVerificacion">
 						<div className="contenedorImagen">
-							<img src={emailIcon} />
+							{mensaje ? (<img src={emailIcon} />) : (<img src={chainIcon} />)}
 						</div>
 						<h2>{error || mensaje}</h2>
 						{mensaje && (
