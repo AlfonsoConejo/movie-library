@@ -39,6 +39,7 @@ const ConfirmarCuenta = () => {
 				}
 
 				//Actualizamos mensaje
+				console.log(data);
       	setMensaje(data.mensaje);
 				setContenidoCargado(true);
 			} catch(error){
