@@ -1,0 +1,48 @@
+.confirmarCuentaWrapper{
+    width: 100%;
+    min-height: 100dvh;
+    background-color: #eaebed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.confirmarCuentaWrapper .mensajeVerificacion{
+    background: white;
+    min-width: 200px;
+    width: 500px;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirmarCuentaWrapper .mensajeVerificacion .contenedorImagen{
+    display: flex;
+    justify-content: center;
+}
+
+.confirmarCuentaWrapper .mensajeVerificacion img {
+    width: 100px;
+    height: 100px;
+}
+
+.confirmarCuentaWrapper .mensajeVerificacion h2 {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.confirmarCuentaWrapper .mensajeVerificacion button {
+    font-size: 16px;
+    cursor: pointer;
+    background-color: var(--yellow-button);
+    border: none;
+    border-radius: 8px;
+    padding: 6px 0;
+    margin-bottom: 5px;
+    width: 200px;
+    color: black;
+}

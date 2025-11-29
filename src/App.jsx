@@ -15,6 +15,7 @@ import Registro from './paginas/Registro.jsx'
 import Perfil from './paginas/Perfil.jsx'
 import NotFound from './paginas/NotFound.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
+import ConfirmarCuenta from './paginas/ConfirmarCuenta.jsx'
 
 //Creamos un contexto para manipular el menpu deslizable
 export const MenuDeslizableContext = createContext();
@@ -40,7 +41,6 @@ function App() {
 
 const handleSearchFocus = () => {
     searchInputRef.current?.focus();
-    console.log('Esto se ejecutó');
 };
 
   const toogleMostarOcultarMenu = () => {
@@ -82,6 +82,7 @@ const handleSearchFocus = () => {
         <Route path="/buscar" element={<Buscar/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/registro" element={<Registro/>}/>
+        <Route path="/confirmarCuenta/:token"element={<ConfirmarCuenta/>}/>
 
         {/* Rutas protegidas*/}
         <Route
