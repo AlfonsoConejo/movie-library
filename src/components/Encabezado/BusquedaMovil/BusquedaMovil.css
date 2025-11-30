@@ -2,6 +2,9 @@
     display: none;
     color: white;
     cursor: pointer;
+    width: 38px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .botonBuscarMovil .material-symbols-outlined{
@@ -11,7 +14,7 @@
 @media (max-width: 914px) {
     .botonBuscarMovil{
         order: 3; 
-        display: block;   
+        display: flex;   
     }
 }
 
