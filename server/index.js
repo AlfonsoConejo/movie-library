@@ -69,18 +69,18 @@ app.post("/api/registrar", async (req, res) => {
       createdAt: new Date(),
     });
 
-    //Creamos un nuevo token
-    const { verifyEmailToken, createdAt, expiresAt } = generarTokenConfirmacionEmail();
-
-    //Cargamos los datos a la colección account_confirm_tokens
-    await db.collection("account_confirm_tokens").insertOne({ 
-      userId: result.insertedId,
-      confirmationToken: verifyEmailToken,
-      createdAt: createdAt,
-      expiresAt: expiresAt
-    });
-
     if(process.env.ENVIRONMENT === 'DEVELOPMENT'){
+      //Creamos un nuevo token
+      const { verifyEmailToken, createdAt, expiresAt } = generarTokenConfirmacionEmail();
+
+      //Cargamos los datos a la colección account_confirm_tokens
+      await db.collection("account_confirm_tokens").insertOne({ 
+        userId: result.insertedId,
+        confirmationToken: verifyEmailToken,
+        createdAt: createdAt,
+        expiresAt: expiresAt
+      });
+
       //Enviamos el correo de registro al usuario
       try {
         await enviarCorreoDeRegistro(email, verifyEmailToken);

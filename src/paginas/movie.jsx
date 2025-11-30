@@ -30,13 +30,13 @@ export default function Movie(){
         const obtenerDatos = async () => {
             try {
                 // 1️⃣ Información principal
-                const resInfo = await fetch(`/api/tmdb/contenido?media_type=${media_type}&id=${id}`);
+                const resInfo = await fetch(`/api/tmdb/contenido?media_type=${media_type}&id=${id}&language='es-MX'`);
                 const data = await resInfo.json();
                 setInformacion(data);
 
                 //Si nuestra consulta en inglés no tiene overview
                 if(!data.overview){
-                    const resInfoIngles = await fetch(`/api/tmdb/contenidoIngles?media_type=${media_type}&id=${id}`);
+                    const resInfoIngles = await fetch(`/api/tmdb/contenido?media_type=${media_type}&id=${id}&language='en-US'`);
                     const infoIngles = await resInfoIngles.json();
                     setInformacionIngles(infoIngles);
                 }

@@ -57,21 +57,8 @@ router.get("/trending/people", (req, res) => {
 router.get("/contenido", (req, res) => {
   const id = req.query.id;
   const media_type = req.query.media_type;
-  fetch(`https://api.themoviedb.org/3/${media_type}/${id}?language=es-MX`, {
-     headers: {
-      Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
-    }
-  })
-  .then (response => response.json())
-  .then (data => res.json(data))
-  .catch(err => res.status(500).json({error: err.message}));
-});
-
-//Descripción (en inglés )de Película o Serie
-router.get("/contenidoIngles", (req, res) => {
-  const id = req.query.id;
-  const media_type = req.query.media_type;
-  fetch(`https://api.themoviedb.org/3/${media_type}/${id}?language=es-US`, {
+  const language = req.query.idioma;
+  fetch(`https://api.themoviedb.org/3/${media_type}/${id}?language=${language}`, {
      headers: {
       Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
     }
@@ -94,7 +81,7 @@ router.get("/movie/fechasLanzamiento", (req, res) => {
   .catch(err => res.status(500).json({error: err.message}));
 });
 
-//Créditos de la pelícla
+//Créditos de la película
 router.get("/contenido/creditos", (req, res) => {
   const id = req.query.id;
   const media_type = req.query.media_type;

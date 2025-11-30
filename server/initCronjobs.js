@@ -28,55 +28,57 @@ function initCronjobs(){
         }
     });
 
-    //Cronjob para reenviar el correo a todos los usuarios a quienes no les llegó y ya pasaron 10 minutos
-    cron.schedule('0 * * * *', async () => {
-        const db = getDb(); // obtiene la DB ya conectada
-        try{
-            const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000);
-            console.log('[CRON] Iniciando envío de correos de confirmación retrasados...');
+    if(process.env.ENVIRONMENT === 'DEVELOPMENT'){
+        //Cronjob para reenviar el correo a todos los usuarios a quienes no les llegó y ya pasaron 10 minutos
+        cron.schedule('0 * * * *', async () => {
+            const db = getDb(); // obtiene la DB ya conectada
+            try{
+                const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000);
+                console.log('[CRON] Iniciando envío de correos de confirmación retrasados...');
 
-            const cursor = db.collection("users").find(
-                {
-                    emailSent: false,
-                    createdAt: { $exists: true, $lt: tenMinutesAgo },
-                },
-                {
-                    projection: { _id: 1, email: 1, emailSent: 1 },
+                const cursor = db.collection("users").find(
+                    {
+                        emailSent: false,
+                        createdAt: { $exists: true, $lt: tenMinutesAgo },
+                    },
+                    {
+                        projection: { _id: 1, email: 1, emailSent: 1 },
+                    }
+                );
+
+                for await (const user of cursor) {
+                    try {
+                        //Borramos los tokens anteriores emitidos para el usuario
+                        await db
+                            .collection("account_confirm_tokens")
+                            .deleteMany({ userId:user._id });
+
+                        //Creamos un nuevo token
+                        const { verifyEmailToken, createdAt, expiresAt } = generarTokenConfirmacionEmail();
+                        
+                        //Cargamos los datos a la colección account_confirm_tokens
+                        await db.collection("account_confirm_tokens").insertOne({ 
+                            userId: user._id,
+                            confirmationToken: verifyEmailToken,
+                            createdAt: createdAt,
+                            expiresAt: expiresAt
+                        });
+
+                        //Enviamos el correo
+                        await enviarCorreoDeRegistro(user.email, verifyEmailToken);
+                        await db.collection("users").updateOne({ _id: user._id },{ $set: { emailSent: true } });
+                    } catch (errCorreo) {
+                        console.error("[CRON] Error en el envío de correo de registro:", errCorreo);
+                    }
                 }
-            );
 
-            for await (const user of cursor) {
-                try {
-                    //Borramos los tokens anteriores emitidos para el usuario
-                    await db
-                        .collection("account_confirm_tokens")
-                        .deleteMany({ userId:user._id });
-
-                    //Creamos un nuevo token
-                    const { verifyEmailToken, createdAt, expiresAt } = generarTokenConfirmacionEmail();
-                    
-                    //Cargamos los datos a la colección account_confirm_tokens
-                    await db.collection("account_confirm_tokens").insertOne({ 
-                        userId: user._id,
-                        confirmationToken: verifyEmailToken,
-                        createdAt: createdAt,
-                        expiresAt: expiresAt
-                    });
-
-                    //Enviamos el correo
-                    await enviarCorreoDeRegistro(user.email, verifyEmailToken);
-                    await db.collection("users").updateOne({ _id: user._id },{ $set: { emailSent: true } });
-                } catch (errCorreo) {
-                    console.error("[CRON] Error en el envío de correo de registro:", errCorreo);
-                }
+                console.log('[CRON] Correos enviados exitosamente.');
             }
-
-            console.log('[CRON] Correos enviados exitosamente.');
-        }
-        catch(error){
-            console.error('[CRON] Error al enviar correo de confirmación:', error);
-        };
-    });
+            catch(error){
+                console.error('[CRON] Error al enviar correo de confirmación:', error);
+            };
+        });
+    }
 }
 
 export {initCronjobs};
