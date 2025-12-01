@@ -19,7 +19,6 @@ export default function Movie(){
     const [creditos, setCreditos] = useState([]);
     const [creditosCombinados, setCreditosCombinados] = useState([]);
 
-
     const { media_type, id } = useParams();
 
     useEffect(() => {
@@ -30,16 +29,16 @@ export default function Movie(){
         const obtenerDatos = async () => {
             try {
                 // 1️⃣ Información principal
-                const resInfo = await fetch(`/api/tmdb/contenido?media_type=${media_type}&id=${id}&language='es-MX'`);
+                const resInfo = await fetch(`/api/tmdb/contenido?media_type=${media_type}&id=${id}&language=es-MX`);
                 const data = await resInfo.json();
                 setInformacion(data);
+                console.log("Español: ", data);
 
-                //Si nuestra consulta en inglés no tiene overview
-                if(!data.overview){
-                    const resInfoIngles = await fetch(`/api/tmdb/contenido?media_type=${media_type}&id=${id}&language='en-US'`);
-                    const infoIngles = await resInfoIngles.json();
-                    setInformacionIngles(infoIngles);
-                }
+                //Obtenemos la información en inglés como respaldo
+                const resInfoIngles = await fetch(`/api/tmdb/contenido?media_type=${media_type}&id=${id}&language=en-US`);
+                const infoIngles = await resInfoIngles.json();
+                setInformacionIngles(infoIngles);
+                console.log("Inglés: ", infoIngles)
 
                 if (media_type === 'movie') {
                     // 2️⃣ Fechas de lanzamiento

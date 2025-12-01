@@ -1,11 +1,11 @@
 import './InfoPeliculaTarjeta.css'
 import SkeletonInfoPeliculaTarjeta from '../SkeletonInfoPeliculaTarjeta/SkeletonInfoPeliculaTarjeta.jsx'
-import { convertirMinutosAHoras, sliceYear, convertirAFechaConDiagonal } from '../../utils.js'
+import { convertirMinutosAHoras, sliceYear, convertirAFechaConDiagonal, isLikelyLocalizedToSpanish } from '../../utils.js'
 import ImageNotFound from '../../assets/img_not_found2.jpg';
 import { useState, useEffect } from 'react';
 
 export default function InfoPeliculaTarjeta({informacion, informacionIngles, fechasLanzamiento, creditos, tvRatings, mediaType, contenidoCargado}){
-    
+
     //Estado y useEffect para escuchar los cambios de tamaño del viewport
     const [isMobile, setIsMobile] = useState(false);
 
@@ -24,6 +24,9 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
         let fechaLanzamientoLocal;
         let clasificacionSerie;
         let equipoDestacado = [];
+
+        let nombreFinal = null;
+
         //Si es película
         if(mediaType === 'movie'){
             //Obtenemos la fecha de estreno en México, Estados Unidos o España
@@ -39,6 +42,13 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
                 equipoDestacado = creditos.crew
                     .filter(persona => rolesImportantes.includes(persona.job))
                     .slice(0, 3);
+            }
+
+            //Obtenemos el título que se mostrará en pantalla con caracteres latinos
+            if (isLikelyLocalizedToSpanish(informacion?.title)) {
+                nombreFinal = informacion.title;
+            } else if (informacionIngles?.tile) {
+                nombreFinal = informacionIngles.tile; 
             }
         } 
         //Si es serie
@@ -63,6 +73,13 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
                 .slice(0, 3);
             }
 
+            //Obtenemos el título que se mostrará en pantalla con caracteres latinos
+            if (isLikelyLocalizedToSpanish(informacion?.name)) {
+                nombreFinal = informacion.name;
+            } else if (informacionIngles?.name) {
+                nombreFinal = informacionIngles.name; 
+            }
+
         };
 
         const clasificacionPelicula = fechaLanzamientoLocal?.release_dates?.[0].certification;
@@ -71,7 +88,6 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
         const pais = fechaLanzamientoLocal?.iso_3166_1;
 
         return(
-        
             <section
                 className="infoPeliculaTarjeta"
                 style={{
@@ -88,7 +104,7 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
                     </div>
                     
                     <div className="informacion">
-                        <h1 className='titulo'>{informacion.title || informacion.name} 
+                        <h1 className='titulo'>{nombreFinal} 
                             {
                             <span className="year">
                                 {informacion.release_date

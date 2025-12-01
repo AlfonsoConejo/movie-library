@@ -60,4 +60,12 @@ const traduccionesOcupacion = {
   Crew: 'Equipo técnico'
 };
 
-export {convertirFecha, convertirAFechaConDiagonal, convertirAFechaCompleta, convertirMinutosAHoras, sliceYear, traduccionesOcupacion};
+//Regex de caracteres latinos
+const LATIN_REGEX = /^[\p{Script=Latin}\p{N}\p{P}\p{Zs}]+$/u;
+
+function isLikelyLocalizedToSpanish(str) {
+    if (!str) return false;
+    return LATIN_REGEX.test(str);
+}
+
+export {convertirFecha, convertirAFechaConDiagonal, convertirAFechaCompleta, convertirMinutosAHoras, sliceYear, traduccionesOcupacion, isLikelyLocalizedToSpanish};

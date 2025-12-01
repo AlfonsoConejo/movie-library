@@ -53,11 +53,11 @@ router.get("/trending/people", (req, res) => {
   .catch(err => res.status(500).json({error: err.message}));
 });
 
-//Descripción (en español) de Película, Serie o Persona
+//Descripción de Película, Serie o Persona
 router.get("/contenido", (req, res) => {
   const id = req.query.id;
   const media_type = req.query.media_type;
-  const language = req.query.idioma;
+  const language = req.query.language;
   fetch(`https://api.themoviedb.org/3/${media_type}/${id}?language=${language}`, {
      headers: {
       Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
