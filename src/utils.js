@@ -63,9 +63,14 @@ const traduccionesOcupacion = {
 //Regex de caracteres latinos
 const LATIN_REGEX = /^[\p{Script=Latin}\p{N}\p{P}\p{Zs}]+$/u;
 
-function isLikelyLocalizedToSpanish(str) {
-    if (!str) return false;
-    return LATIN_REGEX.test(str);
+function testLatinCharacters(main, fallback) {
+    if (!main || !fallback) return false;
+    //Evaluamos y devolvemos la opción que tenga caracteres latinos
+    if (LATIN_REGEX.test(main)){
+        return main;
+    } else {
+        return fallback;
+    }
 }
 
-export {convertirFecha, convertirAFechaConDiagonal, convertirAFechaCompleta, convertirMinutosAHoras, sliceYear, traduccionesOcupacion, isLikelyLocalizedToSpanish};
+export {convertirFecha, convertirAFechaConDiagonal, convertirAFechaCompleta, convertirMinutosAHoras, sliceYear, traduccionesOcupacion, testLatinCharacters};

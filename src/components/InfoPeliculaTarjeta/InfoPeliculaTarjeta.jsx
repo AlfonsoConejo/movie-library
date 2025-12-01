@@ -1,6 +1,6 @@
 import './InfoPeliculaTarjeta.css'
 import SkeletonInfoPeliculaTarjeta from '../SkeletonInfoPeliculaTarjeta/SkeletonInfoPeliculaTarjeta.jsx'
-import { convertirMinutosAHoras, sliceYear, convertirAFechaConDiagonal, isLikelyLocalizedToSpanish } from '../../utils.js'
+import { convertirMinutosAHoras, sliceYear, convertirAFechaConDiagonal, testLatinCharacters } from '../../utils.js'
 import ImageNotFound from '../../assets/img_not_found2.jpg';
 import { useState, useEffect } from 'react';
 
@@ -45,11 +45,7 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
             }
 
             //Obtenemos el título que se mostrará en pantalla con caracteres latinos
-            if (isLikelyLocalizedToSpanish(informacion?.title)) {
-                nombreFinal = informacion.title;
-            } else if (informacionIngles?.tile) {
-                nombreFinal = informacionIngles.tile; 
-            }
+            nombreFinal = testLatinCharacters(informacion?.title, informacionIngles.title);
         } 
         //Si es serie
         else if (mediaType === 'tv'){
@@ -74,11 +70,7 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
             }
 
             //Obtenemos el título que se mostrará en pantalla con caracteres latinos
-            if (isLikelyLocalizedToSpanish(informacion?.name)) {
-                nombreFinal = informacion.name;
-            } else if (informacionIngles?.name) {
-                nombreFinal = informacionIngles.name; 
-            }
+            nombreFinal = testLatinCharacters(informacion.name, informacionIngles.name);
 
         };
 
