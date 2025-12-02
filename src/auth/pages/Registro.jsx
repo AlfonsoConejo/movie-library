@@ -4,8 +4,12 @@ import registerImage from '../../assets/clapperboard.jpg'
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SuccessAnimation from '../../components/RegistroExitoso/RegistroExitoso';
+import useResizeWindow from '../../customHooks/useResizeWindow';
 
 const Registro = () => {
+
+    //Hook para saber si mostrar interfaz móvil
+    const { isMobile } = useResizeWindow(500);
 
     /*Estado para mostar la contraseña*/
     const [showPassword, setShowPassword] = useState(false);
@@ -218,14 +222,18 @@ const Registro = () => {
         }
     };
 
+    const backgroundStyle = isMobile
+      ? { background: 'none' }
+      : { 
+          background: `linear-gradient(rgba(0, 0, 50, 0.5), rgba(0, 0, 50, 0.5)), url('${registerImage}') center/cover no-repeat`
+        };
+
     return(
         <div className="registerPage">
             <HeaderSimple/>
             <div
                 className="auth-form-container"
-                style={{
-                    background: `linear-gradient(rgba(43, 50, 0, 0.5), rgba(43, 50, 0, 0.5)), url('${registerImage}') center/cover no-repeat`,
-                }}
+                style={backgroundStyle}
             >
                 <div className={`auth-form ${enviado ? 'success' : ''}`}>
                     {!enviado ? (

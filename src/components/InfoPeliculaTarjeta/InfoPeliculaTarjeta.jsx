@@ -3,18 +3,12 @@ import SkeletonInfoPeliculaTarjeta from '../SkeletonInfoPeliculaTarjeta/Skeleton
 import { convertirMinutosAHoras, sliceYear, convertirAFechaConDiagonal, testLatinCharacters } from '../../utils.js'
 import ImageNotFound from '../../assets/img_not_found2.jpg';
 import { useState, useEffect } from 'react';
+import useResizeWindow from '../../customHooks/useResizeWindow';
 
 export default function InfoPeliculaTarjeta({informacion, informacionIngles, fechasLanzamiento, creditos, tvRatings, mediaType, contenidoCargado}){
 
-    //Estado y useEffect para escuchar los cambios de tamaño del viewport
-    const [isMobile, setIsMobile] = useState(false);
-
-    useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 720);
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    //Hook para saber si mostrar interfaz móvil
+    const { isMobile } = useResizeWindow(720);
     
     if(contenidoCargado && informacion && mediaType && creditos){
         //Obtenemos el overview y el tagline en español o en inglés

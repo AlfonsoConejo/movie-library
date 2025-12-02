@@ -5,18 +5,22 @@ import { useState, useEffect, useContext } from 'react';
 import { UserContext } from "../../context/UserContext";
 import { Navigate } from "react-router-dom";
 import HeaderSimple from '../../components/HeaderSimple/HeaderSimple';
+import useResizeWindow from '../../customHooks/useResizeWindow';
 
 const Login = () => {
-  // En tu componente Login
+  // Obtenemos el contexto del usuario
   const { cargandoUsuario, user, login } = useContext(UserContext);
   
   if (cargandoUsuario) {
-    return null; // o un spinner global, o pantalla en blanco
+    return null; // No mostramos nada mientras se carga el usuario
   }
 
   if (user) {
     return <Navigate to="/perfil" replace />;
   }
+
+  //Hook para saber si mostrar interfaz móvil
+  const { isMobile } = useResizeWindow(500);
     
   /*Estado para mostar la contraseña*/
   const [showPassword, setShowPassword] = useState(false);
@@ -180,14 +184,18 @@ const Login = () => {
     }
   };
 
+  const backgroundStyle = isMobile
+  ? { background: 'none' }
+  : { 
+      background: `linear-gradient(rgba(0, 0, 50, 0.5), rgba(0, 0, 50, 0.5)), url('${loginImage}') center/cover no-repeat`
+    };
+
   return(
     <div className="loginPage">
       <HeaderSimple/>
       <div
         className="auth-form-container"
-        style={{
-          background: `linear-gradient(rgba(0, 0, 50, 0.5), rgba(0, 0, 50, 0.5)), url('${loginImage}') center/cover no-repeat`,
-        }}
+        style = {backgroundStyle}
       > 
         <div className="auth-form">
           <h1>Iniciar sesión</h1>

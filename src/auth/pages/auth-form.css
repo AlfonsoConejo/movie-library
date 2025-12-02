@@ -205,7 +205,8 @@
     color: var(--azul-hover);
 }
 
-.auth-form .invalidEmail {
+.auth-form .invalidEmail ,
+.loginPage .auth-form .invalidPassword  {
     display: flex; 
     align-items: center;
     color: #e61c1c;
@@ -213,7 +214,7 @@
     font-size: 15px;
 }
 
-.auth-form .invalidPassword {
+.registerPage .auth-form .invalidPassword {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -222,7 +223,7 @@
     font-size: 15px;
 }
 
-.auth-form .invalidPassword ul{
+.registerPage .auth-form .invalidPassword ul{
     margin-top: 5px;
     margin-bottom: 0;
 }
@@ -233,4 +234,20 @@
 
 .auth-form .invalidPassword ul li.rule_error{
     color: #e61c1c;
+}
+
+@media (width <= 500px) {
+    .auth-form-container.auth-form-container{
+        padding: 48px 30px 0px 30px;
+    }
+
+    .auth-form-container .auth-form{
+        padding: 30px;
+        margin-top: 0;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    }
+
+    .auth-form-container .auth-form h1{
+        font-size: 30px;
+    }
 }

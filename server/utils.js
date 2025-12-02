@@ -1,6 +1,5 @@
 import crypto from "crypto";
 
-
 function generarTokenConfirmacionEmail() {
     //Generamos un nuevo token para el usuario
     const verifyEmailToken = crypto.randomBytes(32).toString("hex");
