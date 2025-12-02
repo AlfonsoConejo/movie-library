@@ -1,9 +1,9 @@
-import './Registro.css'
-import HeaderSimple from '../components/HeaderSimple/HeaderSimple';
-import registerImage from '../assets/clapperboard.jpg'
+import './auth-form.css'
+import HeaderSimple from '../../components/HeaderSimple/HeaderSimple';
+import registerImage from '../../assets/clapperboard.jpg'
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import SuccessAnimation from '../components/RegistroExitoso/RegistroExitoso';
+import SuccessAnimation from '../../components/RegistroExitoso/RegistroExitoso';
 
 const Registro = () => {
 
@@ -188,7 +188,7 @@ const Registro = () => {
         setEnviando(true);
 
         try {
-            const res = await fetch('/api/registrar', {
+            const res = await fetch('/api/auth/registrar', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
@@ -219,16 +219,15 @@ const Registro = () => {
     };
 
     return(
-        
         <div className="registerPage">
             <HeaderSimple/>
             <div
-                className="registerContainer"
+                className="auth-form-container"
                 style={{
                     background: `linear-gradient(rgba(43, 50, 0, 0.5), rgba(43, 50, 0, 0.5)), url('${registerImage}') center/cover no-repeat`,
                 }}
             >
-                <div className={`contenedorFormulario ${enviado ? 'success' : ''}`}>
+                <div className={`auth-form ${enviado ? 'success' : ''}`}>
                     {!enviado ? (
                         <form onSubmit={handleSubmit} noValidate>
                             <h1>Crea una cuenta</h1>
@@ -375,7 +374,7 @@ const Registro = () => {
                             </button>
                             <span>
                             ¿Ya tienes una cuenta?{" "}
-                                <Link to="/login" className='crearCuenta'>
+                                <Link to="/login" className='logOrCreate'>
                                     Inicia sesión.
                                 </Link>
                             </span>

@@ -13,7 +13,7 @@ export function UserProvider({ children }) {
     const initSession = async () => {
       try {
         // 1) Pido nuevo accessToken usando la cookie refreshToken
-        const resRefresh = await fetch("/api/refresh-token", {
+        const resRefresh = await fetch("/api/auth/refresh-token", {
           method: "POST",
           credentials: "include", // manda cookie HTTPOnly
         });
@@ -37,7 +37,7 @@ export function UserProvider({ children }) {
         setAccessToken(newToken);
 
         // 2) Con ese accessToken, pido /api/me para obtener al usuario
-        const resMe = await fetch("/api/me", {
+        const resMe = await fetch("/api/auth/me", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${newToken}`,
@@ -75,7 +75,7 @@ export function UserProvider({ children }) {
 
   const logout = async () => {
     try {
-      await fetch("/api/logout", {
+      await fetch("/api/auth/logout", {
         method: "POST",
         credentials: "include",
       });

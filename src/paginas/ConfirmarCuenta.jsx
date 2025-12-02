@@ -25,7 +25,7 @@ const ConfirmarCuenta = () => {
 
     const validarToken = async () => {
 			try {
-				const resToken = await fetch(`/api/verificarCuenta`, {
+				const resToken = await fetch(`/api/auth/verificarCuenta`, {
           method: 'POST',
         	headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({token}),

@@ -1,11 +1,11 @@
-.registerPage{
+.loginPage, .registerPage{
     min-width: 100%;
     min-height: 100%;
     display: flex;
     flex-direction: column;
 }
 
-.registerPage .registerContainer{
+.auth-form-container{
     width: 100%;
     flex: 1;
     display: flex;
@@ -13,7 +13,7 @@
     align-items: flex-start;  /* NO estira verticalmente */
 }
 
-.registerPage .contenedorFormulario{
+.auth-form-container .auth-form{
     width: 450px;
     background: white;
     padding:  48px;
@@ -21,19 +21,19 @@
     margin-top: 48px;
 }
 
-.registerPage .contenedorFormulario h1{
+.auth-form-container .auth-form h1{
     margin: 0 0 20px;
     font-size: 36px;
     color: #0d0d68;
 }
 
-.registerPage .contenedorFormulario form{
+.auth-form-container .auth-form form{
     width: 100%;
     display: flex;
     flex-direction: column;
 }
 
-.registerPage .contenedorFormulario .backendAlert{
+.auth-form-container .auth-form .backendAlert{
     width: 100%;
     background: #ed4a58;
     color: white;
@@ -42,32 +42,32 @@
     margin-bottom: 20px;
 }
 
-.registerPage .contenedorCampo{
+.auth-form .contenedorCampo{
     display: flex;
     flex-direction: column;
     margin-bottom: 25px;
 }
 
-.registerPage .contenedorFormulario .inputGroup{
+.auth-form .inputGroup{
     position: relative;
 }
 
-.registerPage form  .contenedorCampo> .inputGroup:first-of-type:focus-within {
+.auth-form  .contenedorCampo> .inputGroup:first-of-type:focus-within {
     outline: 3px solid var(--yellow-button);
     border-radius: 10px;
 }
 
 /* Rojo cuando hay error y NO hay focus */
-.registerPage .contenedorFormulario .passwordGroup.inputError {
+.auth-form .passwordGroup.inputError {
   border: 3px solid #e63946;
 }
 
 /* Si hay error PERO también focus → gana el amarillo */
-.registerPage .contenedorFormulario .passwordGroup.inputError:focus-within {
+.auth-form .passwordGroup.inputError:focus-within {
   border: 3px solid var(--yellow-button);
 }
 
-.registerPage .inputGroup input[type="email"] {
+.auth-form .inputGroup input[type="email"] {
     width: 100%;
     height: 56px;
     border-radius: 10px;
@@ -78,11 +78,11 @@
     background: transparent;
 }
 
-.registerPage .inputGroup input.inputError {
+.auth-form .inputGroup input.inputError {
   border: 3px solid #e63946;
 }
 
-.registerPage .contenedorFormulario .passwordGroup {
+.auth-form .passwordGroup {
   display: flex;
   width: 100%;
   height: 56px;
@@ -92,17 +92,17 @@
   transition: border 0.15s ease;
 }
 
-.registerPage .contenedorFormulario .passwordGroup:focus-within {
+.auth-form .passwordGroup:focus-within {
   border: 3px solid var(--yellow-button);
 }
 
-.registerPage .contenedorFormulario .passwordGroup .inputGroup {
+.auth-form .passwordGroup .inputGroup {
     position: relative;
     flex: 1;
     height: 100%;
 }
 
-.registerPage .inputGroup input[type="password"] {
+.auth-form .inputGroup input[type="password"] {
     width: 100%;
     height: 100%;
     border-radius: 10px;
@@ -113,7 +113,7 @@
     background: transparent;
 }
 
-.registerPage .inputGroup input[type="text"] {
+.auth-form .inputGroup input[type="text"] {
     width: 100%;
     height: 100%;
     border-radius: 10px;
@@ -124,7 +124,7 @@
     background: transparent;
 }
 
-.registerPage .passwordGroup .visibilityToggleContainer{
+.auth-form .passwordGroup .visibilityToggleContainer{
     width: 42px;
     height: 100%;
     display: none;
@@ -134,17 +134,17 @@
     user-select: none;
 }
 
-.registerPage .passwordGroup:focus-within .visibilityToggleContainer {
+.auth-form .passwordGroup:focus-within .visibilityToggleContainer {
     display: flex;
 }
 
-.registerPage .passwordGroup .visibilityToggleContainer .material-symbols-outlined{
+.auth-form .passwordGroup .visibilityToggleContainer .material-symbols-outlined{
     cursor: pointer;
     font-size: 25px;
     color: #818080;
 }
 
-.registerPage .inputGroup label {
+.auth-form .inputGroup label {
     position: absolute;
     left: 15px;
     top: 18px;
@@ -156,8 +156,8 @@
 }
 
 /* Cuando el input está enfocado o tiene contenido */
-.registerPage .inputGroup input:focus + label,
-.registerPage .inputGroup input:not(:placeholder-shown) + label {
+.auth-form .inputGroup input:focus + label,
+.auth-form .inputGroup input:not(:placeholder-shown) + label {
     top: 7px;
     left: 10px;
     font-size: 12px;
@@ -165,7 +165,7 @@
 }
 
 /* Submit */
-.registerPage .contenedorFormulario .btn-submit {
+.auth-form .btn-submit {
     background-color: var(--yellow-button);
     border: none;
     height: 40px;
@@ -180,32 +180,32 @@
     align-items: center;
 }
 
-.registerPage .contenedorFormulario .btn-submit:hover {
+.auth-form .btn-submit:hover {
     filter: brightness(0.95);
 }
 
-.registerPage .contenedorFormulario .btn-submit.deshabilitado {
+.auth-form .btn-submit.deshabilitado {
     background-color: #cccccc;
     color: #777;
     cursor: not-allowed;
 }
 
-.registerPage .contenedorFormulario .btn-submit.deshabilitado .contenedorPuntos{
+.auth-form .btn-submit.deshabilitado .contenedorPuntos{
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.registerPage .contenedorFormulario .recuperarPassword {
+.auth-form .recuperarPassword {
     margin-bottom: 8px;
     color: var(--azul-hover);
 }
 
-.registerPage .contenedorFormulario .crearCuenta {
+.auth-form .logOrCreate {
     color: var(--azul-hover);
 }
 
-.registerPage .invalidEmail {
+.auth-form .invalidEmail {
     display: flex; 
     align-items: center;
     color: #e61c1c;
@@ -213,7 +213,7 @@
     font-size: 15px;
 }
 
-.registerPage .invalidPassword {
+.auth-form .invalidPassword {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -222,16 +222,15 @@
     font-size: 15px;
 }
 
-.registerPage .invalidPassword ul{
+.auth-form .invalidPassword ul{
     margin-top: 5px;
     margin-bottom: 0;
 }
 
-.registerPage .invalidPassword ul li.rule_ok{
+.auth-form .invalidPassword ul li.rule_ok{
     color: #1ba72b;
 }
 
-.registerPage .invalidPassword ul li.rule_error{
+.auth-form .invalidPassword ul li.rule_error{
     color: #e61c1c;
 }
-

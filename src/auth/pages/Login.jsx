@@ -1,10 +1,10 @@
-import './Login.css'
-import loginImage from '../assets/movie-theater.jpg'
+import './auth-form.css'
+import loginImage from '../../assets/movie-theater.jpg'
 import { Link } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 import { Navigate } from "react-router-dom";
-import HeaderSimple from '../components/HeaderSimple/HeaderSimple';
+import HeaderSimple from '../../components/HeaderSimple/HeaderSimple';
 
 const Login = () => {
   // En tu componente Login
@@ -142,7 +142,7 @@ const Login = () => {
     setEnviando(true);
 
     try {
-      const res = await fetch('/api/login', {
+      const res = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: "include",
@@ -184,12 +184,12 @@ const Login = () => {
     <div className="loginPage">
       <HeaderSimple/>
       <div
-        className="loginContainer"
+        className="auth-form-container"
         style={{
           background: `linear-gradient(rgba(0, 0, 50, 0.5), rgba(0, 0, 50, 0.5)), url('${loginImage}') center/cover no-repeat`,
         }}
       > 
-        <div className="contenedorFormulario">
+        <div className="auth-form">
           <h1>Iniciar sesión</h1>
           {error && (
               <div className='backendAlert'>
@@ -328,7 +328,7 @@ const Login = () => {
             </Link>
             <span>
               ¿Aún no tienes una cuenta?{" "}
-              <Link to="/registro" className='crearCuenta'>
+              <Link to="/registro" className='logOrCreate'>
                 Regístrate aquí.
               </Link>
             </span>
