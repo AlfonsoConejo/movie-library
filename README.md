@@ -26,15 +26,5 @@ https://movie-library-8w5d.onrender.com
 
 <img width="1920" height="913" alt="imagen" src="https://github.com/user-attachments/assets/cc75d3cb-ec3d-482e-9357-5928d97816c0" />
 <img width="1920" height="913" alt="imagen" src="https://github.com/user-attachments/assets/a9a37824-b6ea-4196-865f-8bc553e990f8" />
-<img width="656" height="585" alt="imagen" src="https://github.com/user-attachments/assets/e8f673aa-804b-4ec6-8f70-3dbfd0b72a45" />
 <img width="1920" height="913" alt="imagen" src="https://github.com/user-attachments/assets/6ddc5d8c-83c7-4529-bc5f-abd177aafec7" />
 <img width="1920" height="913" alt="imagen" src="https://github.com/user-attachments/assets/985d7d8e-ffe4-41f2-804a-5567b140bcea" />
-
-### Instalación
-
-1. Descarga el repositorio
-
-3. Item 2
-4. Item 3
-    1. Item 3a
-    2. Item 3b
