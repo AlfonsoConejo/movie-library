@@ -1,12 +1,13 @@
 import './InfoPeliculaTarjeta.css'
+import CarruselReparto from '../CarruselReparto/CarruselReparto.jsx';
+import SearchNotFound from '../../paginas/SearchNotFound.jsx';
 import SkeletonInfoPeliculaTarjeta from '../SkeletonInfoPeliculaTarjeta/SkeletonInfoPeliculaTarjeta.jsx'
 import { convertirMinutosAHoras, sliceYear, convertirAFechaConDiagonal, testLatinCharacters } from '../../utils.js'
 import ImageNotFound from '../../assets/img_not_found2.jpg';
-import { useState, useEffect } from 'react';
 import useResizeWindow from '../../customHooks/useResizeWindow';
 
-export default function InfoPeliculaTarjeta({informacion, informacionIngles, fechasLanzamiento, creditos, tvRatings, mediaType, isLoading}){
-
+export default function InfoPeliculaTarjeta({informacion, informacionIngles, fechasLanzamiento, creditos, tvRatings, mediaType, reparto, isLoading}){
+    
     //Hook para saber si mostrar interfaz móvil
     const { isMobile } = useResizeWindow(720);
     
@@ -14,71 +15,75 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
         return <SkeletonInfoPeliculaTarjeta />;
     }
 
+    if (!informacion || informacion.success === false) {
+        return <SearchNotFound/>;
+    }
 
-    if(informacion && mediaType && creditos){
-        //Obtenemos el overview y el tagline en español o en inglés
-        const overview = informacion?.overview || informacionIngles?.overview || null;
-        const tagline = informacion?.tagline || informacionIngles?.tagline || null;
-        //Obtenemos los datos del estreno en español
-        let fechaLanzamientoLocal;
-        let clasificacionSerie;
-        let equipoDestacado = [];
 
-        let nombreFinal = null;
+    //Obtenemos el overview y el tagline en español o en inglés
+    const overview = informacion?.overview || informacionIngles?.overview || null;
+    const tagline = informacion?.tagline || informacionIngles?.tagline || null;
+    //Obtenemos los datos del estreno en español
+    let fechaLanzamientoLocal;
+    let clasificacionSerie;
+    let equipoDestacado = [];
+    let nombreFinal = null;
 
-        //Si es película
-        if(mediaType === 'movie'){
-            //Obtenemos la fecha de estreno en México, Estados Unidos o España
-            fechaLanzamientoLocal = 
-            fechasLanzamiento?.find(f => f.iso_3166_1 == 'MX' && f.release_dates[0].certification && f.release_dates[0].release_date) ||
-            fechasLanzamiento?.find(f => f.iso_3166_1 == 'US' && f.release_dates[0].certification && f.release_dates[0].release_date) ||
-            fechasLanzamiento?.find(f => f.iso_3166_1 == 'ES' && f.release_dates[0].certification && f.release_dates[0].release_date) ||
-            null;
+    //Si es película
+    if(mediaType === 'movie'){
+        //Obtenemos la fecha de estreno en México, Estados Unidos o España
+        fechaLanzamientoLocal = 
+        fechasLanzamiento?.find(f => f.iso_3166_1 == 'MX' && f.release_dates[0].certification && f.release_dates[0].release_date) ||
+        fechasLanzamiento?.find(f => f.iso_3166_1 == 'US' && f.release_dates[0].certification && f.release_dates[0].release_date) ||
+        fechasLanzamiento?.find(f => f.iso_3166_1 == 'ES' && f.release_dates[0].certification && f.release_dates[0].release_date) ||
+        null;
 
-            //Obtenemos un arreglo de 3 posiciones con las personas más importantes
-            const rolesImportantes = ["Director", "Screenplay", "Writer", "Story", "Characters"]; 
-            if (creditos?.crew?.length) {
-                equipoDestacado = creditos.crew
-                    .filter(persona => rolesImportantes.includes(persona.job))
-                    .slice(0, 3);
-            }
-
-            //Obtenemos el título que se mostrará en pantalla con caracteres latinos
-            nombreFinal = testLatinCharacters(informacion?.title, informacionIngles.title);
-        } 
-        //Si es serie
-        else if (mediaType === 'tv'){
-            //Obtenemos la clasificaciones de México, Estados Unidos o España
-            clasificacionSerie = 
-            tvRatings?.find(t => t.iso_3166_1 == 'MX') ||
-            tvRatings?.find(t => t.iso_3166_1 == 'US') ||
-            tvRatings?.find(t => t.iso_3166_1 == 'ES') ||
-            null
-
-            //Obtenemos un arreglo de 3 posiciones con los creadores de la serie 
-            if (informacion?.created_by?.length) {
-                equipoDestacado = informacion.created_by.map(persona => ({
-                    id: persona.id,
-                    credit_id: persona.credit_id,
-                    name: persona.name,
-                    gender: persona.gender,
-                    profile_path: persona.profile_path,
-                    job: "Creador"
-                }))
+        //Obtenemos un arreglo de 3 posiciones con las personas más importantes
+        const rolesImportantes = ["Director", "Screenplay", "Writer", "Story", "Characters"]; 
+        if (creditos?.crew?.length) {
+            equipoDestacado = creditos.crew
+                .filter(persona => rolesImportantes.includes(persona.job))
                 .slice(0, 3);
-            }
+        }
 
-            //Obtenemos el título que se mostrará en pantalla con caracteres latinos
-            nombreFinal = testLatinCharacters(informacion.name, informacionIngles.name);
+        //Obtenemos el título que se mostrará en pantalla con caracteres latinos
+        nombreFinal = testLatinCharacters(informacion?.title, informacionIngles.title);
+    } 
+        
+    //Si es serie
+    else if (mediaType === 'tv'){
+        //Obtenemos la clasificaciones de México, Estados Unidos o España
+        clasificacionSerie = 
+        tvRatings?.find(t => t.iso_3166_1 == 'MX') ||
+        tvRatings?.find(t => t.iso_3166_1 == 'US') ||
+        tvRatings?.find(t => t.iso_3166_1 == 'ES') ||
+        null
 
-        };
+        //Obtenemos un arreglo de 3 posiciones con los creadores de la serie 
+        if (informacion?.created_by?.length) {
+            equipoDestacado = informacion.created_by.map(persona => ({
+                id: persona.id,
+                credit_id: persona.credit_id,
+                name: persona.name,
+                gender: persona.gender,
+                profile_path: persona.profile_path,
+                job: "Creador"
+            }))
+            .slice(0, 3);
+        }
 
-        const clasificacionPelicula = fechaLanzamientoLocal?.release_dates?.[0].certification;
-        const fechaLocal = fechaLanzamientoLocal?.release_dates?.[0]?.release_date.slice(0,10);
+        //Obtenemos el título que se mostrará en pantalla con caracteres latinos
+        nombreFinal = testLatinCharacters(informacion.name, informacionIngles.name);
 
-        const pais = fechaLanzamientoLocal?.iso_3166_1;
+    };
 
-        return(
+    const clasificacionPelicula = fechaLanzamientoLocal?.release_dates?.[0].certification;
+    const fechaLocal = fechaLanzamientoLocal?.release_dates?.[0]?.release_date.slice(0,10);
+
+    const pais = fechaLanzamientoLocal?.iso_3166_1;
+
+    return(
+        <>
             <section
                 className="infoPeliculaTarjeta"
                 style={{
@@ -119,7 +124,6 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
                                 {informacion.genres && <span>{informacion.genres.map(i => i.name).join(', ')}</span> }
                             </p>
                         }
-                        
 
                         {informacion.vote_average !== undefined && informacion.vote_average !== null && (
                             <div className='contenedorScore'>
@@ -158,7 +162,12 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
                     </div>
                 </div>
             </section>
+            <CarruselReparto
+                reparto = {reparto || []}
+                isLoading={isLoading}
+            />
+        </>
         );
-    }
+
 
 }

@@ -70,9 +70,7 @@ export default function Movie(){
     const informacionIngles = infoEnQuery.data ?? null;
     const fechasLanzamiento = fechasQuery.data ?? [];
     const tvRatings = tvRatingsQuery.data ?? [];
-    console.log("tvRatings: ", tvRatings);
     const creditos = creditosQuery.data ?? { cast: [], crew: [] };
-    console.log("creditos: ", creditosQuery.data);
     const creditosCombinados = creditosCombinadosQuery?.data ?? null;
 
     // Manejo de loading: consideramos isLoading si la query principal está cargando.
@@ -117,9 +115,6 @@ export default function Movie(){
                     creditos = {creditos}
                     mediaType = {media_type}
                     tvRatings = {tvRatings}
-                    isLoading={media_type === 'movie' ? loadingMovie : loadingTv}
-                />
-                <CarruselReparto
                     reparto = {creditos?.cast || []}
                     isLoading={media_type === 'movie' ? loadingMovie : loadingTv}
                 />

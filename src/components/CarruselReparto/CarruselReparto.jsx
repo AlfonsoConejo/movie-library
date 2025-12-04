@@ -3,7 +3,6 @@ import ActorReparto from '../ActorReparto/ActorReparto';
 import SkeletonActorReparto from '../SkeletonActorReparto/SkeletonActorReparto';
 
 export default function CarruselReparto({reparto, isLoading}) {
-
     if(isLoading){
         return(
         <section className='contenedorCarruselReparto'>

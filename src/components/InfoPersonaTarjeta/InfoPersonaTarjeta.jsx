@@ -2,6 +2,7 @@ import './InfoPersonaTarjeta.css';
 import ImageNotFound from '../../assets/img_not_found2.jpg';
 import CarruselFilmografia from '../CarruselFilmografia/CarruselFilmografia.jsx';
 import TimelineFilmografia from '../TimelineFilmografia/TimelineFilmografia.jsx';
+import SearchNotFound from '../../paginas/SearchNotFound.jsx';
 import { convertirAFechaCompleta, traduccionesOcupacion } from '../../utils.js';
 import { useState } from 'react';
 
@@ -18,8 +19,8 @@ const InfoPersonaTarjeta = ({informacion, informacionIngles, isLoading}) => {
         );
     }
 
-    if (!informacion) {
-        return null; // o un fallback visual
+    if (!informacion || informacion.success === false) {
+        return <SearchNotFound/>
     }
 
     //Caracteres máximos permitidos en la biografía
