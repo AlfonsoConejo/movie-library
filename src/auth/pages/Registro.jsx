@@ -1,6 +1,5 @@
 import './auth-form.css'
 import HeaderSimple from '../../components/HeaderSimple/HeaderSimple';
-import registerImage from '../../assets/clapperboard.jpg'
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SuccessAnimation from '../../components/RegistroExitoso/RegistroExitoso';
@@ -17,7 +16,7 @@ const Registro = () => {
 
     /*Estado para saber si el formulario es válido*/
     const [isFormValid, setIsFormValid] = useState(false);
-    console.log(isFormValid);
+    //console.log(isFormValid);
     
     /*Estados de la información de cada campo*/
     const [formData, setFormData] = useState({
@@ -199,7 +198,7 @@ const Registro = () => {
             });
 
             const data = await res.json().catch(() => ({}));
-            console.log(`Este es el estatus: ${data}`);
+            //console.log(`Este es el estatus: ${data}`);
             if (!res.ok) {
                 if (res.status === 400){
                     setError(data.error || 'Faltan campos obligatorios');
@@ -222,11 +221,7 @@ const Registro = () => {
         }
     };
 
-    const backgroundStyle = isMobile
-      ? { background: 'none' }
-      : { 
-          background: `linear-gradient(rgba(0, 0, 50, 0.5), rgba(0, 0, 50, 0.5)), url('${registerImage}') center/cover no-repeat`
-        };
+    const backgroundStyle = isMobile ? { background: 'none' } : {};
 
     return(
         <div className="registerPage">
@@ -284,7 +279,7 @@ const Registro = () => {
                                     setIsPasswordGroupFocused(true);
                                     setErrors(prev => ({
                                         ...prev,
-                                        password: false, // ocultar error mientras corrige (opcional)
+                                        password: false, // ocultar error mientras corrige
                                     }));
                                     }}
                                     onBlur={(e) => {
@@ -294,7 +289,8 @@ const Registro = () => {
                                             return;
                                         }
                                         
-                                        const value = e.target.value;
+                                        const value = formData.password;
+                                        console.log("Este es el valor de value:", value)
 
                                         //Verificamos que la contraseña cumpla con todos los requisitos
                                         const hasMinLength = cumpleLongitud(value);

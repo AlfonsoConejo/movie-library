@@ -1,5 +1,4 @@
 import './auth-form.css'
-import loginImage from '../../assets/movie-theater.jpg'
 import { Link } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import { UserContext } from "../../context/UserContext";
@@ -184,11 +183,7 @@ const Login = () => {
     }
   };
 
-  const backgroundStyle = isMobile
-  ? { background: 'none' }
-  : { 
-      background: `linear-gradient(rgba(0, 0, 50, 0.5), rgba(0, 0, 50, 0.5)), url('${loginImage}') center/cover no-repeat`
-    };
+  const backgroundStyle = isMobile ? { background: 'none' } : {};
 
   return(
     <div className="loginPage">

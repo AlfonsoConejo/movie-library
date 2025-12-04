@@ -5,12 +5,17 @@ import ImageNotFound from '../../assets/img_not_found2.jpg';
 import { useState, useEffect } from 'react';
 import useResizeWindow from '../../customHooks/useResizeWindow';
 
-export default function InfoPeliculaTarjeta({informacion, informacionIngles, fechasLanzamiento, creditos, tvRatings, mediaType, contenidoCargado}){
+export default function InfoPeliculaTarjeta({informacion, informacionIngles, fechasLanzamiento, creditos, tvRatings, mediaType, isLoading}){
 
     //Hook para saber si mostrar interfaz móvil
     const { isMobile } = useResizeWindow(720);
     
-    if(contenidoCargado && informacion && mediaType && creditos){
+     if (isLoading) {
+        return <SkeletonInfoPeliculaTarjeta />;
+    }
+
+
+    if(informacion && mediaType && creditos){
         //Obtenemos el overview y el tagline en español o en inglés
         const overview = informacion?.overview || informacionIngles?.overview || null;
         const tagline = informacion?.tagline || informacionIngles?.tagline || null;
@@ -154,8 +159,6 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
                 </div>
             </section>
         );
-    } else {
-        return <SkeletonInfoPeliculaTarjeta/>
     }
 
 }

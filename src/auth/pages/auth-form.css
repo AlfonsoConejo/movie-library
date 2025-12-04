@@ -13,6 +13,18 @@
     align-items: flex-start;  /* NO estira verticalmente */
 }
 
+.registerPage .auth-form-container{
+    background: 
+    linear-gradient(rgba(43, 50, 0, 0.5), rgba(43, 50, 0, 0.5)),
+    url('../../assets/clapperboard.jpg') center/cover no-repeat;
+}
+
+.loginPage .auth-form-container{
+    background: 
+    linear-gradient(rgba(0, 0, 50, 0.5), rgba(0, 0, 50, 0.5)),
+    url('../../assets/movie-theater.jpg') center/cover no-repeat;
+}
+
 .auth-form-container .auth-form{
     width: 450px;
     background: white;
