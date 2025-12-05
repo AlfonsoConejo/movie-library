@@ -30,3 +30,27 @@ export async function fetchCreditosCombinados(personId) {
   if (!res.ok) throw new Error('Error creditos combinados');
   return res.json();
 }
+
+export async function fetchTendenciaTodo(time, language) {
+  const res = await fetch(`/api/tmdb/trending/all?time=${time}&language=${language}`);
+  if (!res.ok) throw new Error('Error tendencia general');
+  return res.json();
+}
+
+export async function fetchTendenciaPeliculas(time, language) {
+  const res = await fetch(`/api/tmdb/trending/movies?time=${time}&language=${language}`);
+  if (!res.ok) throw new Error('Error películas en tendencia');
+  return res.json();
+}
+
+export async function fetchTendenciaSeries(time, language) {
+  const res = await fetch(`/api/tmdb/trending/tv?time=${time}&language=${language}`);
+  if (!res.ok) throw new Error('Error series en tendencia');
+  return res.json();
+}
+
+export async function fetchTendenciaPersonas(time, language) {
+  const res = await fetch(`/api/tmdb/trending/people?time=${time}&language=${language}`);
+  if (!res.ok) throw new Error('Error personas en tendencia');
+  return res.json();
+}

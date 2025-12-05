@@ -2,6 +2,7 @@ import './InfoPeliculaTarjeta.css'
 import CarruselReparto from '../CarruselReparto/CarruselReparto.jsx';
 import SearchNotFound from '../../paginas/SearchNotFound.jsx';
 import SkeletonInfoPeliculaTarjeta from '../SkeletonInfoPeliculaTarjeta/SkeletonInfoPeliculaTarjeta.jsx'
+import SkeletonActorReparto from '../SkeletonActorReparto/SkeletonActorReparto.jsx';
 import { convertirMinutosAHoras, sliceYear, convertirAFechaConDiagonal, testLatinCharacters } from '../../utils.js'
 import ImageNotFound from '../../assets/img_not_found2.jpg';
 import useResizeWindow from '../../customHooks/useResizeWindow';
@@ -12,7 +13,17 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
     const { isMobile } = useResizeWindow(720);
     
      if (isLoading) {
-        return <SkeletonInfoPeliculaTarjeta />;
+        return(
+            <>
+            <SkeletonInfoPeliculaTarjeta />
+            <section className='contenedorCarruselReparto'>
+                <h2>Reparto</h2>
+                <div className='carruselReparto'>
+                    {Array(11).fill().map((_,i)=><SkeletonActorReparto key={i}/>)}
+                </div>
+            </section> 
+            </>
+        );;
     }
 
     if (!informacion || informacion.success === false) {
@@ -164,7 +175,6 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
             </section>
             <CarruselReparto
                 reparto = {reparto || []}
-                isLoading={isLoading}
             />
         </>
         );

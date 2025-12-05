@@ -4,50 +4,45 @@ import useCarousel from "../customHooks/useCarousel";
 import './Home.css'
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import useTrending from "../customHooks/useTrending";
 
 export default function Home(){
     const { user, cargandoUsuario } = useContext(UserContext);
-    console.log("user en Home:", user);
-    //Usamos el useCarousel para cargar lo más visto del momento
+    
+    //Estados de los botones de cada carrusel
     const [botonPresionadoGeneral, setBotonPresionadoGeneral] = useState('day');
-
-    const { peliculas: general, cargado: cargadoGeneral } = useCarousel(
-    () => `/api/tmdb/trending/all?time=${botonPresionadoGeneral}`,
-    [botonPresionadoGeneral]
-    );
-
-    //Usamos el useCarousel para cargar las películas más vistas
     const [botonPresionadoPeliculas, setBotonPresionadoPeliculas] = useState('day');
-
-    const { peliculas: peliculas, cargado: cargadoPeliculas } = useCarousel(
-    () => `/api/tmdb/trending/movies?time=${botonPresionadoPeliculas}`,
-    [botonPresionadoPeliculas]
-    );
-
-    //Usamos el useCarousel para cargar las seriesPopulares
     const [botonPresionadoSeries, setBotonPresionadoSeries] = useState('day');
-
-    const { peliculas: series, cargado: cargadoSeries } = useCarousel(
-    () => `/api/tmdb/trending/tv?time=${botonPresionadoSeries}`,
-    [botonPresionadoSeries]
-    );
-
-
-    //Usamos el useCarousel para cargar las personas más buscadas
     const [botonPresionadoPersona, setBotonPresionadoPersona] = useState('day');
 
-    const { peliculas: personas, cargado: cargadoPersonas } = useCarousel(
-    () => `/api/tmdb/trending/people?time=${botonPresionadoPersona}`,
-    [botonPresionadoPersona]
-    );
+    //Llamda a endpoints
+    const trendingAllSpanish = useTrending('all', botonPresionadoGeneral, 'es-MX');
+    const trendingAllEnglish = useTrending('all', botonPresionadoGeneral, 'en-US');
+    console.log('Tendencia general: ', trendingAllSpanish.data);
+
+    const trendingMoviesSpanish = useTrending('movies', botonPresionadoPeliculas, 'es-MX');
+    const trendingMoviesEnglish = useTrending('movies', botonPresionadoPeliculas, 'en-US');
+
+    const trendingTvSpanish = useTrending('tv', botonPresionadoSeries, 'es-MX');
+    const trendingTvEnglish = useTrending('tv', botonPresionadoSeries, 'en-US');
+
+    const trendingPeopleSpanish = useTrending('people', botonPresionadoPersona, 'es-MX');
+    const trendingPeopleEnglish = useTrending('people', botonPresionadoPersona, 'en-US');
+
+    //Verificamos si la información aún está cargando
+    const isTrendingAllLoading = trendingAllSpanish.isLoading || trendingAllEnglish.isLoading;
+    const isTrendingMoviesLoading = trendingMoviesSpanish.isLoading || trendingMoviesEnglish.isLoading;
+    const isTrendingTvLoading = trendingTvSpanish.isLoading || trendingTvEnglish.isLoading;
+    const isTrendingPeopleLoading = trendingPeopleSpanish.isLoading || trendingPeopleEnglish.isLoading;
 
     return(
         <div className="paginaInicio">
             <Carrusel
                 botones = 'tendencia'
                 titulo = 'Lo Más Visto'
-                peliculas = {general}
-                cargado = {cargadoGeneral}
+                informacionEs={trendingAllSpanish.data?.results || []}
+                informacionEn={trendingAllEnglish.data?.results || []}
+                isLoading = {isTrendingAllLoading}
                 botonPresionado = {botonPresionadoGeneral}
                 setBotonPresionado = {setBotonPresionadoGeneral}
             />
@@ -55,8 +50,9 @@ export default function Home(){
             <Carrusel
                 botones = 'tendencia'
                 titulo = 'Películas Populares'
-                peliculas = {peliculas}
-                cargado = {cargadoPeliculas}
+                informacionEs = {trendingMoviesSpanish.data?.results || []}
+                informacionEn = {trendingMoviesEnglish.data?.results || []}
+                isLoading = {isTrendingMoviesLoading}
                 botonPresionado = {botonPresionadoPeliculas}
                 setBotonPresionado = {setBotonPresionadoPeliculas}
             />
@@ -64,8 +60,9 @@ export default function Home(){
             <Carrusel
                 botones = 'tendencia'
                 titulo = 'Series Populares'
-                peliculas = {series}
-                cargado = {cargadoSeries}
+                informacionEs = {trendingTvSpanish.data?.results || []}
+                informacionEn = {trendingTvEnglish.data?.results || []}
+                isLoading = {isTrendingTvLoading}
                 botonPresionado = {botonPresionadoSeries}
                 setBotonPresionado = {setBotonPresionadoSeries}
             />
@@ -73,8 +70,9 @@ export default function Home(){
             <Carrusel
                 botones = 'tendencia'
                 titulo = 'Personas Más Buscadas'
-                peliculas = {personas}
-                cargado = {cargadoPersonas}
+                informacionEs = {trendingPeopleSpanish.data?.results || []}
+                informacionEn = {trendingPeopleEnglish.data?.results || []}
+                isLoading = {isTrendingPeopleLoading}
                 botonPresionado = {botonPresionadoPersona}
                 setBotonPresionado = {setBotonPresionadoPersona}
             />

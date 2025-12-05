@@ -3,8 +3,9 @@ const router = express.Router();
 
 //Tendencias Generales
 router.get("/trending/all", (req, res) => {
-  const time = req.query.time || "day"; // en caso de que no recibamos ninguna variable
-  fetch(`https://api.themoviedb.org/3/trending/all/${time}?language=es-MX`, {
+  const language = req.query.language || "es-MX"; 
+  const time = req.query.time || "day"; 
+  fetch(`https://api.themoviedb.org/3/trending/all/${time}?language=${language}`, {
      headers: {
       Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
     }
@@ -16,8 +17,9 @@ router.get("/trending/all", (req, res) => {
 
 //Películas en tendencia
 router.get("/trending/movies", (req, res) => {
+  const language = req.query.language || "es-MX";
   const time = req.query.time || "day"; // en caso de que no recibamos ninguna variable
-  fetch(`https://api.themoviedb.org/3/trending/movie/${time}?language=es-MX`, {
+  fetch(`https://api.themoviedb.org/3/trending/movie/${time}?language=${language}`, {
      headers: {
       Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
     }
@@ -29,8 +31,9 @@ router.get("/trending/movies", (req, res) => {
 
 //Series en tendencia
 router.get("/trending/tv", (req, res) => {
+  const language = req.query.language || "es-MX";
   const time = req.query.time || "day"; // en caso de que no recibamos ninguna variable
-  fetch(`https://api.themoviedb.org/3/trending/tv/${time}?language=es-MX`, {
+  fetch(`https://api.themoviedb.org/3/trending/tv/${time}?language=${language}`, {
      headers: {
       Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
     }
@@ -42,8 +45,9 @@ router.get("/trending/tv", (req, res) => {
 
 //Personas en tendencia
 router.get("/trending/people", (req, res) => {
+  const language = req.query.language || "es-MX";
   const time = req.query.time || "day"; // en caso de que no recibamos ninguna variable
-  fetch(`https://api.themoviedb.org/3/trending/person/${time}?language=es-MX`, {
+  fetch(`https://api.themoviedb.org/3/trending/person/${time}?language=${language}`, {
      headers: {
       Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
     }

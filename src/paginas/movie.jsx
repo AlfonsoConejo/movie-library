@@ -11,7 +11,7 @@ import {
     fetchTvRatings,
     fetchCreditos,
     fetchCreditosCombinados
-} from '../apiConnections/tmdb.js'
+} from '../apiConnections/tmdb.js';
 
 //Contexto para pasar los créditos combinados
 export const creditosCombinadosContexto = createContext();
