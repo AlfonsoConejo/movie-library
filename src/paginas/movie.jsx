@@ -1,6 +1,5 @@
 import './movie.css'
 import InfoPeliculaTarjeta from '../components/InfoPeliculaTarjeta/InfoPeliculaTarjeta.jsx';
-import CarruselReparto from '../components/CarruselReparto/CarruselReparto.jsx';
 import InfoPersonaTarjeta from '../components/InfoPersonaTarjeta/InfoPersonaTarjeta.jsx';
 import { useParams } from 'react-router-dom';
 import { createContext, useEffect } from 'react';

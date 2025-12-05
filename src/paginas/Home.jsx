@@ -1,6 +1,5 @@
 import Carrusel from "../components/Home/Carrusel/Carrusel";
-import { useState, useEffect } from "react";
-import useCarousel from "../customHooks/useCarousel";
+import { useState } from "react";
 import './Home.css'
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";

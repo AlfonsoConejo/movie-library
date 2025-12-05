@@ -7,9 +7,18 @@ export default function Carrusel({titulo, informacionEs, isLoading, botonPresion
 
     if (isLoading){
         return(
-            <div className='carrusel'>
-                {Array(11).fill().map((_,i)=><SkeletonItem key={i}/>)}
-            </div>
+            <section className="carruselContenedor">
+                <div className='encabezadoCarrusel'>
+                    <h1>{titulo}</h1>
+                    <BotonesTendencia
+                        botonPresionado = {botonPresionado}
+                        setBotonPresionado = {setBotonPresionado}
+                    />
+                </div>
+                <div className='carrusel'>
+                    {Array(11).fill().map((_,i)=><SkeletonItem key={i}/>)}
+                </div>
+            </section>
         );
     }
 
