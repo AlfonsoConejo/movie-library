@@ -17,8 +17,7 @@ export default function Home(){
     //Llamda a endpoints
     const trendingAllSpanish = useTrending('all', botonPresionadoGeneral, 'es-MX');
     const trendingAllEnglish = useTrending('all', botonPresionadoGeneral, 'en-US');
-    console.log('Tendencia general: ', trendingAllSpanish.data);
-
+    
     const trendingMoviesSpanish = useTrending('movies', botonPresionadoPeliculas, 'es-MX');
     const trendingMoviesEnglish = useTrending('movies', botonPresionadoPeliculas, 'en-US');
 
@@ -27,6 +26,7 @@ export default function Home(){
 
     const trendingPeopleSpanish = useTrending('people', botonPresionadoPersona, 'es-MX');
     const trendingPeopleEnglish = useTrending('people', botonPresionadoPersona, 'en-US');
+
 
     //Verificamos si la información aún está cargando
     const isTrendingAllLoading = trendingAllSpanish.isLoading || trendingAllEnglish.isLoading;

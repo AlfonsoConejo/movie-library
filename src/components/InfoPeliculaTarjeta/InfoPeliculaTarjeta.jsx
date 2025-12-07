@@ -3,7 +3,7 @@ import CarruselReparto from '../CarruselReparto/CarruselReparto.jsx';
 import SearchNotFound from '../../paginas/SearchNotFound.jsx';
 import SkeletonInfoPeliculaTarjeta from '../SkeletonInfoPeliculaTarjeta/SkeletonInfoPeliculaTarjeta.jsx'
 import SkeletonActorReparto from '../SkeletonActorReparto/SkeletonActorReparto.jsx';
-import { convertirMinutosAHoras, sliceYear, convertirAFechaConDiagonal, testLatinCharacters } from '../../utils.js'
+import { convertirMinutosAHoras, sliceYear, convertirAFechaConDiagonal, getLatinOption } from '../../utils.js'
 import ImageNotFound from '../../assets/img_not_found2.jpg';
 import useResizeWindow from '../../customHooks/useResizeWindow';
 
@@ -58,7 +58,7 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
         }
 
         //Obtenemos el título que se mostrará en pantalla con caracteres latinos
-        nombreFinal = testLatinCharacters(informacion?.title, informacionIngles.title);
+        nombreFinal = getLatinOption(informacion?.title, informacionIngles.title);
     } 
         
     //Si es serie
@@ -84,7 +84,7 @@ export default function InfoPeliculaTarjeta({informacion, informacionIngles, fec
         }
 
         //Obtenemos el título que se mostrará en pantalla con caracteres latinos
-        nombreFinal = testLatinCharacters(informacion.name, informacionIngles.name);
+        nombreFinal = getLatinOption(informacion.name, informacionIngles.name);
 
     };
 

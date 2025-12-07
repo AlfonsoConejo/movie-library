@@ -28,6 +28,10 @@
     padding-bottom: 12px;
 }
 
+.carruselContenedor .carrusel.static{
+    overflow-x: hidden;
+}
+
 @media (width <= 820px) {
     .carruselContenedor{
         padding: 0px 0px;

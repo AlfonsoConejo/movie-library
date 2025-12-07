@@ -61,16 +61,18 @@ const traduccionesOcupacion = {
 };
 
 //Regex de caracteres latinos
-const LATIN_REGEX = /^[\p{Script=Latin}\p{N}\p{P}\p{Zs}]+$/u;
+const LATIN_REGEX = /^[\p{Script=Latin}\p{Mark}\s\d.,'"?!:;()\-–—¡¿]*$/u;
 
-function testLatinCharacters(main, fallback) {
+function getLatinOption(main, fallback) {
     if (!main || !fallback) return false;
     //Evaluamos y devolvemos la opción que tenga caracteres latinos
     if (LATIN_REGEX.test(main)){
+        //console.log('Nos quedamos la primera opción', main);
         return main;
     } else {
+        console.log('Nos quedamos la segunda opción', fallback, 'frente a :', main);
         return fallback;
     }
 }
 
-export {convertirFecha, convertirAFechaConDiagonal, convertirAFechaCompleta, convertirMinutosAHoras, sliceYear, traduccionesOcupacion, testLatinCharacters};
+export {convertirFecha, convertirAFechaConDiagonal, convertirAFechaCompleta, convertirMinutosAHoras, sliceYear, traduccionesOcupacion, LATIN_REGEX , getLatinOption};

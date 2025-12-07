@@ -2,8 +2,9 @@ import './Carrusel.css';
 import Item from '../Item/Item.jsx';
 import SkeletonItem from '../SkeletonItem/SkeletonItem.jsx';
 import BotonesTendencia from '../BotonesTendencia/BotonesTendencia.jsx';
+import { getLatinOption, LATIN_REGEX } from '../../../utils.js';
 
-export default function Carrusel({titulo, informacionEs, isLoading, botonPresionado, setBotonPresionado}){
+export default function Carrusel({titulo, informacionEs, informacionEn, isLoading, botonPresionado, setBotonPresionado}){
 
     if (isLoading){
         return(
@@ -15,7 +16,7 @@ export default function Carrusel({titulo, informacionEs, isLoading, botonPresion
                         setBotonPresionado = {setBotonPresionado}
                     />
                 </div>
-                <div className='carrusel'>
+                <div className='carrusel static'>
                     {Array(11).fill().map((_,i)=><SkeletonItem key={i}/>)}
                 </div>
             </section>
@@ -33,17 +34,39 @@ export default function Carrusel({titulo, informacionEs, isLoading, botonPresion
                 
             </div>
             <div className='carrusel'>
-                {informacionEs.map(pelicula => 
+                {informacionEs.map((peliculaEs) => {
+
+                    const peliculaEn = informacionEn.find(
+                    p => p.id === peliculaEs.id
+                    ) || {};
+
+                    const titulo = getLatinOption(
+                    peliculaEs.title || peliculaEs.name,
+                    peliculaEn.title || peliculaEn.name
+                    );
+
+                    const isNameLatin = LATIN_REGEX.test(
+                    peliculaEs.title ?? peliculaEs.name
+                    );
+
+                    const poster_path = isNameLatin 
+                    ? (peliculaEs.poster_path || peliculaEs.profile_path)
+                    : (peliculaEn.poster_path || peliculaEn.profile_path);
+
+                    const fecha = peliculaEs.release_date || peliculaEs.first_air_date;
+
+                    return (
                     <Item 
-                        key={pelicula.id} 
-                        id={pelicula.id} 
-                        mediaType = {pelicula.media_type}
-                        poster_path={pelicula.poster_path || pelicula.profile_path} 
-                        titulo={pelicula.title ||pelicula.name} 
-                        lanzamiento={pelicula.release_date || pelicula.first_air_date}
+                        key={peliculaEs.id} 
+                        id={peliculaEs.id} 
+                        mediaType={peliculaEs.media_type}
+                        poster_path={poster_path} 
+                        titulo={titulo} 
+                        lanzamiento={fecha}
                     />
-                )}
-            </div> 
+                    );
+                })}
+            </div>
             
         </section>
     );
