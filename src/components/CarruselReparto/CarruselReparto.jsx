@@ -15,7 +15,7 @@ export default function CarruselReparto({ reparto }) {
                     <ActorReparto
                         key={persona.id}
                         id = {persona.id}
-                        nombre = {persona.original_name}
+                        nombre = {persona.name}
                         personaje = {persona.character}
                         rutaImagen = {persona.profile_path}
                     />

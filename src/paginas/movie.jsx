@@ -50,10 +50,17 @@ export default function Movie(){
         enabled: media_type === 'tv' && !!infoQuery.data,
     });
 
-    //Créditos
-    const creditosQuery = useQuery({
-        queryKey: ['creditos', media_type, id],
-        queryFn: () => fetchCreditos(media_type, id),
+    //Créditos en español
+    const creditosQueryEs = useQuery({
+        queryKey: ['creditos', media_type, id, 'es-MX'],
+        queryFn: () => fetchCreditos({ media_type, id, language: 'es-MX' }),
+        enabled: (media_type === 'movie' || media_type === 'tv') && !!infoQuery.data,
+    });
+
+    //Créditos en inglés
+    const creditosQueryEn = useQuery({
+        queryKey: ['creditos', media_type, id, 'en-US'],
+        queryFn: () => fetchCreditos({ media_type, id, language: 'en-US' }),
         enabled: (media_type === 'movie' || media_type === 'tv') && !!infoQuery.data,
     });
 
@@ -69,7 +76,8 @@ export default function Movie(){
     const informacionIngles = infoEnQuery.data ?? null;
     const fechasLanzamiento = fechasQuery.data ?? [];
     const tvRatings = tvRatingsQuery.data ?? [];
-    const creditos = creditosQuery.data ?? { cast: [], crew: [] };
+    const creditosEs = creditosQueryEs.data ?? { cast: [], crew: [] };
+    const creditosEn = creditosQueryEn.data ?? { cast: [], crew: [] };
     const creditosCombinados = creditosCombinadosQuery?.data ?? null;
 
     // Manejo de loading: consideramos isLoading si la query principal está cargando.
@@ -84,14 +92,16 @@ export default function Movie(){
         isLoading ||
         infoEnQuery.isLoading ||
         fechasQuery.isLoading ||
-        creditosQuery.isLoading
+        creditosQueryEs.isLoading ||
+        creditosQueryEn.isLoading
     );
 
     const loadingTv = (
         isLoading ||
         infoEnQuery.isLoading ||
         tvRatingsQuery.isLoading ||
-        creditosQuery.isLoading
+        creditosQueryEs.isLoading ||
+        creditosQueryEn.isLoading
     );
 
     const loadingPerson = (
@@ -111,10 +121,10 @@ export default function Movie(){
                     informacion = {informacionSpanish}
                     informacionIngles = {informacionIngles}
                     fechasLanzamiento = {fechasLanzamiento}
-                    creditos = {creditos}
+                    creditosEs = {creditosEs}
+                    creditosEn = {creditosEn}
                     mediaType = {media_type}
                     tvRatings = {tvRatings}
-                    reparto = {creditos?.cast || []}
                     isLoading={media_type === 'movie' ? loadingMovie : loadingTv}
                 />
             </div>

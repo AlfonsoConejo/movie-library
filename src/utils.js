@@ -70,7 +70,7 @@ function getLatinOption(main, fallback) {
         //console.log('Nos quedamos la primera opción', main);
         return main;
     } else {
-        console.log('Nos quedamos la segunda opción', fallback, 'frente a :', main);
+        //console.log('Nos quedamos la segunda opción', fallback, 'frente a :', main);
         return fallback;
     }
 }

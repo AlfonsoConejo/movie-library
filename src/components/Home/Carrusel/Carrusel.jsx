@@ -5,7 +5,6 @@ import BotonesTendencia from '../BotonesTendencia/BotonesTendencia.jsx';
 import { getLatinOption, LATIN_REGEX } from '../../../utils.js';
 
 export default function Carrusel({titulo, informacionEs, informacionEn, isLoading, botonPresionado, setBotonPresionado}){
-
     if (isLoading){
         return(
             <section className="carruselContenedor">

@@ -1,183 +1,249 @@
-import './InfoPeliculaTarjeta.css'
+import './InfoPeliculaTarjeta.css';
 import CarruselReparto from '../CarruselReparto/CarruselReparto.jsx';
 import SearchNotFound from '../../paginas/SearchNotFound.jsx';
-import SkeletonInfoPeliculaTarjeta from '../SkeletonInfoPeliculaTarjeta/SkeletonInfoPeliculaTarjeta.jsx'
+import SkeletonInfoPeliculaTarjeta from '../SkeletonInfoPeliculaTarjeta/SkeletonInfoPeliculaTarjeta.jsx';
 import SkeletonActorReparto from '../SkeletonActorReparto/SkeletonActorReparto.jsx';
-import { convertirMinutosAHoras, sliceYear, convertirAFechaConDiagonal, getLatinOption } from '../../utils.js'
+import {
+  convertirMinutosAHoras,
+  sliceYear,
+  convertirAFechaConDiagonal,
+  getLatinOption,
+  LATIN_REGEX
+} from '../../utils.js';
 import ImageNotFound from '../../assets/img_not_found2.jpg';
 import useResizeWindow from '../../customHooks/useResizeWindow';
 
-export default function InfoPeliculaTarjeta({informacion, informacionIngles, fechasLanzamiento, creditos, tvRatings, mediaType, reparto, isLoading}){
+export default function InfoPeliculaTarjeta({
+  informacion,
+  informacionIngles,
+  fechasLanzamiento,
+  creditosEs,
+  creditosEn,
+  tvRatings,
+  mediaType,
+  isLoading
+}) {
+  const { isMobile } = useResizeWindow(720);
+  //console.log("Información español: ", informacion);
+  //console.log("Información inglés: ", informacionIngles);
+  if (isLoading) {
+    return (
+      <>
+        <SkeletonInfoPeliculaTarjeta />
+        <section className="contenedorCarruselReparto">
+          <h2>Reparto</h2>
+          <div className="carruselReparto">
+            {Array.from({ length: 11 }, (_, i) => (
+              <SkeletonActorReparto key={i} />
+            ))}
+          </div>
+        </section>
+      </>
+    );
+  }
+
+  if (!informacion || informacion.success === false) {
+    return <SearchNotFound />;
+  }
+
+  const reparto = creditosEn?.cast || [];
+  const overview = informacion?.overview || informacionIngles?.overview;
+  const tagline = informacion?.tagline || informacionIngles?.tagline;
+
+  const obtenerFechaPelicula = () =>
+    fechasLanzamiento?.find(f =>
+      ['MX', 'US', 'ES'].includes(f.iso_3166_1) &&
+      f.release_dates?.[0]?.certification &&
+      f.release_dates?.[0]?.release_date
+    ) || null;
+
+  const obtenerClasificacionSerie = () =>
+    tvRatings?.find(t => ['MX', 'US', 'ES'].includes(t.iso_3166_1)) || null;
+
+  const obtenerEquipoPelicula = () => {
+    const roles = ['Director', 'Screenplay', 'Writer', 'Story', 'Characters'];
+
+    //Obtenemos los primeros 3 resultados
+    const rolesDesatacados = creditosEn?.crew
+      ?.filter(p => roles.includes(p.job))
+      .slice(0, 3) || [];
+    console.log("Equipo (inglés): ", rolesDesatacados);
+
+    return rolesDesatacados;
+  };
+
+
+
+  const obtenerEquipoSerie = () =>
+    informacionIngles?.created_by?.map(p => ({
+      ...p,
+      job: 'Creador'
+    })).slice(0, 3) || [];
+
+  // ==========================
+  // Datos derivados
+  // ==========================
+  const fechaLocalData =
+    mediaType === 'movie' ? obtenerFechaPelicula() : null;
+
+  const clasificacionPelicula =
+    fechaLocalData?.release_dates?.[0]?.certification;
+
+  const fechaLocal =
+    fechaLocalData?.release_dates?.[0]?.release_date?.slice(0, 10);
+
+  const pais = fechaLocalData?.iso_3166_1;
+
+  const clasificacionSerie =
+    mediaType === 'tv' ? obtenerClasificacionSerie() : null;
+
+  const equipoDestacado =
+    mediaType === 'movie'
+      ? obtenerEquipoPelicula()
+      : obtenerEquipoSerie();
+
     
-    //Hook para saber si mostrar interfaz móvil
-    const { isMobile } = useResizeWindow(720);
+    //Obtenemos el título en español si está disponible o en inglés
+    const titulo =
+    mediaType === 'movie'
+      ? getLatinOption(informacion.title, informacionIngles?.title)
+      : getLatinOption(informacion.name, informacionIngles?.name);
+
+    //Revisamos si el nombre en español tiene caracteres latinos
+    const isNameLatin = LATIN_REGEX.test(
+        (informacion.title || informacion.name) ?? (informacionIngles.name || informacionIngles.name )
+    );
     
-     if (isLoading) {
-        return(
-            <>
-            <SkeletonInfoPeliculaTarjeta />
-            <section className='contenedorCarruselReparto'>
-                <h2>Reparto</h2>
-                <div className='carruselReparto'>
-                    {Array(11).fill().map((_,i)=><SkeletonActorReparto key={i}/>)}
+    //Seleccionamos la portado en el idioma que tenga caracteres latinos
+    const poster_path = isNameLatin 
+        ? (informacion.poster_path || informacion.profile_path)
+        : (informacionIngles.poster_path || informacionIngles.profile_path);
+
+  const year =
+    informacion.release_date
+      ? sliceYear(informacion.release_date)
+      : informacion.first_air_date
+      ? sliceYear(informacion.first_air_date)
+      : null;
+
+  const score = informacion.vote_average;
+  const scoreColor =
+    score >= 7 ? 'green' :
+    score >= 4 ? 'orange' :
+    score > 0 ? 'red' :
+    'gray';
+
+
+  return (
+    <>
+      <section
+        className="infoPeliculaTarjeta"
+        style={{
+          backgroundImage:
+            !isMobile && informacion.backdrop_path
+              ? `url(https://image.tmdb.org/t/p/w780${informacion.backdrop_path})`
+              : 'none'
+        }}
+      >
+        <div className="contenedorInformacion">
+          <div
+            className="contenedorPoster"
+            style={{
+              backgroundImage:
+                isMobile && informacion.backdrop_path
+                  ? `url(https://image.tmdb.org/t/p/w780${informacion.backdrop_path})`
+                  : 'none'
+            }}
+          >
+            <div className="poster">
+              <img
+                src={
+                  informacion.poster_path
+                    ? `https://image.tmdb.org/t/p/w500${poster_path}`
+                    : ImageNotFound
+                }
+                alt={informacion.title}
+              />
+            </div>
+          </div>
+
+          <div className="informacion">
+            <h1 className="titulo">
+              {titulo}
+              {year && <span className="year"> ({year})</span>}
+            </h1>
+
+            {mediaType === 'movie' ? (
+              <p className="random">
+                {clasificacionPelicula && (
+                  <span className="clasificacion">{clasificacionPelicula} </span>
+                )}
+                {fechaLocal && (
+                  <span>
+                    {convertirAFechaConDiagonal(fechaLocal)} ({pais}) •{' '}
+                  </span>
+                )}
+                {informacion.genres && (
+                  <span>
+                    {informacion.genres.map(g => g.name).join(', ')}
+                  </span>
+                )}
+                {informacion.runtime > 0 && (
+                  <span> • {convertirMinutosAHoras(informacion.runtime)}</span>
+                )}
+              </p>
+            ) : (
+              <p className="random">
+                {clasificacionSerie?.rating && (
+                  <span className="clasificacion">
+                    {clasificacionSerie.rating}{' '}
+                  </span>
+                )}
+                {informacion.genres && (
+                  <span>
+                    {informacion.genres.map(g => g.name).join(', ')}
+                  </span>
+                )}
+              </p>
+            )}
+
+            {score !== undefined && score !== null && (
+              <div className="contenedorScore">
+                <div className="score" style={{ backgroundColor: scoreColor }}>
+                  {score ? Math.floor(score * 10) : 'NR'}
+                  {score > 0 && '%'}
                 </div>
-            </section> 
-            </>
-        );;
-    }
+                <span>Puntuación TMDB</span>
+              </div>
+            )}
 
-    if (!informacion || informacion.success === false) {
-        return <SearchNotFound/>;
-    }
+            {tagline && <p className="tagline">{tagline}</p>}
 
+            {overview && (
+              <>
+                <p className="resumenTitulo">Resumen</p>
+                <p className="resumen">{overview}</p>
+              </>
+            )}
 
-    //Obtenemos el overview y el tagline en español o en inglés
-    const overview = informacion?.overview || informacionIngles?.overview || null;
-    const tagline = informacion?.tagline || informacionIngles?.tagline || null;
-    //Obtenemos los datos del estreno en español
-    let fechaLanzamientoLocal;
-    let clasificacionSerie;
-    let equipoDestacado = [];
-    let nombreFinal = null;
-
-    //Si es película
-    if(mediaType === 'movie'){
-        //Obtenemos la fecha de estreno en México, Estados Unidos o España
-        fechaLanzamientoLocal = 
-        fechasLanzamiento?.find(f => f.iso_3166_1 == 'MX' && f.release_dates[0].certification && f.release_dates[0].release_date) ||
-        fechasLanzamiento?.find(f => f.iso_3166_1 == 'US' && f.release_dates[0].certification && f.release_dates[0].release_date) ||
-        fechasLanzamiento?.find(f => f.iso_3166_1 == 'ES' && f.release_dates[0].certification && f.release_dates[0].release_date) ||
-        null;
-
-        //Obtenemos un arreglo de 3 posiciones con las personas más importantes
-        const rolesImportantes = ["Director", "Screenplay", "Writer", "Story", "Characters"]; 
-        if (creditos?.crew?.length) {
-            equipoDestacado = creditos.crew
-                .filter(persona => rolesImportantes.includes(persona.job))
-                .slice(0, 3);
-        }
-
-        //Obtenemos el título que se mostrará en pantalla con caracteres latinos
-        nombreFinal = getLatinOption(informacion?.title, informacionIngles.title);
-    } 
-        
-    //Si es serie
-    else if (mediaType === 'tv'){
-        //Obtenemos la clasificaciones de México, Estados Unidos o España
-        clasificacionSerie = 
-        tvRatings?.find(t => t.iso_3166_1 == 'MX') ||
-        tvRatings?.find(t => t.iso_3166_1 == 'US') ||
-        tvRatings?.find(t => t.iso_3166_1 == 'ES') ||
-        null
-
-        //Obtenemos un arreglo de 3 posiciones con los creadores de la serie 
-        if (informacion?.created_by?.length) {
-            equipoDestacado = informacion.created_by.map(persona => ({
-                id: persona.id,
-                credit_id: persona.credit_id,
-                name: persona.name,
-                gender: persona.gender,
-                profile_path: persona.profile_path,
-                job: "Creador"
-            }))
-            .slice(0, 3);
-        }
-
-        //Obtenemos el título que se mostrará en pantalla con caracteres latinos
-        nombreFinal = getLatinOption(informacion.name, informacionIngles.name);
-
-    };
-
-    const clasificacionPelicula = fechaLanzamientoLocal?.release_dates?.[0].certification;
-    const fechaLocal = fechaLanzamientoLocal?.release_dates?.[0]?.release_date.slice(0,10);
-
-    const pais = fechaLanzamientoLocal?.iso_3166_1;
-
-    return(
-        <>
-            <section
-                className="infoPeliculaTarjeta"
-                style={{
-                    backgroundImage: !isMobile
-                    ? `url(https://image.tmdb.org/t/p/w780${informacion.backdrop_path})`
-                    : "none"
-                }}
-            >
-                <div className="contenedorInformacion">
-                    <div className="contenedorPoster" style={{backgroundImage: (isMobile && informacion.backdrop_path ) ? `url(https://image.tmdb.org/t/p/w780${informacion.backdrop_path})` : "none"}}>
-                        <div className="poster">
-                            <img src={informacion.poster_path ? `https://image.tmdb.org/t/p/w500${informacion.poster_path}` : ImageNotFound} alt={informacion.title} />
-                        </div>
-                    </div>
-                    
-                    <div className="informacion">
-                        <h1 className='titulo'>{nombreFinal} 
-                            {
-                            <span className="year">
-                                {informacion.release_date
-                                ? ` (${sliceYear(informacion.release_date)})`
-                                : informacion.first_air_date
-                                ? ` (${sliceYear(informacion.first_air_date)})`
-                                : ""}
-                            </span>
-                            }
-                        </h1>
-                        {mediaType === 'movie' ?
-                            <p className='random'>
-                                {clasificacionPelicula && <span className='clasificacion'>{clasificacionPelicula} </span>}
-                                {fechaLanzamientoLocal && <span>{convertirAFechaConDiagonal(fechaLocal)} ({pais}) • </span>}
-                                {informacion.genres && <span>{informacion.genres.map(i => i.name).join(', ')}</span> }
-                                {(informacion.runtime > "0") && <span> • {convertirMinutosAHoras(informacion.runtime)}</span>}
-                            </p>
-                            :
-                            <p className='random'>
-                                {clasificacionSerie?.rating && <span className='clasificacion'>{clasificacionSerie.rating} </span>}
-                                {informacion.genres && <span>{informacion.genres.map(i => i.name).join(', ')}</span> }
-                            </p>
-                        }
-
-                        {informacion.vote_average !== undefined && informacion.vote_average !== null && (
-                            <div className='contenedorScore'>
-                                <div className='score' 
-                                    style={{
-                                        backgroundColor: 
-                                        informacion.vote_average >= 7 ? 'green' :
-                                        informacion.vote_average >= 4 ? 'orange' :
-                                        informacion.vote_average > 0 ? 'red' :
-                                        'gray'
-                                    }}
-                                    >
-                                    {informacion.vote_average ? (Math.floor(informacion.vote_average * 10)) : 'NR'}
-                                    {informacion.vote_average > 0 ? '%': ''} 
-                                </div>
-                                <span>Puntuación TMDB</span>
-                            </div>)
-                        }
-                        {tagline && <p className='tagline'>{tagline}</p>}
-                        {overview && 
-                            <p className='resumenTitulo'>Resumen</p>
-                        }
-                        {overview && 
-                            <p className='resumen'>{overview}</p>
-                        }
-                        <div className="contenedorCrew">
-                            {equipoDestacado && 
-                                equipoDestacado.map( (persona, index) => {
-                                    return <div className='personas-grid' key={index}>
-                                        <p className='nombreEmpleado'>{persona.original_name || persona.name}</p>
-                                        <p className='puestoEmpleado'>{persona.job}</p>
-                                    </div>
-                                })
-                            }
-                        </div>
-                    </div>
+            <div className="contenedorCrew">
+              {equipoDestacado.map(persona => (
+                <div
+                  className="personas-grid"
+                  key={persona.credit_id || persona.id}
+                >
+                  <p className="nombreEmpleado">
+                    {persona.name}
+                  </p>
+                  <p className="puestoEmpleado">{persona.job}</p>
                 </div>
-            </section>
-            <CarruselReparto
-                reparto = {reparto || []}
-            />
-        </>
-        );
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
-
+      <CarruselReparto reparto={reparto || []} />
+    </>
+  );
 }

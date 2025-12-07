@@ -19,8 +19,8 @@ export async function fetchTvRatings(tvId) {
   return json.results || [];
 }
 
-export async function fetchCreditos(media_type, id) {
-  const res = await fetch(`/api/tmdb/contenido/creditos?media_type=${media_type}&id=${id}`);
+export async function fetchCreditos({media_type, id, language}) {
+  const res = await fetch(`/api/tmdb/contenido/creditos?media_type=${media_type}&id=${id}&language=${language}`);
   if (!res.ok) throw new Error('Error creditos');
   return res.json();
 }

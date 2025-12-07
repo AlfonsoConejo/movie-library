@@ -61,7 +61,7 @@ router.get("/trending/people", (req, res) => {
 router.get("/contenido", (req, res) => {
   const id = req.query.id;
   const media_type = req.query.media_type;
-  const language = req.query.language;
+  const language = req.query.language || "es-MX"; 
   fetch(`https://api.themoviedb.org/3/${media_type}/${id}?language=${language}`, {
      headers: {
       Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
@@ -89,7 +89,8 @@ router.get("/movie/fechasLanzamiento", (req, res) => {
 router.get("/contenido/creditos", (req, res) => {
   const id = req.query.id;
   const media_type = req.query.media_type;
-  fetch(`https://api.themoviedb.org/3/${media_type}/${id}/credits?language=es-MX`, {
+  const language = req.query.language || "es-MX"; 
+  fetch(`https://api.themoviedb.org/3/${media_type}/${id}/credits?language=${language}`, {
      headers: {
       Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
     }
