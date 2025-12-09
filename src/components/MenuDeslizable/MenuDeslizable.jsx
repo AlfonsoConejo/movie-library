@@ -1,7 +1,7 @@
 import './MenuDeslizable.css'
-import { useContext } from 'react';
 import {MenuDeslizableContext} from '../../App'
 import { Link } from 'react-router-dom';
+import { useContext } from "react";
 
 const MenuDeslizable = () => {
     const {isMenuOpen, toogleMostarOcultarMenu} = useContext(MenuDeslizableContext);
@@ -19,7 +19,6 @@ const MenuDeslizable = () => {
                     <li><Link to="/peliculas" onClick={toogleMostarOcultarMenu}>Películas</Link></li>
                     <li><Link to="/series" onClick={toogleMostarOcultarMenu}>Series</Link></li>
                     <li><Link to="/personas" onClick={toogleMostarOcultarMenu}>Personas</Link></li>
-                    <li className='identify'><Link to="/login" onClick={toogleMostarOcultarMenu}>Identificarse</Link></li>
                 </ul>
             </div>
         </div>

@@ -2,9 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
-    order: 4;
-    position: relative;
+    color: white;    position: relative;
 }
 .contenedorFlexAccount .iconElementsWrapper {
     width: 100%;
@@ -21,10 +19,4 @@
     cursor: pointer;
     color: white;
     background: none;
-}
-
-@media (max-width: 914px) {
-    .contenedorFlexAccount{
-        display: none;    
-    }
 }

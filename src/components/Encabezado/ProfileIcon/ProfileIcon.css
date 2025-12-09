@@ -4,8 +4,8 @@
 }
 
 .profileIconContainer img {
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  height: 100%;
   display: block;     /* ← ESTE es el fix real */
   object-fit: cover;
   border-radius: 10px;

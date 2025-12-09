@@ -12,7 +12,6 @@
 
 @media (max-width: 914px) {
     .botonBuscarMovil{
-        order: 3; 
         display: flex;   
         justify-content: flex-end;
     }

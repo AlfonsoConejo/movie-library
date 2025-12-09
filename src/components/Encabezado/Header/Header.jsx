@@ -16,11 +16,14 @@ export default function Header() {
             <Logo/>
             <Busqueda />
             <Nav/>
-            <div className="profilePlaceholder">
-                { !cargandoUsuario && ( user ? <ProfileIcon/> : <AccountIcon/> ) }
-            </div>
             <MenuHamburguesa/>
-            <BusquedaMovil/>
+            <div className="rightGroup">
+                <BusquedaMovil/>
+                <div className="profilePlaceholder">
+                    { !cargandoUsuario && ( user ? <ProfileIcon/> : <AccountIcon/> ) }
+                </div>
+            </div>
+                
         </header>
     );
 }
