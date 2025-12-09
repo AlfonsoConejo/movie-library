@@ -39,11 +39,11 @@ header{
     }
 
     .rightGroup{
-        gap:8px;
+        gap: 12px;
     }
 
     .profilePlaceholder {
-        width: 30px;
-        height: 30px;
+        width: 29px;
+        height: 29px;
     }
 }

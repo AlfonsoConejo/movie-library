@@ -15,7 +15,7 @@ const Login = () => {
   }
 
   if (user) {
-    return <Navigate to="/perfil" replace />;
+    return <Navigate to="/" replace />;
   }
 
   //Hook para saber si mostrar interfaz móvil
