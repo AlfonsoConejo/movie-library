@@ -2,10 +2,9 @@ import './ConfirmarCuenta.css'
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import emailIcon from '../../src/assets/email.png'
-import chainIcon from '../../src/assets/broken-chain.png'
-import bribleLogo from '../../public/brible-logo.png'
-import Logo from '../../src/components/Encabezado/Logo/Logo'
+import emailIcon from '../../src/assets/email.png';
+import chainIcon from '../../src/assets/broken-chain.png';
+import Logo from '../../src/components/Encabezado/Logo/Logo';
 
 const ConfirmarCuenta = () => {
 

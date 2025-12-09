@@ -1,5 +1,4 @@
 import './HeaderSimple.css'
-import imageLogo from '../../../public/brible-logo.png';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../Encabezado/Logo/Logo.jsx'
 

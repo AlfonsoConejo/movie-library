@@ -1,12 +1,11 @@
 import './CarruselReparto.css'
 import ActorReparto from '../ActorReparto/ActorReparto';
-import SkeletonActorReparto from '../SkeletonActorReparto/SkeletonActorReparto';
 
 export default function CarruselReparto({ reparto }) {
     if(!reparto){
         return null;
     }
-    reparto = reparto || [];
+
     return(
         <section className='contenedorCarruselReparto'>
             <h2>Reparto</h2>

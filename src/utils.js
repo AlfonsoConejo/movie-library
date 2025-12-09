@@ -61,17 +61,24 @@ const traduccionesOcupacion = {
 };
 
 //Regex de caracteres latinos
-const LATIN_REGEX = /^[\p{Script=Latin}\p{Mark}\s\d.,'"?!:;()\-–—¡¿]*$/u;
+const LATIN_REGEX = /^[A-Za-zÀ-ÿ0-9\s.,'"?!:;()\-–—¡¿]*$/;
 
 function getLatinOption(main, fallback) {
+    //console.log("Evaluamos el siguiente nombre:", main);
+
     if (!main || !fallback) return false;
-    //Evaluamos y devolvemos la opción que tenga caracteres latinos
-    if (LATIN_REGEX.test(main)){
-        //console.log('Nos quedamos la primera opción', main);
-        return main;
-    } else {
-        //console.log('Nos quedamos la segunda opción', fallback, 'frente a :', main);
-        return fallback;
+
+    try {
+        if (LATIN_REGEX.test(main)) {
+            //console.log("Nos quedamos la primera opción", main);
+            return main;
+        } else {
+            //console.log("Nos quedamos la segunda opción", fallback);
+            return fallback;
+        }
+    } catch (err) {
+        console.error("Regex falló con:", main, err);
+        return fallback; // no para todo el proceso
     }
 }
 
