@@ -11,6 +11,14 @@ export default function Perfil() {
       {user && (
         <>
           <p>Correo: {user.email}</p>
+          <div class="toast success" id="toast">
+            <span class="toast-icon">✔️</span>
+            <div class="toast-content">
+              <p class="toast-title">Éxito</p>
+              <p class="toast-message">La sesión se cerró correctamente.</p>
+            </div>
+            <span class="toast-close">✖️</span>
+          </div>
         </>
       )}
     </div>

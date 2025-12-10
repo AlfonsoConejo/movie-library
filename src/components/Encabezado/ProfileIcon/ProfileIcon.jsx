@@ -30,7 +30,7 @@ const ProfileIcon = () => {
   return(
     <div className="profileIconContainer" ref={containerRef}>
         <img src={userIcon} onClick={() => {setShowProfileOptions(!showProfileOptions)}}/>
-        <ProfileOptions showProfileOptions={showProfileOptions} ref={menuRef}/>
+        <ProfileOptions showProfileOptions={showProfileOptions} setShowProfileOptions={setShowProfileOptions} ref={menuRef}/>
     </div>
     );
 };
