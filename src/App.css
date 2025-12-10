@@ -1,11 +1,6 @@
-html, body, #root {
-  height: 100%;
+/* El contenedor principal ocupa la pantalla y permite scroll interno */
+.app {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  margin: 0;
-  padding: 0;
-}
-
-p{
-  margin: 0;
 }

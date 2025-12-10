@@ -1,7 +1,6 @@
-html, body, #root {
+html, body {
   margin: 0;
-  padding: 0;
-  height: 100%;
+  padding: 0; 
   color: black;
   font-family: 'roboto';
 }
@@ -25,6 +24,10 @@ html, body, #root {
 
 body{
   padding-bottom: env(safe-area-inset-bottom);
+}
+
+p{
+  margin: 0;
 }
 
 .divCarga {

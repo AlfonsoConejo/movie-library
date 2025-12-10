@@ -54,7 +54,7 @@ const handleSearchFocus = () => {
   }
 
   return (
-    <>
+    <div className="app">
       <MenuDeslizableContext.Provider value={{isMenuOpen, isOverlayVisible, toogleMostarOcultarMenu, isSearchBarOpen, toogleMostarBarraBusqueda, searchWord, setSearchWord, searchInputRef, handleSearchFocus}}>
         {showLayout && <Header />}
         {showLayout && <BarraBusqueda />}
@@ -101,7 +101,7 @@ const handleSearchFocus = () => {
       </Routes>
       
       {showLayout && <Footer />}
-    </> 
+    </div>
   )
 }
 
