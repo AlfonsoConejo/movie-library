@@ -5,7 +5,7 @@ const ProfileOptions = ({showProfileOptions}) => {
     return(
         <div className={`profileOptionsContainer ${showProfileOptions ? 'visible' : ''}`}>
             <ul className='first-list'>
-                <li><Link>Perfil</Link></li>
+                <li><Link to="perfil">Perfil</Link></li>
                 <li><Link>Ajustes</Link></li>
             </ul>
             <hr/>

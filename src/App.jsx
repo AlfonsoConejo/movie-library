@@ -66,13 +66,15 @@ const handleSearchFocus = () => {
           />
         )}
       </MenuDeslizableContext.Provider>
-      <BarraBusqueda 
+      {showLayout && 
+        <BarraBusqueda 
         isSearchBarOpen = {isSearchBarOpen}
         toogleMostarBarraBusqueda = {toogleMostarBarraBusqueda}
         searchWord = {searchWord}
         setSearchWord = {setSearchWord}
         searchInputRef = {searchInputRef}
-      />
+      />}
+      
       <main>
         <Routes>
         {/* Rutas públicas*/}
