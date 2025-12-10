@@ -1,0 +1,64 @@
+.profileOptionsContainer{
+    width: 200px;
+    position: absolute;
+    top: 80%;
+    right: 0px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 10px;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 0.2s ease;
+    pointer-events: none;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    cursor: default;
+}
+
+.profileOptionsContainer.visible {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+.profileOptionsContainer ul{
+    margin: 0;
+    padding: 0;
+}
+
+.profileOptionsContainer li{
+    list-style: none;
+    text-decoration: none;
+}
+
+.profileOptionsContainer .first-list li {
+    margin-bottom: 5px;
+}
+
+.profileOptionsContainer .second-list li {
+    margin-top: 5px;
+}
+
+.profileOptionsContainer hr{
+    border: none; /* Elimina el borde por defecto */
+    border-top: 2px solid var(--soft-gray); /* Añade una línea superior */
+    height: 0; /* Para asegurar que solo se vea el borde */
+    width: 100%; /* O el ancho que necesites */
+    margin: 0;
+}
+
+.profileOptionsContainer a{
+    font-size: 16px;
+    text-decoration: none;
+    color: black;
+}
+
+.profileOptionsContainer a.logout{
+    font-size: 16px;
+    text-decoration: none;
+    color: var(--red-alert);
+}

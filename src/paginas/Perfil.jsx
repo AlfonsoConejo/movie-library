@@ -1,4 +1,4 @@
-// pages/Perfil.jsx
+import './Perfil.css';
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 
