@@ -8,7 +8,7 @@ const ProfileIcon = () => {
 
   return(
     <div className="profileIconContainer">
-        <img src={userIcon} onClick={() => {navigate('/login')}}/>
+        <img src={userIcon} onClick={() => {navigate('/perfil')}}/>
     </div>
     );
 };

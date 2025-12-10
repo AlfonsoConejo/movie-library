@@ -14,7 +14,6 @@ html, body {
   --yellow-button: #F5C518;
   --red-alert: #e63946;
    box-sizing: border-box;
-   color: white;
 }
 
 /* Aplica box-sizing a todos los elementos y pseudo-elementos */
@@ -22,7 +21,13 @@ html, body {
   box-sizing: border-box;
 }
 
+html, body {
+  background-color: var(--tmdbDarkBlue);
+}
+
+/* iOS safe areas */
 body{
+  padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
 }
 

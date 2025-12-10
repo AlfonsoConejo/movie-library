@@ -73,7 +73,8 @@ const handleSearchFocus = () => {
         setSearchWord = {setSearchWord}
         searchInputRef = {searchInputRef}
       />
-      <Routes>
+      <main>
+        <Routes>
         {/* Rutas públicas*/}
         <Route path="/" element={<Home/>}/>
         <Route path="/:media_type/:id" element={<Movie/>}/>
@@ -99,6 +100,7 @@ const handleSearchFocus = () => {
         <Route path="*" element={<NotFound />} />
 
       </Routes>
+      </main>
       
       {showLayout && <Footer />}
     </div>
