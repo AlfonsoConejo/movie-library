@@ -60,26 +60,31 @@ const traduccionesOcupacion = {
   Crew: 'Equipo técnico'
 };
 
-//Regex de caracteres latinos
-const LATIN_REGEX = /^[A-Za-zÀ-ÿ0-9\s.,'"?!:;()\-–—¡¿]*$/;
+// Regex que acepta todas las letras latinas (mayúsculas, minúsculas, acentos, eñes),
+// números, espacios y signos de puntuación comunes
+const LATIN_REGEX = /^[\p{Script=Latin}0-9\s.,'"?!:;()\-–—¡¿]*$/u;
 
 function getLatinOption(main, fallback) {
-    //console.log("Evaluamos el siguiente nombre:", main);
+    // Si main no existe, devolvemos fallback sin validar regex
+    if (!main) return fallback;
 
-    if (!main || !fallback) return false;
+    // Si fallback no existe, devolvemos main sin validar
+    if (!fallback) return main;
+
 
     try {
         if (LATIN_REGEX.test(main)) {
-            //console.log("Nos quedamos la primera opción", main);
+            // main es válido, retornamos main
             return main;
         } else {
-            //console.log("Nos quedamos la segunda opción", fallback);
+            // main contiene caracteres fuera de las letras latinas permitidas, usamos fallback
             return fallback;
         }
     } catch (err) {
         console.error("Regex falló con:", main, err);
-        return fallback; // no para todo el proceso
+        return fallback; // no rompe todo el proceso
     }
 }
+
 
 export {convertirFecha, convertirAFechaConDiagonal, convertirAFechaCompleta, convertirMinutosAHoras, sliceYear, traduccionesOcupacion, LATIN_REGEX , getLatinOption};
