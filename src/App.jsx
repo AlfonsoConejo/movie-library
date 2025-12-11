@@ -16,11 +16,16 @@ import Perfil from './paginas/Perfil.jsx'
 import NotFound from './paginas/NotFound.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import ConfirmarCuenta from './paginas/ConfirmarCuenta.jsx'
+import { useContext } from "react";
+import { ToastContext } from "./context/ToastContext.jsx";
+import ToastNotification from './components/ToastNotification/ToastsNotifications.jsx';
 
 //Creamos un contexto para manipular el menpu deslizable
 export const MenuDeslizableContext = createContext();
 
 function App() {
+
+  const { toasts } = useContext(ToastContext);
 
   // Rutas donde sí se mostrarán el header y el footer 
   const location = useLocation();
@@ -77,34 +82,44 @@ const handleSearchFocus = () => {
       
       <main>
         <Routes>
-        {/* Rutas públicas*/}
-        <Route path="/" element={<Home/>}/>
-        <Route path="/:media_type/:id" element={<Movie/>}/>
-        <Route path="/peliculas" element={<Proximamente/>}/>
-        <Route path="/series" element={<Proximamente/>}/>
-        <Route path="/personas" element={<Proximamente/>}/>
-        <Route path="/buscar" element={<Buscar/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/registro" element={<Registro/>}/>
-        <Route path="/confirmarCuenta/:token"element={<ConfirmarCuenta/>}/>
+          {/* Rutas públicas*/}
+          <Route path="/" element={<Home/>}/>
+          <Route path="/:media_type/:id" element={<Movie/>}/>
+          <Route path="/peliculas" element={<Proximamente/>}/>
+          <Route path="/series" element={<Proximamente/>}/>
+          <Route path="/personas" element={<Proximamente/>}/>
+          <Route path="/buscar" element={<Buscar/>}/>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/registro" element={<Registro/>}/>
+          <Route path="/confirmarCuenta/:token"element={<ConfirmarCuenta/>}/>
 
-        {/* Rutas protegidas*/}
-        <Route
-          path="/perfil"
-          element={
-            <ProtectedRoute>
-              <Perfil />
-            </ProtectedRoute>
-          } 
-        />
+          {/* Rutas protegidas*/}
+          <Route
+            path="/perfil"
+            element={
+              <ProtectedRoute>
+                <Perfil />
+              </ProtectedRoute>
+            } 
+          />
 
-        {/* Todas las rutas no declaradas*/}
-        <Route path="*" element={<NotFound />} />
+          {/* Todas las rutas no declaradas*/}
+          <Route path="*" element={<NotFound />} />
 
-      </Routes>
-      </main>
+        </Routes>
       
-      {showLayout && <Footer />}
+        {showLayout && <Footer/>}
+      </main>
+
+      <div className="toast-container">
+        {toasts.map(t => (
+          <ToastNotification 
+            key={t.id} 
+            type={t.type} 
+            message={t.message} 
+          />
+        ))}
+      </div>
     </div>
   )
 }

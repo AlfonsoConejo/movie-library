@@ -1,9 +1,12 @@
 // context/UserContext.jsx
 import { createContext, useState, useEffect } from "react";
+import { useContext } from "react";
+import { ToastContext } from "./ToastContext.jsx";
 
 export const UserContext = createContext();
 
 export function UserProvider({ children }) {
+  const { addToast } = useContext(ToastContext);
   const [user, setUser] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
   const [cargandoUsuario, setCargandoUsuario] = useState(true);
@@ -79,7 +82,9 @@ export function UserProvider({ children }) {
         method: "POST",
         credentials: "include",
       });
+      addToast('success','Hola');
     } catch (e) {
+      addToast('error','Hola');
       console.error(e);
     } finally {
       setUser(null);

@@ -5,6 +5,7 @@ import { UserProvider } from './context/UserContext.jsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import './index.css'
 import App from './App.jsx'
+import { ToastProvider } from './context/ToastContext.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,9 +23,11 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <UserProvider>
-          <App />
-        </UserProvider>   
+        <ToastProvider>
+          <UserProvider>
+            <App />
+          </UserProvider> 
+        </ToastProvider>  
       </QueryClientProvider>  
     </BrowserRouter>
   </StrictMode>,
