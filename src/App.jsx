@@ -6,7 +6,7 @@ import Footer from './components/Footer/Footer.jsx'
 import Overlay from './components/Overlay/Overlay.jsx'
 import BarraBusqueda from './components/Encabezado/BarraBusqueda/BarraBusqueda.jsx'
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { useState, createContext, useRef, useContext } from 'react'
+import { useState, useRef, useContext } from 'react'
 import MenuDeslizable from './components/MenuDeslizable/MenuDeslizable.jsx'
 import { MenuDeslizableContext } from "./context/MenuDeslizableContext.jsx";
 import Proximamente from './paginas/Proximamente.jsx'
@@ -112,6 +112,7 @@ const handleSearchFocus = () => {
         {toasts.map(t => (
           <ToastNotification 
             key={t.id} 
+            id={t.id} 
             type={t.type} 
             title={t.title} 
             message={t.message} 

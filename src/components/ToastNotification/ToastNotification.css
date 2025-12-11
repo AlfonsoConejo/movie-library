@@ -11,9 +11,9 @@
   background: #edf7e5;
   font-family: 'Roboto', sans-serif;
   color: #333;
-  opacity: 1;
-  transform: translateY(-20px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: transform 0.3s ease, opacity 0.3s ease;
   pointer-events: auto;
 }
 

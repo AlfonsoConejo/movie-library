@@ -78,11 +78,16 @@ export function UserProvider({ children }) {
 
   const logout = async () => {
     try {
-      await fetch("/api/auth/logout", {
+      const response = await fetch("/api/auth/logout", {
         method: "POST",
         credentials: "include",
       });
-      addToast('logoutSuccess');
+
+      if (response.ok) {
+        addToast('logoutSuccess');
+      } else {
+        addToast('logoutError');
+      }
     } catch (e) {
       addToast('logoutError');
       console.error(e);

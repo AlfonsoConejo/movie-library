@@ -35,10 +35,6 @@ export function ToastProvider({ children }) {
         };
 
         setToasts(prev => [...prev, newToast]);
-
-        setTimeout(() => {
-            removeToast(id);
-        }, 5000);
     }
 
     const removeToast = (id) => {
