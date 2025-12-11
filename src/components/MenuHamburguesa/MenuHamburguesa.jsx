@@ -1,6 +1,6 @@
 import './MenuHamburguesa.css'
 import { useContext } from 'react';
-import {MenuDeslizableContext} from '../../App'
+import { MenuDeslizableContext } from "../../context/MenuDeslizableContext.jsx";
 
 export default function MenuHamburguesa(){    
 

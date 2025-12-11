@@ -1,6 +1,6 @@
 import './BusquedaMovil.css'
 import { useContext } from 'react';
-import {MenuDeslizableContext} from '../../../App'
+import { MenuDeslizableContext } from "../../../context/MenuDeslizableContext.jsx";
 
 const BusquedaMovil = () =>{
     const {toogleMostarBarraBusqueda} = useContext(MenuDeslizableContext);

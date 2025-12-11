@@ -6,8 +6,9 @@ import Footer from './components/Footer/Footer.jsx'
 import Overlay from './components/Overlay/Overlay.jsx'
 import BarraBusqueda from './components/Encabezado/BarraBusqueda/BarraBusqueda.jsx'
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { useState, createContext, useRef } from 'react'
+import { useState, createContext, useRef, useContext } from 'react'
 import MenuDeslizable from './components/MenuDeslizable/MenuDeslizable.jsx'
+import { MenuDeslizableContext } from "./context/MenuDeslizableContext.jsx";
 import Proximamente from './paginas/Proximamente.jsx'
 import Buscar from './paginas/Buscar.jsx'
 import Login from './auth/pages/Login.jsx'
@@ -16,12 +17,8 @@ import Perfil from './paginas/Perfil.jsx'
 import NotFound from './paginas/NotFound.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import ConfirmarCuenta from './paginas/ConfirmarCuenta.jsx'
-import { useContext } from "react";
 import { ToastContext } from "./context/ToastContext.jsx";
 import ToastNotification from './components/ToastNotification/ToastsNotifications.jsx';
-
-//Creamos un contexto para manipular el menpu deslizable
-export const MenuDeslizableContext = createContext();
 
 function App() {
 
@@ -116,6 +113,7 @@ const handleSearchFocus = () => {
           <ToastNotification 
             key={t.id} 
             type={t.type} 
+            title={t.title} 
             message={t.message} 
           />
         ))}

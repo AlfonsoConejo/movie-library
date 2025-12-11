@@ -1,5 +1,5 @@
 import './MenuDeslizable.css'
-import {MenuDeslizableContext} from '../../App'
+import { MenuDeslizableContext } from "../../context/MenuDeslizableContext.jsx";
 import { Link } from 'react-router-dom';
 import { useContext } from "react";
 

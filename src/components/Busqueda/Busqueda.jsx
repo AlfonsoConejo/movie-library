@@ -1,6 +1,6 @@
 import './Busqueda.css';
 import { useContext } from 'react';
-import {MenuDeslizableContext} from '../../App'
+import { MenuDeslizableContext } from "../../context/MenuDeslizableContext.jsx";
 import { useNavigate } from 'react-router-dom';
 
 

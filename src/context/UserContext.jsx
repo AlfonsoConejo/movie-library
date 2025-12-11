@@ -82,9 +82,9 @@ export function UserProvider({ children }) {
         method: "POST",
         credentials: "include",
       });
-      addToast('success','Hola');
+      addToast('logoutSuccess');
     } catch (e) {
-      addToast('error','Hola');
+      addToast('logoutError');
       console.error(e);
     } finally {
       setUser(null);
