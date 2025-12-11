@@ -12,11 +12,14 @@
 .contenedorFlexAccount .accountButton{
     background: none;
     border: none;
+    padding: 0;
+    cursor: pointer;
 }
 
 .contenedorFlexAccount img{
-    width: 20px;
-    cursor: pointer;
-    color: white;
-    background: none;
+    width: 100%;
+    height: 100%;
+    display: block;     /* ← ESTE es el fix real */
+    object-fit: cover;
+    border-radius: 10px;
 }
