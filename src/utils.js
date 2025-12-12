@@ -66,7 +66,7 @@ const LATIN_REGEX = /^[\p{Script=Latin}0-9\s.,'"?!:;()\-–—¡¿]*$/u;
 
 function getLatinOption(main, fallback) {
     // Si main no existe, devolvemos fallback sin validar regex
-    if (!main) return fallback;
+    if (!main) return fallback || '';
 
     // Si fallback no existe, devolvemos main sin validar
     if (!fallback) return main;
