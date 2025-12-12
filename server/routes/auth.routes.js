@@ -231,7 +231,6 @@ router.get("/me", auth, async (req, res) => {
   try{
 
     const userId = req.user.sub; // viene del token decodificado
-    console.log(userId)
     
     const db = getDb();
 
@@ -239,8 +238,6 @@ router.get("/me", auth, async (req, res) => {
       { _id: new ObjectId(userId) },
       { projection: { password: 0 } } // no mandar password
     );
-
-    console.log(`TOKEN: ${user}`);
 
     if (!user) {
       return res.status(404).json({ error: "Usuario no encontrado" });
@@ -296,5 +293,43 @@ router.post("/verificarCuenta", async (req, res) => {
     res.status(500).json({ error: "Error interno del servidor" });
   }
 });
+
+router.post("/isEmailConfirmed", async (req, res) => {
+  try{
+    const db = getDb();
+
+    console.log('Entramos en isEmailConfirmed');
+    // Leemos el refresh token de la cookie
+    const refreshToken = req.cookies.refreshToken;
+    if (!refreshToken) {
+      console.log('No hay token');
+      return res.status(401).json({ loggedIn: false });
+    }
+
+    console.log(`Este es el token: ${refreshToken}`);
+    // Buscamos el token en la DB
+    const tokenData = await db.collection("refreshTokens").findOne({ token: refreshToken });
+    if (!tokenData) {
+      return res.status(401).json({ loggedIn: false });
+    }
+
+    //Obtenemos el usuario
+    const user = await db.collection("users").findOne(
+    { _id: new ObjectId(tokenData.userId) },
+    { projection: { confirmed: 1, email: 1 } }
+  );
+
+    if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
+
+    res.json({
+      loggedIn: true,
+      confirmed: user.confirmed,
+      userId: user._id
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Error interno del servidor" });
+  }
+})
 
 export default router;

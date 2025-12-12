@@ -1,12 +1,34 @@
 import Carrusel from "../components/Home/Carrusel/Carrusel";
-import { useState } from "react";
 import './Home.css'
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../context/UserContext";
 import useTrending from "../customHooks/useTrending";
+import VerificationAlert from "../components/VerificationAlert/VerificationAlert";
 
 export default function Home(){
     const { user, cargandoUsuario } = useContext(UserContext);
+    const [showEmailAlert, setShowEmailAlert] = useState(false);
+    
+    useEffect(() => {
+        async function isEmailConfirmed() {
+            console.log("Decidiendo si mostrar el mensaje");
+        try {
+            const res = await fetch('/api/auth/isEmailConfirmed', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: "include",
+            });
+            const data = await res.json();
+            if (data.loggedIn && !data.confirmed) {
+            setShowEmailAlert(true);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+        }
+
+        isEmailConfirmed();
+    }, []);
     
     //Estados de los botones de cada carrusel
     const [botonPresionadoGeneral, setBotonPresionadoGeneral] = useState('day');
@@ -36,6 +58,8 @@ export default function Home(){
 
     return(
         <div className="paginaInicio">
+           {showEmailAlert && <VerificationAlert/>}
+            
             <Carrusel
                 botones = 'tendencia'
                 titulo = 'Lo Más Visto'

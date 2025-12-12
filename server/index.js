@@ -7,6 +7,7 @@ import { connectToDatabase, getDb } from "./db.js";
 import {initCronjobs} from "./initCronjobs.js";
 import tmdbRoutes from "./routes/tmdb.routes.js";
 import authRoutes from "./routes/auth.routes.js";
+import actionRoutes from "./routes/actions.routes.js";
 
 //Inicializamos dotenv
 import dotenv from "dotenv";
@@ -25,6 +26,7 @@ app.use(cookieParser());
 // ---------------------------- ROUTERS --------------------------- //
 app.use("/api/tmdb", tmdbRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/action", actionRoutes);
 
 // ------------------ SERVIR REACT EN PRODUCCIÓN ------------------ //
 const __filename = fileURLToPath(import.meta.url);

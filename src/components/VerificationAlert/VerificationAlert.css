@@ -1,0 +1,21 @@
+.verification-alert-container{
+    display: flex;
+    align-items: center;
+    width: calc(100% - 180px);
+    margin: 16.75px 90px 0px 90px;
+    padding: 12px 16px;
+    background-color: #fae7c7;
+    border-radius: 12px;
+}
+
+.verification-alert-container img{
+    width: 20px;
+    margin-right: 10px;
+}
+
+@media (width <= 820px) {
+    .verification-alert-container{
+        width: calc(100% - 30px);
+        margin: 16.75px 15px 0px 15px;
+    }
+}
