@@ -64,7 +64,7 @@ router.post("/registrar", async (req, res) => {
         await enviarCorreoDeRegistro(email, verifyEmailToken);
         await db.collection("users").updateOne({ _id: result.insertedId },{ $set: { emailSent: true } });
       } catch (errCorreo) {
-        console.error("Fallo el envío de correo de registro:", errCorreo);
+        console.error("Falló el envío de correo de registro:", errCorreo);
       }
     }
 
@@ -341,17 +341,17 @@ router.post("/resendVerificationEmail", async (req, res) => {
   // Buscamos el token en la DB
   const tokenData = await db.collection("refreshTokens").findOne({ token: refreshToken });
   if (!tokenData) {
-    return res.status(401).json({ error: 'User not found' });
+    return res.status(401).json({ error: 'User not found', emailSent: false });
   }
 
   //Obtenemos el usuario
   const user = await db.collection("users").findOne(
     { _id: new ObjectId(tokenData.userId) },
-    { projection: { email: 1, confirmed: 1, emailSent: 1 } }
+    { projection: { email: 1} }
   );
 
   if(!user){
-    return res.status(404).json({ error: 'User not found' });
+    return res.status(404).json({ error: 'User not found', emailSent: false });
   }
 
   if(process.env.ENVIRONMENT === 'DEVELOPMENT'){
@@ -370,13 +370,13 @@ router.post("/resendVerificationEmail", async (req, res) => {
       await enviarCorreoDeRegistro(user.email, verifyEmailToken);
       await db.collection("users").updateOne({ _id: user._id },{ $set: { emailSent: true } });
     } catch (errCorreo) {
-      console.error("Fallo el envío de correo de registro:", errCorreo);
+      console.error("Falló el envío de correo de registro:", errCorreo);
     }
   }
 
   //Marcamos el estatus como exitoso
   res.status(201).json({
-    success: true
+    emailSent: true
   });
 
 });

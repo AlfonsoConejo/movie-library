@@ -12,7 +12,17 @@ const contenidoMensaje = {
         type: 'error',
         title: 'Error',
         message: 'Hubo un error al cerrar la sesión.'
-    } 
+    },
+    emailVerificationSent: {
+        type: 'success',
+        title: 'Éxito',
+        message: 'Correo enviado exitosamente.'
+    },
+    emailVerificationNotSent: {
+        type: 'error',
+        title: 'Error',
+        message: 'No se pudo enviar el correo.'
+    }
 }
 
 export function ToastProvider({ children }) {

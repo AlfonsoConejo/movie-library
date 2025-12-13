@@ -23,6 +23,7 @@ export function UserProvider({ children }) {
 
         if (!resRefresh.ok) {
           // No hay refresh, está expirado, etc.
+          console.log('User null porque no se encontró el refresh token');
           setUser(null);
           setAccessToken(null);
           return;
@@ -31,6 +32,7 @@ export function UserProvider({ children }) {
         const dataRefresh = await resRefresh.json();
 
         if (!dataRefresh.accessToken) {
+          console.log('User null porque no se encontró el access token');
           setUser(null);
           setAccessToken(null);
           return;
@@ -48,14 +50,16 @@ export function UserProvider({ children }) {
         });
 
         if (!resMe.ok) {
+          console.log('User null porque no se encontró la información del usuario');
           setUser(null);
           return;
         }
 
         const dataMe = await resMe.json();
-        if (dataMe.user) {
+        if (dataMe.user) {  
           setUser(dataMe.user);
         } else {
+          console.log('User null porque no se encontró la info del usuario, pero no hay usuario ');
           setUser(null);
         }
       } catch (err) {
