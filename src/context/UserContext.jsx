@@ -7,7 +7,7 @@ export const UserContext = createContext();
 
 export function UserProvider({ children }) {
   const { addToast } = useContext(ToastContext);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(undefined);
   const [accessToken, setAccessToken] = useState(null);
   const [cargandoUsuario, setCargandoUsuario] = useState(true);
 

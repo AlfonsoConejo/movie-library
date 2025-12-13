@@ -6,7 +6,6 @@ export async function enviarCorreoDeRegistro(email, verifyEmailToken) {
   const verifyUrl = `https://movie-library-8w5d.onrender.com/confirmarCuenta/${verifyEmailToken}`;
   console.log(`Enviando al correo a ${email}`);
   await enviarCorreo({
-    from: `"Brible" <${process.env.GMAIL_USER}>`,
     to: email,
     subject: "Confirma tu cuenta en Brible",
     html: `

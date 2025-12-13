@@ -9,14 +9,6 @@ import useResizeWindow from '../../customHooks/useResizeWindow';
 const Login = () => {
   // Obtenemos el contexto del usuario
   const { cargandoUsuario, user, login } = useContext(UserContext);
-  
-  if (cargandoUsuario) {
-    return null; // No mostramos nada mientras se carga el usuario
-  }
-
-  if (user) {
-    return <Navigate to="/" replace />;
-  }
 
   //Hook para saber si mostrar interfaz móvil
   const { isMobile } = useResizeWindow(500);
@@ -51,6 +43,11 @@ const Login = () => {
     email: false,
     password: false
   });
+
+  //Estados del formulario
+  const [enviado, setEnviado] = useState(false);
+  const [error, setError] = useState(null);
+  const [enviando, setEnviando] = useState(false);
 
   //Expresión regular para validar el campo de correo
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -129,11 +126,6 @@ const Login = () => {
     }));
   };
 
-  //Estados del formulario
-  const [enviado, setEnviado] = useState(false);
-  const [error, setError] = useState(null);
-  const [enviando, setEnviando] = useState(false);
-
   /*Controlar el envío de datos a Mongo*/
   async function handleSubmit(e) {
 
@@ -184,6 +176,14 @@ const Login = () => {
   };
 
   const backgroundStyle = isMobile ? { background: 'none' } : {};
+
+  if (cargandoUsuario) {
+    return null; // No mostramos nada mientras se carga el usuario
+  }
+
+  if (user) {
+    return <Navigate to="/" replace />;
+  }
 
   return(
     <div className="loginPage">

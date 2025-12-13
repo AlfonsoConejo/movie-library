@@ -11,6 +11,7 @@ import { UserContext } from '../../../context/UserContext';
 
 export default function Header() {
     const { user, cargandoUsuario } = useContext(UserContext);
+    console.log(`Este es el valor del usuario: `, user);
     return (
         <header>
             <Logo/>
@@ -20,7 +21,9 @@ export default function Header() {
             <div className="rightGroup">
                 <BusquedaMovil/>
                 <div className="profilePlaceholder">
-                    { !cargandoUsuario && ( user ? <ProfileIcon/> : <AccountIcon/> ) }
+                {cargandoUsuario ? null : 
+                    user ? <ProfileIcon /> : <AccountIcon />
+                }
                 </div>
             </div>
                 

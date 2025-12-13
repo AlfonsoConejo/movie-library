@@ -11,7 +11,6 @@ export default function Home(){
     
     useEffect(() => {
         async function isEmailConfirmed() {
-            console.log("Decidiendo si mostrar el mensaje");
         try {
             const res = await fetch('/api/auth/isEmailConfirmed', {
             method: 'POST',
@@ -19,6 +18,7 @@ export default function Home(){
             credentials: "include",
             });
             const data = await res.json();
+
             if (data.loggedIn && !data.confirmed) {
             setShowEmailAlert(true);
             }
