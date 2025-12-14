@@ -84,3 +84,7 @@
     color: black;
     font-size: 25px;
 }
+
+.barraBusqueda .cuadroBusqueda input{
+    width: 100%;
+}
