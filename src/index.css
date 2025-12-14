@@ -72,6 +72,15 @@ p{
   }
 }
 
+@keyframes blueColorPulse {
+  from{
+    background-color: rgb(6, 46, 80);
+  }
+  to{
+    background-color: rgb(8, 60, 106);
+  }
+}
+
 /* HTML: <div class="loadingDots"></div> */
 .loadingDots {
   width: 11px;

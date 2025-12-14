@@ -5,6 +5,17 @@ import { auth } from "../middleware/auth.js";
 import { ObjectId } from "mongodb";
 import { getDb } from "../db.js";
 
+// Revisamos si estamos en produccion
+const isProd = process.env.ENVIRONMENT === "PRODUCTION";
+//Configuramos los datos de la cookie
+const refreshCookieOptions = {
+  httpOnly: true,
+  secure: isProd,
+  sameSite: isProd ? "none" : "lax",
+  path: "/",
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+};
+
 //Configuramos bcryp
 import bcrypt from "bcrypt";
 const SALT_ROUNDS = 10;
@@ -121,12 +132,7 @@ router.post("/login", async (req, res) => {
 
     const { passwordHash, ...usuarioSinPassword } = usuario;
     //Marcamos el estatus como exitoso
-    res.cookie("refreshToken", refreshToken, {
-        httpOnly: true, // No accesible por JS → súper importante
-        secure: true, // En producción cambia a true (HTTPS)
-        sameSite: "none", // Evita CSRF
-        maxAge: 7 * 24 * 60 * 60 * 1000 // 7 días, la misma fecha de expiración que el refreshToken
-      })
+    res.cookie("refreshToken", refreshToken, refreshCookieOptions)
       .status(200)
       .json({
       success: true,
@@ -177,12 +183,7 @@ router.post("/refresh-token", async (req, res) => {
     await sendRefreshTokenToDB(stored.userId, newRefresh);
 
     //Guardamos la nueva cookie
-    res.cookie("refreshToken", newRefresh, {
-      httpOnly: true,
-      secure: true, // Cambiar a true en producción (HTTPS)
-      sameSite: "none", //"strict" en producción y "lax" en local 
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+    res.cookie("refreshToken", newRefresh, refreshCookieOptions);
 
     //Devolvemos un nuevo access token
     return res.status(200).json({
@@ -213,8 +214,9 @@ router.post("/logout", async (req, res) => {
     //Borramos la cookie
     res.clearCookie("refreshToken", {
       httpOnly: true,
-      secure: true,
-      sameSite: "none"
+      secure: isProd,
+      sameSite: isProd ? "none" : "lax",
+      path: "/",
     });
 
     //Enviamos la respuesta

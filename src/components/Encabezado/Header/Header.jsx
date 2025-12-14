@@ -6,12 +6,13 @@ import AccountIcon from './../AccountIcon/AccountIcon';
 import MenuHamburguesa from '../../MenuHamburguesa/MenuHamburguesa';
 import BusquedaMovil from './../BusquedaMovil/BusquedaMovil';
 import ProfileIcon from '../ProfileIcon/ProfileIcon';
+import AccountIconSkeleton from '../AccountIconSkeleton/AccountIconSkeleton';
 import { useContext } from "react";
 import { UserContext } from '../../../context/UserContext';
 
 export default function Header() {
     const { user, cargandoUsuario } = useContext(UserContext);
-    console.log(`Este es el valor del usuario: `, user);
+    
     return (
         <header>
             <Logo/>
@@ -21,7 +22,8 @@ export default function Header() {
             <div className="rightGroup">
                 <BusquedaMovil/>
                 <div className="profilePlaceholder">
-                {cargandoUsuario ? null : 
+                {cargandoUsuario ? console.log(`Este es el valor del usuario: `, user) : null}
+                {cargandoUsuario ? <AccountIconSkeleton/> : 
                     user ? <ProfileIcon /> : <AccountIcon />
                 }
                 </div>

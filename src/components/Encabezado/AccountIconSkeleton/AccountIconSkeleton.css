@@ -1,0 +1,7 @@
+
+.account-icon-skeleton {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    animation: blueColorPulse 0.5s infinite alternate;
+}
