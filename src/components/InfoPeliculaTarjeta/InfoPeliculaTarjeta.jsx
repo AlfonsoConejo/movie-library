@@ -12,6 +12,7 @@ import {
 } from '../../utils.js';
 import ImageNotFound from '../../assets/img_not_found2.jpg';
 import useResizeWindow from '../../customHooks/useResizeWindow';
+import { useEffect } from 'react';
 
 export default function InfoPeliculaTarjeta({
   informacion,
@@ -24,8 +25,17 @@ export default function InfoPeliculaTarjeta({
   isLoading
 }) {
   const { isMobile } = useResizeWindow(720);
-  //console.log("Información español: ", informacion);
-  //console.log("Información inglés: ", informacionIngles);
+
+  //Obtenemos el título en español si está disponible o en inglés
+  const titulo =
+  mediaType === 'movie'
+    ? getLatinOption(informacion?.title, informacionIngles?.title)
+    : getLatinOption(informacion?.name, informacionIngles?.name);
+
+  useEffect(() => {
+    document.title = titulo ? `${titulo} - Brible` : 'Brible';
+  }, [titulo]);
+
   if (isLoading) {
     return (
       <>
@@ -101,13 +111,6 @@ export default function InfoPeliculaTarjeta({
     mediaType === 'movie'
       ? obtenerEquipoPelicula()
       : obtenerEquipoSerie();
-
-    
-    //Obtenemos el título en español si está disponible o en inglés
-    const titulo =
-    mediaType === 'movie'
-      ? getLatinOption(informacion.title, informacionIngles?.title)
-      : getLatinOption(informacion.name, informacionIngles?.name);
 
     //Revisamos si el nombre en español tiene caracteres latinos
     const isNameLatin = LATIN_REGEX.test(

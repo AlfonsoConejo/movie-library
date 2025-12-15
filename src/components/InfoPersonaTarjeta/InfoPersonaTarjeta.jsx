@@ -4,12 +4,16 @@ import CarruselFilmografia from '../CarruselFilmografia/CarruselFilmografia.jsx'
 import TimelineFilmografia from '../TimelineFilmografia/TimelineFilmografia.jsx';
 import SearchNotFound from '../../paginas/SearchNotFound.jsx';
 import { convertirAFechaCompleta, traduccionesOcupacion } from '../../utils.js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const InfoPersonaTarjeta = ({informacion, informacionIngles, isLoading}) => {
-
+    
     //Estado para controlar el texto de la biografía
     const [expanded, setExpanded] = useState(false);
+
+    useEffect(()=>{
+            document.title = informacion?.name ? `${informacion.name} - Brible ` : 'Brible';
+    },[informacion?.name]); 
 
     if (isLoading) {
        return(

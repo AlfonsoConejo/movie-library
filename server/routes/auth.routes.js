@@ -167,6 +167,9 @@ router.post("/refresh-token", async (req, res) => {
 
     //Resivamos si el token ya expiró
     if (new Date() > stored.expiresAt) {
+      //Eliminamos el token vencido
+      await db.collection("refreshTokens").deleteOne( {token: incomingToken } );
+
       return res.status(403).json({ error: "Refresh token expirado." });
     }
 
@@ -177,6 +180,7 @@ router.post("/refresh-token", async (req, res) => {
     const newRefresh = createRefreshToken();
 
     //Eliminamos el refreshToken anterior
+    console.log(`Se supone que ya eliminamos el token anterior: ${incomingToken}`);
     await db.collection("refreshTokens").deleteOne( {token: incomingToken } );
 
     //Cargamos a la BD el nuevo refreshToken

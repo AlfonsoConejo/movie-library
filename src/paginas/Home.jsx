@@ -10,6 +10,7 @@ export default function Home(){
     const [showEmailAlert, setShowEmailAlert] = useState(false);
     
     useEffect(() => {
+        document.title = 'Brible';
         async function isEmailConfirmed() {
         try {
             const res = await fetch('/api/auth/isEmailConfirmed', {
