@@ -1,10 +1,24 @@
 import './Carrusel.css';
+import { useEffect, useRef} from 'react';
 import Item from '../Item/Item.jsx';
 import SkeletonItem from '../SkeletonItem/SkeletonItem.jsx';
 import BotonesTendencia from '../BotonesTendencia/BotonesTendencia.jsx';
 import { getLatinOption, LATIN_REGEX } from '../../../utils.js';
 
 export default function Carrusel({titulo, informacionEs, informacionEn, isLoading, botonPresionado, setBotonPresionado}){
+
+    const refCarrusel = useRef(null);
+    const refSkeletonCarrusel = useRef(null);
+
+    useEffect(() => {
+        if (refCarrusel.current) {
+            refCarrusel.current.scrollLeft = 0;
+        }
+        if (refSkeletonCarrusel.current) {
+            refSkeletonCarrusel.current.scrollLeft = 0;
+        }
+    }, [botonPresionado]);
+
     if (isLoading){
         return(
             <section className="carruselContenedor">
@@ -15,7 +29,7 @@ export default function Carrusel({titulo, informacionEs, informacionEn, isLoadin
                         setBotonPresionado = {setBotonPresionado}
                     />
                 </div>
-                <div className='carrusel static'>
+                <div className='carruselStatic' ref={refSkeletonCarrusel}>
                     {Array(11).fill().map((_,i)=><SkeletonItem key={i}/>)}
                 </div>
             </section>
@@ -32,7 +46,7 @@ export default function Carrusel({titulo, informacionEs, informacionEn, isLoadin
                 />
                 
             </div>
-            <div className='carrusel'>
+            <div className='carrusel' ref={refCarrusel}>
                 {informacionEs.map((peliculaEs) => {
 
                     const peliculaEn = informacionEn.find(

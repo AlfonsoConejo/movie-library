@@ -26,9 +26,31 @@
     display: flex;
     flex-direction: row;
     padding-bottom: 12px;
+    scrollbar-width: thin;              /* Firefox */
+    scrollbar-color: #949393 transparent;
 }
 
-.carruselContenedor .carrusel.static{
+/* WebKit: Chrome, Edge, Safari */
+.carrusel::-webkit-scrollbar {
+  height: 6px;                        /* horizontal */
+}
+
+.carrusel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.carrusel::-webkit-scrollbar-thumb {
+  background-color: #949393;
+  border-radius: 8px;
+}
+
+.carruselContenedor .carruselStatic{
+    width: 100%;
+    display: flex;
+    gap:16px;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 12px;
     overflow-x: hidden;
 }
 
