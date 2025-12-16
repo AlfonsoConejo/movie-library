@@ -70,6 +70,14 @@
     .carruselContenedor .carrusel > *:last-child {
         margin-right: 15px; /* padding final */
     }
+    
+    .carruselContenedor .carruselStatic > *:first-child {
+        margin-left: 15px; /* padding inicial */
+    }
+
+    .carruselContenedor .carruselStatic > *:last-child {
+        margin-right: 15px; /* padding final */
+    }
 }
 
 @media (width <= 600px) {
