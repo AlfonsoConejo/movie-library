@@ -26,7 +26,7 @@ const CarruselFilmografia = () => {
 
     return(
         <section className="contenedorCarruselFilmografia">
-            <h2>Conocido/a por</h2>
+            {combinadosOrdenados.length > 0 && <h2>Conocido/a por</h2>}
             <div className='carruselFilmografia'>
                 {combinadosOrdenados.length > 0 && combinadosOrdenados.map(proyecto => (
                 <ItemSmall
