@@ -336,55 +336,79 @@ router.post("/isEmailConfirmed", async (req, res) => {
 });
 
 router.post("/resendVerificationEmail", async (req, res) => {
-  const db = getDb();
+  try{
+    const db = getDb();
   
-  // Leemos el refresh token de la cookie
-  const refreshToken = req.cookies.refreshToken;
-  if (!refreshToken) {
-    return res.status(401).json({ loggedIn: false });
-  }
-
-  // Buscamos el token en la DB
-  const tokenData = await db.collection("refreshTokens").findOne({ token: refreshToken });
-  if (!tokenData) {
-    return res.status(401).json({ error: 'User not found', emailSent: false });
-  }
-
-  //Obtenemos el usuario
-  const user = await db.collection("users").findOne(
-    { _id: new ObjectId(tokenData.userId) },
-    { projection: { email: 1} }
-  );
-
-  if(!user){
-    return res.status(404).json({ error: 'User not found', emailSent: false });
-  }
-
-  if(process.env.ENVIRONMENT === 'DEVELOPMENT'){
-    const { verifyEmailToken, createdAt, expiresAt } = generarTokenConfirmacionEmail();
-
-    //Cargamos los datos a la colección account_confirm_tokens
-      await db.collection("account_confirm_tokens").insertOne({ 
-        userId: user._id,
-        confirmationToken: verifyEmailToken,
-        createdAt: createdAt,
-        expiresAt: expiresAt
-      });
-
-    //Enviamos el correo de registro al usuario
-    try {
-      await enviarCorreoDeRegistro(user.email, verifyEmailToken);
-      await db.collection("users").updateOne({ _id: user._id },{ $set: { emailSent: true } });
-    } catch (errCorreo) {
-      console.error("Falló el envío de correo de registro:", errCorreo);
+    // Leemos el refresh token de la cookie
+    const refreshToken = req.cookies.refreshToken;
+    if (!refreshToken) {
+      return res.status(401).json({ loggedIn: false });
     }
+
+    // Buscamos el token en la DB
+    const tokenData = await db.collection("refreshTokens").findOne({ token: refreshToken });
+    if (!tokenData) {
+      return res.status(401).json({ error: 'User not found', emailSent: false });
+    }
+
+    //Obtenemos el usuario
+    const user = await db.collection("users").findOne(
+      { _id: new ObjectId(tokenData.userId) },
+      { projection: { email: 1} }
+    );
+
+    if(!user){
+      return res.status(404).json({ error: 'User not found', emailSent: false });
+    }
+
+    if(process.env.ENVIRONMENT === 'DEVELOPMENT'){
+      const { verifyEmailToken, createdAt, expiresAt } = generarTokenConfirmacionEmail();
+
+      //Cargamos los datos a la colección account_confirm_tokens
+        await db.collection("account_confirm_tokens").insertOne({ 
+          userId: user._id,
+          confirmationToken: verifyEmailToken,
+          createdAt: createdAt,
+          expiresAt: expiresAt
+        });
+
+      //Enviamos el correo de registro al usuario
+      try {
+        await enviarCorreoDeRegistro(user.email, verifyEmailToken);
+        await db.collection("users").updateOne({ _id: user._id },{ $set: { emailSent: true } });
+      } catch (errCorreo) {
+        console.error("Falló el envío de correo de registro:", errCorreo);
+      }
+    }
+
+    //Marcamos el estatus como exitoso
+    res.status(201).json({
+      emailSent: true
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Error interno del servidor" });
   }
 
-  //Marcamos el estatus como exitoso
-  res.status(201).json({
-    emailSent: true
-  });
+});
 
+router.post("/recoverPassword", async (req, res) => {
+  try{
+    const email = req.body.email;
+    const db = getDb();
+
+    //Buscamos al usuario en la base de datos
+    const user = await db.collection("users").findOne({email});
+  
+    if(!user){
+      return res.status(404).json({ error: "Correo enviado" });
+    }
+
+    return res.status(200).json({ error: "Correo enviado" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Error interno del servidor" });
+  }
 });
 
 export default router;

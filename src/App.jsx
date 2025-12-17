@@ -19,6 +19,7 @@ import ProtectedRoute from './components/ProtectedRoute.jsx'
 import ConfirmarCuenta from './paginas/ConfirmarCuenta.jsx'
 import { ToastContext } from "./context/ToastContext.jsx";
 import ToastNotification from './components/ToastNotification/ToastsNotifications.jsx';
+import PasswordReset from './auth/pages/PasswordReset.jsx'
 
 function App() {
 
@@ -89,6 +90,7 @@ const handleSearchFocus = () => {
           <Route path="/login" element={<Login/>}/>
           <Route path="/registro" element={<Registro/>}/>
           <Route path="/confirmarCuenta/:token"element={<ConfirmarCuenta/>}/>
+          <Route path="/password_reset"element={<PasswordReset/>}/>
 
           {/* Rutas protegidas*/}
           <Route

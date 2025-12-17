@@ -138,34 +138,34 @@ const Login = () => {
 
     try {
       const res = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: "include",
-      body: JSON.stringify(formData),
-    });
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: "include",
+        body: JSON.stringify(formData),
+      });
 
 
-    const data = await res.json().catch(() => ({}));
-    console.log("Este es el dato:", data);
+      const data = await res.json().catch(() => ({}));
+      console.log("Este es el dato:", data);
 
-    if (!res.ok) {
-      if (res.status === 400){
-        return setError(data.error || 'Faltan campos obligatorios');
-      } else if (res.status === 401){
-        return setError(data.error || 'Usuario o contraseña inválidos');
-      } else if (res.status === 404){
-        return setError(data.error || 'Ruta no encontrada');
-      } else if (res.status === 500){
-        return setError(data.error || 'Error interno del servidor');
-      } else {
-        return setError(data.error || 'Error al iniciar sesión');
+      if (!res.ok) {
+        if (res.status === 400){
+          return setError(data.error || 'Faltan campos obligatorios');
+        } else if (res.status === 401){
+          return setError(data.error || 'Usuario o contraseña inválidos');
+        } else if (res.status === 404){
+          return setError(data.error || 'Ruta no encontrada');
+        } else if (res.status === 500){
+          return setError(data.error || 'Error interno del servidor');
+        } else {
+          return setError(data.error || 'Error al iniciar sesión');
+        }
       }
-    }
 
-    setEnviado(true);
+      setEnviado(true);
 
-    //Guardamos usuario y access token en el Context global
-    login(data.user, data.accessToken);
+      //Guardamos usuario y access token en el Context global
+      login(data.user, data.accessToken);
 
     } catch (err){
       console.error(err);
@@ -326,7 +326,7 @@ const Login = () => {
               )}
             </button>
             
-            <Link to="/forgot-password" className='recuperarPassword'>
+            <Link to="/password_reset" className='recuperarPassword'>
               Olvidé mi constraseña.
             </Link>
             <span>
