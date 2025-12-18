@@ -401,10 +401,29 @@ router.post("/recoverPassword", async (req, res) => {
     const user = await db.collection("users").findOne({email});
   
     if(!user){
-      return res.status(404).json({ error: "Correo enviado" });
+      return res.status(202).json({ message: "Si el correo electrónico está registrado, recibirás un mensaje con las instrucciones para recuperar tu contraseña." });
     }
 
-    return res.status(200).json({ error: "Correo enviado" });
+    if(process.env.ENVIRONMENT === 'DEVELOPMENT'){
+      const { token, tokenHash, createdAt, expiresAt} = generarTokenConfirmacionEmail();
+
+      //Cargamos los datos a la colección reset_password_tokens
+        await db.collection("reset_password_tokens").insertOne({ 
+          userId: user._id,
+          token: tokenHash,
+          createdAt: createdAt,
+          expiresAt: expiresAt
+        });
+
+        //Enviamos el correo de restablecimiento de contraseña
+        try {
+          await enviarCorreoDePasswordReset(user.email, token);
+        } catch (errCorreo) {
+          console.error("Falló el envío de correo de restablecimiento de contraseña", errCorreo);
+        }
+    }
+
+    return res.status(202).json({ message: "Si el correo electrónico está registrado, recibirás un mensaje con las instrucciones para recuperar tu contraseña." });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Error interno del servidor" });

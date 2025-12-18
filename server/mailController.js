@@ -187,3 +187,7 @@ export async function enviarCorreoDeRegistro(email, verifyEmailToken) {
     `
   });
 }
+
+export async function enviarCorreoDePasswordReset(email, resetPasswordToken) {
+  const verifyUrl = `https://movie-library-8w5d.onrender.com/confirmarCuenta/${resetPasswordToken}`;
+}

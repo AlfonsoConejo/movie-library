@@ -12,4 +12,24 @@ function generarTokenConfirmacionEmail() {
     return {verifyEmailToken, createdAt, expiresAt};
 };
 
-export { generarTokenConfirmacionEmail }
+function generarTokenResetPassword() {
+  const token = crypto.randomBytes(32).toString("hex");
+
+  const tokenHash = crypto
+    .createHash("sha256")
+    .update(token)
+    .digest("hex");
+
+  const createdAt = new Date();
+  const expiresAt = new Date(createdAt);
+  expiresAt.setMinutes(expiresAt.getMinutes() + 60); // 60 minutos
+
+  return {
+    token,       // se manda por email
+    tokenHash,   // se guarda en BD
+    createdAt,
+    expiresAt
+  };
+}
+
+export { generarTokenConfirmacionEmail, generarTokenResetPassword }
