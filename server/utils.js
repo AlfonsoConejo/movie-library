@@ -22,7 +22,7 @@ function generarTokenResetPassword() {
 
   const createdAt = new Date();
   const expiresAt = new Date(createdAt);
-  expiresAt.setMinutes(expiresAt.getMinutes() + 60); // 60 minutos
+  expiresAt.setMinutes(expiresAt.getHours() + 2); // 2 horas
 
   return {
     token,       // se manda por email

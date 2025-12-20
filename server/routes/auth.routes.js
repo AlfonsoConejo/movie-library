@@ -1,5 +1,5 @@
-import { enviarCorreoDeRegistro } from "../mailController.js";
-import { generarTokenConfirmacionEmail } from "../utils.js";
+import { enviarCorreoDeRegistro, enviarCorreoDePasswordReset} from "../mailController.js";
+import { generarTokenConfirmacionEmail, generarTokenResetPassword } from "../utils.js";
 import { createAccessToken, createRefreshToken, sendRefreshTokenToDB } from "../jwtController.js";
 import { auth } from "../middleware/auth.js";
 import { ObjectId } from "mongodb";
@@ -394,33 +394,51 @@ router.post("/resendVerificationEmail", async (req, res) => {
 
 router.post("/recoverPassword", async (req, res) => {
   try{
-    const email = req.body.email;
+    let { email } = req.body || {};
+
+    if (typeof email !== "string" || email.trim() === "") {
+      return res.status(202).json({
+        message:
+          "Si el correo electrónico está registrado, recibirás un mensaje con las instrucciones para recuperar tu contraseña."
+      });
+    }
     const db = getDb();
 
+    const emailNormalizado = email.trim().toLowerCase();
+
     //Buscamos al usuario en la base de datos
-    const user = await db.collection("users").findOne({email});
+    const user = await db.collection("users").findOne({email: emailNormalizado});
   
     if(!user){
       return res.status(202).json({ message: "Si el correo electrónico está registrado, recibirás un mensaje con las instrucciones para recuperar tu contraseña." });
     }
 
     if(process.env.ENVIRONMENT === 'DEVELOPMENT'){
-      const { token, tokenHash, createdAt, expiresAt} = generarTokenConfirmacionEmail();
+      //Eliminamos todos los tokens anteriores creados para el usuario
+      try{
+        await db.collection("reset_password_tokens").deleteMany({ userId: user._id });
+      } catch (error){
+        console.error("Error al invalidar tokens anteriores", error);
+      }
+
+      //Solicitamos nuevos tokens
+      const { token, tokenHash, createdAt, expiresAt} = generarTokenResetPassword();
+      console.log(`Token: ${token}  y TokenHash:${tokenHash} `);
 
       //Cargamos los datos a la colección reset_password_tokens
-        await db.collection("reset_password_tokens").insertOne({ 
-          userId: user._id,
-          token: tokenHash,
-          createdAt: createdAt,
-          expiresAt: expiresAt
-        });
+      await db.collection("reset_password_tokens").insertOne({ 
+        userId: user._id,
+        token: tokenHash,
+        createdAt: createdAt,
+        expiresAt: expiresAt
+      });
 
-        //Enviamos el correo de restablecimiento de contraseña
-        try {
-          await enviarCorreoDePasswordReset(user.email, token);
-        } catch (errCorreo) {
-          console.error("Falló el envío de correo de restablecimiento de contraseña", errCorreo);
-        }
+      //Enviamos el correo de restablecimiento de contraseña
+      try {
+        await enviarCorreoDePasswordReset(user, token);
+      } catch (errCorreo) {
+        console.error("Falló el envío de correo de restablecimiento de contraseña", errCorreo);
+      }
     }
 
     return res.status(202).json({ message: "Si el correo electrónico está registrado, recibirás un mensaje con las instrucciones para recuperar tu contraseña." });

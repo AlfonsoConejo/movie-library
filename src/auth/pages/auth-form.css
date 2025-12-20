@@ -56,6 +56,16 @@
     margin-bottom: 20px;
 }
 
+.auth-form-container .auth-form .backendSuccess{
+    width: 100%;
+    background: #45b75e;
+    color: white;
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 20px;
+}
+
+
 .auth-form .contenedorCampo{
     display: flex;
     flex-direction: column;

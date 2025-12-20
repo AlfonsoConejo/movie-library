@@ -16,7 +16,8 @@ const PasswordReset = () => {
 
   //Estados del formulario
   const [enviado, setEnviado] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [enviando, setEnviando] = useState(false);
 
   //Expresión regular para validar el campo de correo
@@ -51,6 +52,8 @@ const PasswordReset = () => {
     setEnviado(false);
     setError(null);
     setEnviando(true);
+    setError('');
+    setSuccess('');
 
     try {
       const res = await fetch('/api/auth/recoverPassword', {
@@ -62,18 +65,13 @@ const PasswordReset = () => {
       const data = await res.json().catch(() => ({}));
 
       if (!res.ok) {
-        if (res.status === 400){
-          return setError(data.error || 'Falta email');
-        } else if (res.status === 401){
-          return setError(data.error || 'Usuario o contraseña inválidos');
-        } else if (res.status === 404){
-          return setError(data.error || 'Ruta no encontrada');
-        } else if (res.status === 500){
-          return setError(data.error || 'Error interno del servidor');
-        } else {
-          return setError(data.error || 'Error interno del servidor');
-        }
+        setError(data.error || 'Error interno del servidor');
+        setSuccess('');
+      } else{
+        setSuccess(data.message || 'Si el correo electrónico está registrado, recibirás un mensaje con las instrucciones para recuperar tu contraseña.');
+        setError('');
       }
+      console.log(success);
 
       setEnviado(true);
     } catch (err){
@@ -93,6 +91,16 @@ const PasswordReset = () => {
       > 
         <div className="auth-form">
           <h1>Recuperar contraseña</h1>
+          {error !== '' && (
+              <div className='backendAlert'>
+                <span>{error}</span>
+              </div>
+          )}
+          {success !== '' && (
+              <div className='backendSuccess'>
+                <span>{success}</span>
+              </div>
+          )}
           <form onSubmit={handleSubmit}>
             {/* EMAIL */}
             <div className="contenedorCampo">
